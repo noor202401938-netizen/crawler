@@ -22,6 +22,7 @@ file — no code changes needed.
 
 ```bash
 pip install -r requirements.txt
+playwright install chromium
 
 # Copy `.env.example` to `.env` if you want to customize the input file path.
 # The default `.env` in this repo points at `links.sample.txt`.
@@ -50,7 +51,9 @@ overridden via environment variable at run time or via `.env`:
 | Max crawl depth per website | `MAX_CRAWL_DEPTH` | 3 | How deep to follow internal links on a discovered site |
 | Max pages per domain | `MAX_PAGES_PER_DOMAIN` | 40 | Hard ceiling to avoid runaway crawls |
 | Max pagination pages | `MAX_PAGINATION_PAGES` | 50 | Per listing/directory site |
-| Concurrency | `CONCURRENCY` | 5 | Parallel worker threads |
+| Concurrency | `CONCURRENCY` | 5 | Parallel worker threads for different sites |
+| Internal Concurrency | `INTERNAL_CONCURRENCY` | 3 | Parallel worker threads for pages within the same site |
+| Smart JS Fallback | `USE_SMART_JS_FALLBACK` | true | Intelligently use Playwright to render SPAs and Anti-bot pages |
 | Min delay per domain | `MIN_DELAY_PER_DOMAIN` | 1.5s | Politeness floor between requests to the same host |
 | Respect robots.txt | `RESPECT_ROBOTS_TXT` | true | Skips disallowed paths |
 | Retry attempts | `RETRY_ATTEMPTS` | 3 | Per-request retry count |
@@ -122,8 +125,7 @@ into whatever you do with the output:
 
 - Add a new extractor by dropping a module in `extractors/` and calling it
   from `website_crawler.py` (Phase 5) or `directory_crawler.py` (Phase 2).
-- Swap the `requests`-based fetcher for `Scrapy` if you need JS rendering or
-  much higher throughput — `utils/http_client.py` is the single seam to replace.
+- Swap the fetcher for `Scrapy` if you need much higher throughput — `utils/http_client.py` is the single seam to replace. JS rendering is already handled intelligently via Playwright!
 - All heuristics (profile-link detection, pagination detection, "official
   website" link scoring) live in `directory_crawler.py` and are pure functions
   you can unit test independently of network calls.

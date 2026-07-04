@@ -116,21 +116,32 @@ def _find_external_website(soup: BeautifulSoup, base_url: str, seed_domain: str)
         domain = get_domain(full)
         if not domain or domain == seed_domain:
             continue
-        # skip social platforms -- those are handled by social_extractor
+        # skip social platforms, maps, and share links -- those are handled by social_extractor or irrelevant
         if any(s in domain for s in
                ("facebook.", "twitter.", "x.com", "instagram.", "linkedin.",
-                "youtube.", "tiktok.", "pinterest.", "threads.")):
+                "youtube.", "tiktok.", "pinterest.", "threads.", 
+                "whatsapp.", "google.", "apple.", "yelp.", "bing.", "yahoo.")):
             continue
 
         text = a.get_text(strip=True).lower()
         score = 0
         if "website" in text or "official site" in text or "visit site" in text or "home page" in text:
             score += 5
+        
+        # slight boost if it doesn't look like a generic 'share' or 'map' link
+        if "share" in text or "map" in text or "direction" in text:
+            score -= 5
+
         candidates.append((score, full))
 
     if not candidates:
         return ""
     candidates.sort(key=lambda c: c[0], reverse=True)
+    
+    # If the best candidate has a negative score, it's probably junk
+    if candidates[0][0] < 0:
+        return ""
+        
     return candidates[0][1]
 
 

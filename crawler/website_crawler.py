@@ -10,11 +10,12 @@ Phase 5 - Public contact extraction: pull emails, phones, contact page URL,
 
 import json
 from urllib.parse import urljoin, urlsplit
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from bs4 import BeautifulSoup
 
 import config
-from utils.http_client import fetch
+from utils.http_client import fetch_smart
 from utils.html_parser import make_soup
 from utils.logger import get_logger
 from utils.normalizer import normalize_url, get_domain
@@ -84,60 +85,79 @@ def crawl_website(website_url: str, db) -> dict:
     pages_crawled = 0
 
     while queue and pages_crawled < config.MAX_PAGES_PER_DOMAIN:
-        url, depth = queue.pop(0)
-
-        if depth > config.MAX_CRAWL_DEPTH:
+        batch_size = min(config.INTERNAL_CONCURRENCY, len(queue), config.MAX_PAGES_PER_DOMAIN - pages_crawled)
+        batch = []
+        for _ in range(batch_size):
+            url, depth = queue.pop(0)
+            if depth > config.MAX_CRAWL_DEPTH:
+                continue
+            if not visited.add_if_new(url):
+                continue
+            batch.append((url, depth))
+            
+        if not batch:
             continue
-        if not visited.add_if_new(url):
-            continue
+            
+        with ThreadPoolExecutor(max_workers=config.INTERNAL_CONCURRENCY) as pool:
+            future_to_url = {pool.submit(fetch_smart, u): (u, d) for u, d in batch}
+            
+            for future in as_completed(future_to_url):
+                url, depth = future_to_url[future]
+                pages_crawled += 1
+                
+                try:
+                    resp = future.result()
+                except Exception:
+                    continue
+                    
+                if resp is None or resp.status_code != 200:
+                    continue
 
-        resp = fetch(url)
-        pages_crawled += 1
+                content_type = ""
+                if hasattr(resp, "headers") and callable(getattr(resp.headers, "get", None)):
+                    content_type = resp.headers.get("Content-Type", "")
+                    
+                if "text/html" not in content_type and not url.endswith(".xml"):
+                    continue
 
-        if resp is None or resp.status_code != 200:
-            continue
+                soup = make_soup(resp.text)
 
-        content_type = resp.headers.get("Content-Type", "")
-        if "text/html" not in content_type and not url.endswith(".xml"):
-            continue
+                emails = extract_emails(resp.text, soup)
+                phones = extract_phones(resp.text, soup)
+                socials = extract_social_links(resp.text, soup)
 
-        soup = make_soup(resp.text)
+                all_emails.update(emails)
+                all_phones.update(phones)
+                for k, v in socials.items():
+                    social_links.setdefault(k, v)
 
-        emails = extract_emails(resp.text, soup)
-        phones = extract_phones(resp.text, soup)
-        socials = extract_social_links(resp.text, soup)
+                if not metadata:
+                    page_meta = extract_metadata(resp.text, soup)
+                    if page_meta:
+                        metadata.update(page_meta)
 
-        all_emails.update(emails)
-        all_phones.update(phones)
-        for k, v in socials.items():
-            social_links.setdefault(k, v)
+                if _is_contact_like_page(url) and not contact_page_url:
+                    contact_page_url = url
 
-        if not metadata:
-            page_meta = extract_metadata(resp.text, soup)
-            if page_meta:
-                metadata.update(page_meta)
+                if (emails or _is_contact_like_page(url)) and not contact_form_url:
+                    form_url = _find_contact_form_url(soup, url)
+                    if form_url:
+                        contact_form_url = form_url
 
-        if _is_contact_like_page(url) and not contact_page_url:
-            contact_page_url = url
+                # sitemap.xml -> pull <loc> entries as extra links to explore
+                if url.endswith("sitemap.xml"):
+                    locs = [loc.get_text(strip=True) for loc in soup.find_all("loc")]
+                    for loc in locs[:50]:  # cap sitemap fan-out
+                        norm = normalize_url(loc)
+                        if get_domain(norm) == domain:
+                            if norm not in visited:
+                                queue.append((norm, depth + 1))
+                    continue
 
-        if (emails or _is_contact_like_page(url)) and not contact_form_url:
-            form_url = _find_contact_form_url(soup, url)
-            if form_url:
-                contact_form_url = form_url
-
-        # sitemap.xml -> pull <loc> entries as extra links to explore
-        if url.endswith("sitemap.xml"):
-            locs = [loc.get_text(strip=True) for loc in soup.find_all("loc")]
-            for loc in locs[:50]:  # cap sitemap fan-out
-                norm = normalize_url(loc)
-                if get_domain(norm) == domain:
-                    queue.append((norm, depth + 1))
-            continue
-
-        if depth < config.MAX_CRAWL_DEPTH:
-            for link in _discover_internal_links(soup, url, domain):
-                if link not in visited:
-                    queue.append((link, depth + 1))
+                if depth < config.MAX_CRAWL_DEPTH:
+                    for link in _discover_internal_links(soup, url, domain):
+                        if link not in visited:
+                            queue.append((link, depth + 1))
 
     record = {
         "website": website_url,

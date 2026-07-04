@@ -14,6 +14,12 @@ from urllib.parse import urlsplit
 import requests
 from requests.exceptions import InvalidSchema, InvalidURL, MissingSchema, SSLError, TooManyRedirects
 
+try:
+    from playwright.sync_api import sync_playwright
+    HAS_PLAYWRIGHT = True
+except ImportError:
+    HAS_PLAYWRIGHT = False
+
 import config
 from utils.logger import get_logger
 from utils.normalizer import get_domain
@@ -140,3 +146,102 @@ def fetch(url: str, method: str = "GET", allow_redirects: bool = True):
 
     logger.error(f"Giving up on {url} after {config.RETRY_ATTEMPTS} attempts")
     return None
+
+_playwright_local = threading.local()
+
+class MockResponse:
+    def __init__(self, text, status_code, headers):
+        self.text = text
+        self.status_code = status_code
+        self.headers = headers
+
+def _get_playwright_page():
+    if not hasattr(_playwright_local, "playwright"):
+        _playwright_local.playwright = sync_playwright().start()
+        _playwright_local.browser = _playwright_local.playwright.chromium.launch(headless=True)
+        _playwright_local.context = _playwright_local.browser.new_context(
+            user_agent=config.USER_AGENT,
+            ignore_https_errors=True
+        )
+    return _playwright_local.context.new_page()
+
+def fetch_with_js(url: str):
+    if not HAS_PLAYWRIGHT:
+        logger.error("Playwright not installed! Use 'pip install playwright' and 'playwright install'")
+        return None
+        
+    domain = get_domain(url)
+    if not is_allowed_by_robots(url):
+        return None
+
+    _wait_for_domain_slot(domain)
+    
+    page = None
+    try:
+        page = _get_playwright_page()
+        # Timeout in milliseconds
+        response = page.goto(url, wait_until="domcontentloaded", timeout=config.REQUEST_TIMEOUT * 1000)
+        
+        if not response:
+            return None
+            
+        status = response.status
+        if status == 429:
+            # Same backoff logic...
+            wait = config.RETRY_BACKOFF_SECONDS * 2
+            lock = _get_domain_lock(domain)
+            with lock:
+                _domain_last_request[domain] = time.time() + wait
+            time.sleep(wait)
+            return None
+            
+        # Give it a tiny bit of time for SPA to render
+        try:
+            page.wait_for_load_state("networkidle", timeout=3000)
+        except Exception:
+            pass # ignore timeouts waiting for network idle
+            
+        html = page.content()
+        headers = response.all_headers()
+        
+        return MockResponse(html, status, headers)
+    except Exception as e:
+        logger.warning(f"Playwright fetch failed for {url}: {e}")
+        return None
+    finally:
+        if page:
+            try:
+                page.close()
+            except Exception:
+                pass
+
+
+def fetch_smart(url: str, method: str = "GET", allow_redirects: bool = True):
+    """
+    Intelligently fetch a URL. Tries standard requests first.
+    If it looks like an SPA or Anti-bot challenge, falls back to JS rendering.
+    """
+    resp = fetch(url, method, allow_redirects)
+    
+    if not config.USE_SMART_JS_FALLBACK or not HAS_PLAYWRIGHT:
+        return resp
+        
+    if resp is None:
+        return None
+        
+    text_lower = resp.text.lower()
+    
+    # Check for anti-bot
+    if resp.status_code in (403, 503) and ("cloudflare" in text_lower or "just a moment" in text_lower or "ddos-guard" in text_lower):
+        logger.info(f"Detected anti-bot at {url}. Falling back to Playwright.")
+        return fetch_with_js(url)
+        
+    # Check for SPA
+    content_length = len(resp.text)
+    if resp.status_code == 200 and content_length < 3000:
+        # A very small body with a root div often indicates a React/Vue SPA
+        if 'id="root"' in text_lower or 'id="app"' in text_lower or '<app-root>' in text_lower:
+            logger.info(f"Detected SPA at {url}. Falling back to Playwright.")
+            return fetch_with_js(url)
+            
+    return resp
