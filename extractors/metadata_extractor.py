@@ -10,6 +10,60 @@ import re
 
 from bs4 import BeautifulSoup
 
+from utils.html_parser import make_soup
+
+
+def _flatten_text(value) -> list:
+    parts = []
+
+    def walk(item):
+        if item is None:
+            return
+        if isinstance(item, str):
+            text = item.strip()
+            if text:
+                parts.append(text)
+            return
+        if isinstance(item, (int, float, bool)):
+            parts.append(str(item))
+            return
+        if isinstance(item, dict):
+            preferred_keys = (
+                "name",
+                "streetAddress",
+                "addressLocality",
+                "addressRegion",
+                "postalCode",
+                "addressCountry",
+                "telephone",
+                "url",
+            )
+            handled = False
+            for key in preferred_keys:
+                if key in item:
+                    handled = True
+                    walk(item.get(key))
+            if not handled:
+                for nested in item.values():
+                    walk(nested)
+            return
+        if isinstance(item, (list, tuple, set)):
+            for nested in item:
+                walk(nested)
+            return
+
+        text = str(item).strip()
+        if text:
+            parts.append(text)
+
+    walk(value)
+    return parts
+
+
+def _first_text(value) -> str:
+    parts = _flatten_text(value)
+    return parts[0] if parts else ""
+
 
 def _from_json_ld(soup: BeautifulSoup) -> dict:
     """Look for schema.org JSON-LD blocks (Organization, LocalBusiness, Person, etc.)"""
@@ -26,21 +80,23 @@ def _from_json_ld(soup: BeautifulSoup) -> dict:
                 continue
             item_type = str(item.get("@type", "")).lower()
             if item_type in ("organization", "localbusiness", "person", "church"):
-                data.setdefault("name", item.get("name"))
+                data.setdefault("name", _first_text(item.get("name")))
                 address = item.get("address")
                 if isinstance(address, dict):
-                    parts = [
-                        address.get("streetAddress"),
-                        address.get("addressLocality"),
-                        address.get("addressRegion"),
-                        address.get("postalCode"),
-                        address.get("addressCountry"),
-                    ]
-                    data.setdefault("address", ", ".join(p for p in parts if p))
+                    parts = []
+                    for key in (
+                        "streetAddress",
+                        "addressLocality",
+                        "addressRegion",
+                        "postalCode",
+                        "addressCountry",
+                    ):
+                        parts.extend(_flatten_text(address.get(key)))
+                    data.setdefault("address", ", ".join(parts))
                 elif isinstance(address, str):
                     data.setdefault("address", address)
-                data.setdefault("phone", item.get("telephone"))
-                data.setdefault("website", item.get("url"))
+                data.setdefault("phone", _first_text(item.get("telephone")))
+                data.setdefault("website", _first_text(item.get("url")))
     return {k: v for k, v in data.items() if v}
 
 
@@ -76,7 +132,7 @@ def _guess_category(soup: BeautifulSoup) -> str:
 
 def extract_metadata(html: str, soup: BeautifulSoup = None) -> dict:
     if soup is None:
-        soup = BeautifulSoup(html, "lxml")
+        soup = make_soup(html)
 
     result = {
         "name": "",
@@ -100,7 +156,7 @@ def extract_metadata(html: str, soup: BeautifulSoup = None) -> dict:
         for a in soup.find_all("a", href=True):
             text = a.get_text(strip=True).lower()
             if "website" in text or "official site" in text or "visit site" in text:
-                result["website"] = a["href"]
+                result["website"] = _first_text(a.get("href"))
                 break
 
     return {k: v for k, v in result.items() if v}

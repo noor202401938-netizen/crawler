@@ -8,6 +8,7 @@ import re
 from bs4 import BeautifulSoup
 
 import config
+from utils.html_parser import make_soup
 from utils.normalizer import normalize_phone
 from utils.validator import is_valid_phone
 
@@ -18,7 +19,7 @@ def extract_phones(html: str, soup: BeautifulSoup = None) -> list:
     found = set()
 
     if soup is None:
-        soup = BeautifulSoup(html, "lxml")
+        soup = make_soup(html)
 
     # 1. tel: links (highest confidence)
     for a in soup.find_all("a", href=True):

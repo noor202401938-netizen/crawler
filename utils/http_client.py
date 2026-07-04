@@ -12,6 +12,7 @@ import urllib.robotparser as robotparser
 from urllib.parse import urlsplit
 
 import requests
+from requests.exceptions import InvalidSchema, InvalidURL, MissingSchema, SSLError, TooManyRedirects
 
 import config
 from utils.logger import get_logger
@@ -91,6 +92,27 @@ def fetch(url: str, method: str = "GET", allow_redirects: bool = True):
 
     headers = {"User-Agent": config.USER_AGENT}
 
+    def _is_terminal_exception(exc: Exception) -> bool:
+        if isinstance(exc, (InvalidURL, MissingSchema, InvalidSchema, TooManyRedirects, SSLError)):
+            return True
+        message = str(exc).lower()
+        terminal_markers = (
+            "invalid url",
+            "no host supplied",
+            "name or service not known",
+            "getaddrinfo failed",
+            "nameresolutionerror",
+            "certificate verify failed",
+            "hostname mismatch",
+            "exceeded 30 redirects",
+        )
+        return any(marker in message for marker in terminal_markers)
+
+    def _push_domain_cooldown(wait_seconds: float):
+        lock = _get_domain_lock(domain)
+        with lock:
+            _domain_last_request[domain] = time.time() + wait_seconds
+
     for attempt in range(1, config.RETRY_ATTEMPTS + 1):
         _wait_for_domain_slot(domain)
         try:
@@ -103,11 +125,16 @@ def fetch(url: str, method: str = "GET", allow_redirects: bool = True):
                 # rate limited -- back off harder
                 wait = config.RETRY_BACKOFF_SECONDS * attempt * 2
                 logger.warning(f"429 from {domain}, backing off {wait:.1f}s")
+                _push_domain_cooldown(wait)
                 time.sleep(wait)
                 continue
+            if resp.status_code in (403, 404, 410):
+                return resp
             return resp
         except requests.RequestException as e:
             logger.warning(f"Attempt {attempt}/{config.RETRY_ATTEMPTS} failed for {url}: {e}")
+            if _is_terminal_exception(e):
+                break
             if attempt < config.RETRY_ATTEMPTS:
                 time.sleep(config.RETRY_BACKOFF_SECONDS * attempt)
 

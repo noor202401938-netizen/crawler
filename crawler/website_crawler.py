@@ -15,6 +15,7 @@ from bs4 import BeautifulSoup
 
 import config
 from utils.http_client import fetch
+from utils.html_parser import make_soup
 from utils.logger import get_logger
 from utils.normalizer import normalize_url, get_domain
 from utils.deduplicator import SeenSet
@@ -100,7 +101,7 @@ def crawl_website(website_url: str, db) -> dict:
         if "text/html" not in content_type and not url.endswith(".xml"):
             continue
 
-        soup = BeautifulSoup(resp.text, "lxml")
+        soup = make_soup(resp.text)
 
         emails = extract_emails(resp.text, soup)
         phones = extract_phones(resp.text, soup)

@@ -23,6 +23,9 @@ file — no code changes needed.
 ```bash
 pip install -r requirements.txt
 
+# Copy `.env.example` to `.env` if you want to customize the input file path.
+# The default `.env` in this repo points at `links.sample.txt`.
+
 # Windows: put your seed URLs in D:\links.txt (one per line), then:
 python main.py
 
@@ -32,14 +35,18 @@ SEED_FILE=/path/to/links.txt python main.py
 
 See `links.sample.txt` for the expected format.
 
+If you want the crawler to read configuration from a file instead of shell
+variables, put key/value pairs in `.env`. The app loads `.env` automatically
+at startup, and values already present in the shell still take precedence.
+
 ## Configuration
 
 Everything tunable lives in `config.py`, and every setting can also be
-overridden via environment variable at run time:
+overridden via environment variable at run time or via `.env`:
 
 | Setting | Env var | Default | Purpose |
 |---|---|---|---|
-| Seed file path | `SEED_FILE` | `D:\links.txt` | Input list of seed URLs |
+| Seed file path | `SEED_FILE` | `links.sample.txt` | Input list of seed URLs |
 | Max crawl depth per website | `MAX_CRAWL_DEPTH` | 3 | How deep to follow internal links on a discovered site |
 | Max pages per domain | `MAX_PAGES_PER_DOMAIN` | 40 | Hard ceiling to avoid runaway crawls |
 | Max pagination pages | `MAX_PAGINATION_PAGES` | 50 | Per listing/directory site |
@@ -53,6 +60,13 @@ overridden via environment variable at run time:
 Progress is checkpointed to `output/checkpoint.json` (completed seeds/websites)
 and mirrored in the SQLite `crawl_queue` table. Re-running `python main.py`
 after a crash or Ctrl-C skips everything already finished.
+
+## Environment file
+
+- `.env` is loaded automatically by `config.py` before settings are read.
+- `SEED_FILE` is now stored in `.env` by default.
+- Use `.env.example` as the template if you want to change the input path or
+  add more overrides locally.
 
 ## Architecture
 

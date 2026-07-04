@@ -21,6 +21,7 @@ from bs4 import BeautifulSoup
 
 import config
 from utils.http_client import fetch
+from utils.html_parser import make_soup
 from utils.logger import get_logger
 from utils.normalizer import normalize_url, get_domain
 from utils.deduplicator import SeenSet
@@ -29,6 +30,13 @@ from extractors.metadata_extractor import extract_metadata
 logger = get_logger("directory_crawler")
 
 PAGINATION_HINTS = re.compile(r"next|page=|/page/|older|more results", re.I)
+
+
+def _is_http_url(url: str) -> bool:
+    if not url:
+        return False
+    scheme = urlsplit(url).scheme.lower()
+    return scheme in ("http", "https")
 
 
 def _looks_like_pagination_link(a_tag) -> bool:
@@ -42,9 +50,15 @@ def _looks_like_pagination_link(a_tag) -> bool:
 
 def _find_pagination_links(soup: BeautifulSoup, base_url: str) -> list:
     links = []
+    base_domain = get_domain(base_url)
     for a in soup.find_all("a", href=True):
+        href = a["href"].strip()
+        if href.startswith(("mailto:", "tel:", "javascript:", "#")):
+            continue
         if _looks_like_pagination_link(a):
-            links.append(normalize_url(a["href"], base=base_url))
+            full = normalize_url(href, base=base_url)
+            if _is_http_url(full) and get_domain(full) == base_domain:
+                links.append(full)
     # de-dup, preserve order
     seen = set()
     result = []
@@ -92,10 +106,12 @@ def _find_external_website(soup: BeautifulSoup, base_url: str, seed_domain: str)
     candidates = []
     for a in soup.find_all("a", href=True):
         href = a["href"]
-        if href.startswith("mailto:") or href.startswith("tel:") or href.startswith("#"):
+        if href.startswith(("mailto:", "tel:", "#", "javascript:")):
             continue
         full = normalize_url(href, base=base_url)
         if not full:
+            continue
+        if not _is_http_url(full):
             continue
         domain = get_domain(full)
         if not domain or domain == seed_domain:
@@ -145,7 +161,7 @@ def crawl_listing_site(seed_url: str, db, max_pagination: int = None) -> list:
             logger.warning(f"Listing page fetch failed ({status}): {url}")
             continue
 
-        soup = BeautifulSoup(resp.text, "lxml")
+        soup = make_soup(resp.text)
 
         profile_links = _guess_profile_links(soup, url, seed_domain)
         for link in profile_links:
@@ -179,8 +195,12 @@ def process_profile_page(profile_url: str, source_url: str, db) -> dict:
         db.save_discovered_url(profile_url, source_url, crawl_status=status)
         return {}
 
-    soup = BeautifulSoup(resp.text, "lxml")
-    metadata = extract_metadata(resp.text, soup)
+    soup = make_soup(resp.text)
+    try:
+        metadata = extract_metadata(resp.text, soup)
+    except Exception as e:
+        logger.warning(f"Metadata extraction failed ({profile_url}): {e}")
+        metadata = {}
     website = _find_external_website(soup, profile_url, seed_domain)
 
     if website:
