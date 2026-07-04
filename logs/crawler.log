@@ -1,0 +1,56 @@
+2026-07-04 19:21:01 | INFO     | main                      | === Universal Website Discovery & Contact Extraction Framework ===
+2026-07-04 19:21:01 | INFO     | main                      | Seed file: D:\links.txt
+2026-07-04 19:21:01 | INFO     | main                      | Concurrency: 5 | Max depth: 3 | Respect robots.txt: True
+2026-07-04 19:21:01 | INFO     | seed_loader               | Loaded 2 seed URLs from D:\links.txt
+2026-07-04 19:21:01 | INFO     | main                      | === Phase 1: crawling seed https://usachurches.org/ ===
+2026-07-04 19:21:09 | INFO     | directory_crawler         | [https://usachurches.org/] crawled 1 listing pages, found 4 profile links
+2026-07-04 19:21:09 | INFO     | main                      | === Phase 2+3: processing 4 profile pages for https://usachurches.org/ ===
+2026-07-04 19:21:13 | ERROR    | main                      | Profile page failed (https://usachurches.org/church/castle-hills-first-baptist-church.htm): sequence item 4: expected str instance, dict found
+2026-07-04 19:21:14 | ERROR    | main                      | Profile page failed (https://usachurches.org/church/christian-tabernacle-church.htm): sequence item 4: expected str instance, dict found
+2026-07-04 19:21:15 | ERROR    | main                      | Profile page failed (https://usachurches.org/church/faithcochurch.htm): sequence item 4: expected str instance, dict found
+2026-07-04 19:21:17 | ERROR    | main                      | Profile page failed (https://usachurches.org/church/family-bible-fellowship-church.htm): sequence item 4: expected str instance, dict found
+2026-07-04 19:21:17 | INFO     | main                      | === Phase 1: crawling seed https://churchfinder.com/ ===
+2026-07-04 19:21:23 | INFO     | directory_crawler         | [https://churchfinder.com/] crawled 1 listing pages, found 0 profile links
+2026-07-04 19:21:23 | WARNING  | main                      | No profile links discovered for seed: https://churchfinder.com/
+2026-07-04 19:21:23 | INFO     | main                      | === Phase 4+5: crawling 0 discovered websites (0 already done) ===
+2026-07-04 19:21:23 | INFO     | main                      | === Phase 6+7: cleaning & exporting ===
+2026-07-04 19:21:24 | INFO     | exporter                  | Exported 4 discovered URLs, 0 websites, 0 contact records -> output/
+2026-07-04 19:21:24 | INFO     | main                      | Done in 23.3s. Outputs written to 'output/'.
+2026-07-04 19:22:48 | INFO     | main                      | === Universal Website Discovery & Contact Extraction Framework ===
+2026-07-04 19:22:48 | INFO     | main                      | Seed file: D:\links.txt
+2026-07-04 19:22:48 | INFO     | main                      | Concurrency: 5 | Max depth: 3 | Respect robots.txt: True
+2026-07-04 19:22:48 | INFO     | checkpoint                | Resuming from checkpoint: 2 seeds, 0 websites already done
+2026-07-04 19:22:48 | INFO     | seed_loader               | Loaded 2 seed URLs from D:\links.txt
+2026-07-04 19:22:48 | INFO     | main                      | Skipping already-completed seed: https://usachurches.org/
+2026-07-04 19:22:48 | INFO     | main                      | Skipping already-completed seed: https://churchfinder.com/
+2026-07-04 19:22:48 | INFO     | main                      | === Phase 4+5: crawling 0 discovered websites (0 already done) ===
+2026-07-04 19:22:48 | INFO     | main                      | === Phase 6+7: cleaning & exporting ===
+2026-07-04 19:22:48 | INFO     | exporter                  | Exported 4 discovered URLs, 0 websites, 0 contact records -> output/
+2026-07-04 19:22:48 | INFO     | main                      | Done in 0.4s. Outputs written to 'output/'.
+2026-07-04 19:24:15 | INFO     | main                      | === Universal Website Discovery & Contact Extraction Framework ===
+2026-07-04 19:24:15 | INFO     | main                      | Seed file: D:\links.txt
+2026-07-04 19:24:15 | INFO     | main                      | Concurrency: 5 | Max depth: 3 | Respect robots.txt: True
+2026-07-04 19:24:15 | INFO     | checkpoint                | Resuming from checkpoint: 2 seeds, 0 websites already done
+2026-07-04 19:24:15 | INFO     | seed_loader               | Loaded 32 seed URLs from D:\links.txt
+2026-07-04 19:24:15 | INFO     | main                      | Skipping already-completed seed: https://usachurches.org/
+2026-07-04 19:24:15 | INFO     | main                      | Skipping already-completed seed: https://churchfinder.com/
+2026-07-04 19:24:15 | INFO     | main                      | === Phase 1: crawling seed https://faithstreet.com/ ===
+2026-07-04 19:24:17 | WARNING  | directory_crawler         | Listing page fetch failed (http_403): https://faithstreet.com/
+2026-07-04 19:24:17 | INFO     | directory_crawler         | [https://faithstreet.com/] crawled 1 listing pages, found 0 profile links
+2026-07-04 19:24:17 | WARNING  | main                      | No profile links discovered for seed: https://faithstreet.com/
+2026-07-04 19:24:17 | INFO     | main                      | === Phase 1: crawling seed https://joinmychurch.com/us ===
+2026-07-04 19:24:25 | WARNING  | directory_crawler         | Listing page fetch failed (http_404): https://joinmychurch.com/us
+2026-07-04 19:24:25 | INFO     | directory_crawler         | [https://joinmychurch.com/us] crawled 1 listing pages, found 0 profile links
+2026-07-04 19:24:25 | WARNING  | main                      | No profile links discovered for seed: https://joinmychurch.com/us
+2026-07-04 19:24:25 | INFO     | main                      | === Phase 1: crawling seed https://netministries.org/churches ===
+2026-07-04 19:24:37 | INFO     | directory_crawler         | [https://netministries.org/churches] crawled 1 listing pages, found 68 profile links
+2026-07-04 19:24:37 | INFO     | main                      | === Phase 2+3: processing 68 profile pages for https://netministries.org/churches ===
+2026-07-04 19:24:55 | INFO     | main                      |   ...10/68 profile pages processed
+2026-07-04 19:25:10 | INFO     | main                      |   ...20/68 profile pages processed
+2026-07-04 19:25:25 | INFO     | main                      |   ...30/68 profile pages processed
+2026-07-04 19:25:40 | INFO     | main                      |   ...40/68 profile pages processed
+2026-07-04 19:25:54 | INFO     | main                      |   ...50/68 profile pages processed
+2026-07-04 19:26:09 | INFO     | main                      |   ...60/68 profile pages processed
+2026-07-04 19:26:22 | INFO     | main                      | === Phase 1: crawling seed https://churchangel.com/ ===
+2026-07-04 19:26:33 | INFO     | directory_crawler         | [https://churchangel.com/] crawled 1 listing pages, found 105 profile links
+2026-07-04 19:26:33 | INFO     | main                      | === Phase 2+3: processing 105 profile pages for https://churchangel.com/ ===
