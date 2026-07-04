@@ -27,6 +27,13 @@ def export_all(db):
     df_websites = pd.DataFrame(websites)
     df_contacts = pd.DataFrame(contacts)
 
+    if not df_contacts.empty and "emails" in df_contacts.columns:
+        df_contacts["emails"] = df_contacts["emails"].apply(
+            lambda x: x.split(", ") if isinstance(x, str) and x else [""]
+        )
+        df_contacts = df_contacts.explode("emails").reset_index(drop=True)
+        df_contacts = df_contacts.rename(columns={"emails": "email"})
+
     df_discovered.to_csv(config.CSV_DISCOVERED_URLS, index=False)
     df_websites.to_csv(config.CSV_WEBSITES, index=False)
     df_contacts.to_csv(config.CSV_CONTACTS, index=False)

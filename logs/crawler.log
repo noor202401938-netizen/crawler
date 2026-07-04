@@ -1234,3 +1234,943 @@
 2026-07-04 23:03:33 | INFO     | http_client               | Skipping (robots.txt disallow): https://churchofengland.org/node/55/printable/print
 2026-07-04 23:03:33 | INFO     | http_client               | Skipping (robots.txt disallow): https://churchofengland.org/user/register
 2026-07-04 23:03:34 | INFO     | http_client               | Skipping (robots.txt disallow): https://churchofengland.org/user/password
+2026-07-04 23:03:41 | INFO     | website_crawler           | [https://churchofengland.org/] crawled 40 pages -> 0 emails, 10 phones
+2026-07-04 23:03:41 | ERROR    | main                      | Website crawl failed (https://churchofengland.org/): no such table: contacts
+2026-07-04 23:03:45 | WARNING  | http_client               | Attempt 1/3 failed for https://cypresschurch.tv/leadership: HTTPSConnectionPool(host='cypresschurch.tv', port=443): Max retries exceeded with url: /leadership (Caused by ConnectTimeoutError(<HTTPSConnection(host='cypresschurch.tv', port=443) at 0x1c55afda990>, 'Connection to cypresschurch.tv timed out. (connect timeout=15)'))
+2026-07-04 23:03:47 | WARNING  | http_client               | Attempt 1/3 failed for https://cypresschurch.tv/support: HTTPSConnectionPool(host='cypresschurch.tv', port=443): Max retries exceeded with url: /support (Caused by ConnectTimeoutError(<HTTPSConnection(host='cypresschurch.tv', port=443) at 0x1c55c47c190>, 'Connection to cypresschurch.tv timed out. (connect timeout=15)'))
+2026-07-04 23:03:48 | WARNING  | http_client               | Attempt 1/3 failed for https://cypresschurch.tv/connect: HTTPSConnectionPool(host='cypresschurch.tv', port=443): Max retries exceeded with url: /connect (Caused by ConnectTimeoutError(<HTTPSConnection(host='cypresschurch.tv', port=443) at 0x1c55afdbd90>, 'Connection to cypresschurch.tv timed out. (connect timeout=15)'))
+2026-07-04 23:03:51 | WARNING  | http_client               | Attempt 1/3 failed for https://yorkefree.com/media/2024-04-02-outside-the-camp-hebrews-13-10-14-good-friday-me: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-07-04 23:04:02 | WARNING  | http_client               | Attempt 2/3 failed for https://cypresschurch.tv/leadership: HTTPSConnectionPool(host='cypresschurch.tv', port=443): Max retries exceeded with url: /leadership (Caused by ConnectTimeoutError(<HTTPSConnection(host='cypresschurch.tv', port=443) at 0x1c55c47fd90>, 'Connection to cypresschurch.tv timed out. (connect timeout=15)'))
+2026-07-04 23:04:04 | WARNING  | http_client               | Attempt 2/3 failed for https://cypresschurch.tv/support: HTTPSConnectionPool(host='cypresschurch.tv', port=443): Max retries exceeded with url: /support (Caused by ConnectTimeoutError(<HTTPSConnection(host='cypresschurch.tv', port=443) at 0x1c55c47ee90>, 'Connection to cypresschurch.tv timed out. (connect timeout=15)'))
+2026-07-04 23:04:05 | WARNING  | http_client               | Attempt 2/3 failed for https://cypresschurch.tv/connect: HTTPSConnectionPool(host='cypresschurch.tv', port=443): Max retries exceeded with url: /connect (Caused by ConnectTimeoutError(<HTTPSConnection(host='cypresschurch.tv', port=443) at 0x1c55d6bc550>, 'Connection to cypresschurch.tv timed out. (connect timeout=15)'))
+2026-07-04 23:04:14 | WARNING  | http_client               | Attempt 1/3 failed for https://yorkefree.com/media/2024-03-24-the-twelve: HTTPSConnectionPool(host='www.yorkefree.com', port=443): Max retries exceeded with url: /media/2024-03-24-the-twelve (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)')))
+2026-07-04 23:04:14 | ERROR    | http_client               | Giving up on https://yorkefree.com/media/2024-03-24-the-twelve after 3 attempts
+2026-07-04 23:04:21 | WARNING  | http_client               | Attempt 3/3 failed for https://cypresschurch.tv/leadership: HTTPSConnectionPool(host='cypresschurch.tv', port=443): Max retries exceeded with url: /leadership (Caused by ConnectTimeoutError(<HTTPSConnection(host='cypresschurch.tv', port=443) at 0x1c55afda990>, 'Connection to cypresschurch.tv timed out. (connect timeout=15)'))
+2026-07-04 23:04:21 | ERROR    | http_client               | Giving up on https://cypresschurch.tv/leadership after 3 attempts
+2026-07-04 23:04:23 | WARNING  | http_client               | Attempt 3/3 failed for https://cypresschurch.tv/support: HTTPSConnectionPool(host='cypresschurch.tv', port=443): Max retries exceeded with url: /support (Caused by ConnectTimeoutError(<HTTPSConnection(host='cypresschurch.tv', port=443) at 0x1c55c47c410>, 'Connection to cypresschurch.tv timed out. (connect timeout=15)'))
+2026-07-04 23:04:23 | ERROR    | http_client               | Giving up on https://cypresschurch.tv/support after 3 attempts
+2026-07-04 23:04:24 | WARNING  | http_client               | Attempt 3/3 failed for https://cypresschurch.tv/connect: HTTPSConnectionPool(host='cypresschurch.tv', port=443): Max retries exceeded with url: /connect (Caused by ConnectTimeoutError(<HTTPSConnection(host='cypresschurch.tv', port=443) at 0x1c55c47d6d0>, 'Connection to cypresschurch.tv timed out. (connect timeout=15)'))
+2026-07-04 23:04:24 | ERROR    | http_client               | Giving up on https://cypresschurch.tv/connect after 3 attempts
+2026-07-04 23:04:31 | INFO     | website_crawler           | [https://yorkefree.com/] crawled 40 pages -> 2 emails, 3 phones
+2026-07-04 23:04:31 | ERROR    | main                      | Website crawl failed (https://yorkefree.com/): no such table: contacts
+2026-07-04 23:04:39 | WARNING  | http_client               | Attempt 1/3 failed for https://cypresschurch.tv/privacy: HTTPSConnectionPool(host='cypresschurch.tv', port=443): Max retries exceeded with url: /privacy (Caused by ConnectTimeoutError(<HTTPSConnection(host='cypresschurch.tv', port=443) at 0x1c55afdb890>, 'Connection to cypresschurch.tv timed out. (connect timeout=15)'))
+2026-07-04 23:04:41 | WARNING  | http_client               | Attempt 1/3 failed for https://cypresschurch.tv/sitemap.xml: HTTPSConnectionPool(host='cypresschurch.tv', port=443): Max retries exceeded with url: /sitemap.xml (Caused by ConnectTimeoutError(<HTTPSConnection(host='cypresschurch.tv', port=443) at 0x1c55c47d6d0>, 'Connection to cypresschurch.tv timed out. (connect timeout=15)'))
+2026-07-04 23:04:56 | WARNING  | http_client               | Attempt 2/3 failed for https://cypresschurch.tv/privacy: HTTPSConnectionPool(host='cypresschurch.tv', port=443): Max retries exceeded with url: /privacy (Caused by ConnectTimeoutError(<HTTPSConnection(host='cypresschurch.tv', port=443) at 0x1c55afd9310>, 'Connection to cypresschurch.tv timed out. (connect timeout=15)'))
+2026-07-04 23:04:58 | WARNING  | http_client               | Attempt 2/3 failed for https://cypresschurch.tv/sitemap.xml: HTTPSConnectionPool(host='cypresschurch.tv', port=443): Max retries exceeded with url: /sitemap.xml (Caused by ConnectTimeoutError(<HTTPSConnection(host='cypresschurch.tv', port=443) at 0x1c55afd9bd0>, 'Connection to cypresschurch.tv timed out. (connect timeout=15)'))
+2026-07-04 23:05:15 | WARNING  | http_client               | Attempt 3/3 failed for https://cypresschurch.tv/privacy: HTTPSConnectionPool(host='cypresschurch.tv', port=443): Max retries exceeded with url: /privacy (Caused by ConnectTimeoutError(<HTTPSConnection(host='cypresschurch.tv', port=443) at 0x1c55afda990>, 'Connection to cypresschurch.tv timed out. (connect timeout=15)'))
+2026-07-04 23:05:15 | ERROR    | http_client               | Giving up on https://cypresschurch.tv/privacy after 3 attempts
+2026-07-04 23:05:17 | WARNING  | http_client               | Attempt 3/3 failed for https://cypresschurch.tv/sitemap.xml: HTTPSConnectionPool(host='cypresschurch.tv', port=443): Max retries exceeded with url: /sitemap.xml (Caused by ConnectTimeoutError(<HTTPSConnection(host='cypresschurch.tv', port=443) at 0x1c55afd9450>, 'Connection to cypresschurch.tv timed out. (connect timeout=15)'))
+2026-07-04 23:05:17 | ERROR    | http_client               | Giving up on https://cypresschurch.tv/sitemap.xml after 3 attempts
+2026-07-04 23:05:17 | INFO     | website_crawler           | [https://cypresschurch.tv/] crawled 13 pages -> 0 emails, 0 phones
+2026-07-04 23:05:17 | ERROR    | main                      | Website crawl failed (https://cypresschurch.tv/): no such table: contacts
+2026-07-04 23:05:17 | INFO     | main                      | === Phase 6+7: cleaning & exporting ===
+2026-07-04 23:05:30 | INFO     | main                      | === Universal Website Discovery & Contact Extraction Framework ===
+2026-07-04 23:05:30 | INFO     | main                      | Seed file: links.sample.txt
+2026-07-04 23:05:30 | INFO     | main                      | Concurrency: 5 | Max depth: 3 | Respect robots.txt: True
+2026-07-04 23:05:30 | INFO     | checkpoint                | Resuming from checkpoint: 3 seeds, 9 websites already done
+2026-07-04 23:05:30 | INFO     | seed_loader               | Loaded 3 seed URLs from links.sample.txt
+2026-07-04 23:05:30 | INFO     | main                      | Skipping already-completed seed: https://usachurches.org/
+2026-07-04 23:05:30 | INFO     | main                      | Skipping already-completed seed: https://churchfinder.com/
+2026-07-04 23:05:30 | INFO     | main                      | Skipping already-completed seed: https://achurchnearyou.com/
+2026-07-04 23:05:30 | INFO     | main                      | === Phase 4+5: crawling 0 discovered websites (0 already done) ===
+2026-07-04 23:05:30 | INFO     | main                      | === Phase 6+7: cleaning & exporting ===
+2026-07-04 23:06:23 | INFO     | main                      | === Universal Website Discovery & Contact Extraction Framework ===
+2026-07-04 23:06:23 | INFO     | main                      | Seed file: links.sample.txt
+2026-07-04 23:06:23 | INFO     | main                      | Concurrency: 5 | Max depth: 3 | Respect robots.txt: True
+2026-07-04 23:06:23 | INFO     | seed_loader               | Loaded 3 seed URLs from links.sample.txt
+2026-07-04 23:06:23 | INFO     | main                      | === Phase 1: crawling seed https://usachurches.org/ ===
+2026-07-04 23:06:29 | INFO     | directory_crawler         | [https://usachurches.org/] crawled 1 listing pages, found 4 profile links
+2026-07-04 23:06:29 | INFO     | main                      | === Phase 2+3: processing 4 profile pages for https://usachurches.org/ ===
+2026-07-04 23:06:36 | INFO     | main                      | === Phase 1: crawling seed https://churchfinder.com/ ===
+2026-07-04 23:06:41 | INFO     | directory_crawler         | [https://churchfinder.com/] crawled 1 listing pages, found 0 profile links
+2026-07-04 23:06:41 | WARNING  | main                      | No profile links discovered for seed: https://churchfinder.com/
+2026-07-04 23:06:41 | INFO     | main                      | === Phase 1: crawling seed https://achurchnearyou.com/ ===
+2026-07-04 23:06:46 | INFO     | directory_crawler         | [https://achurchnearyou.com/] crawled 3 listing pages, found 4 profile links
+2026-07-04 23:06:46 | INFO     | main                      | === Phase 2+3: processing 4 profile pages for https://achurchnearyou.com/ ===
+2026-07-04 23:06:52 | INFO     | main                      | === Phase 4+5: crawling 5 discovered websites (0 already done) ===
+2026-07-04 23:06:55 | WARNING  | http_client               | Attempt 1/3 failed for https://thecityofpraise.org/: HTTPSConnectionPool(host='thecityofpraise.org', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLError(1, '[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1081)')))
+2026-07-04 23:06:55 | ERROR    | http_client               | Giving up on https://thecityofpraise.org/ after 3 attempts
+2026-07-04 23:06:56 | WARNING  | http_client               | Attempt 1/3 failed for https://thecityofpraise.org/contact: HTTPSConnectionPool(host='thecityofpraise.org', port=443): Max retries exceeded with url: /contact (Caused by SSLError(SSLError(1, '[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1081)')))
+2026-07-04 23:06:56 | ERROR    | http_client               | Giving up on https://thecityofpraise.org/contact after 3 attempts
+2026-07-04 23:07:00 | INFO     | http_client               | Detected anti-bot at https://lampasasbaptistchurch.com/. Falling back to Playwright.
+2026-07-04 23:07:00 | WARNING  | http_client               | Attempt 1/3 failed for https://thecityofpraise.org/contact-us: HTTPSConnectionPool(host='thecityofpraise.org', port=443): Max retries exceeded with url: /contact-us (Caused by SSLError(SSLError(1, '[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1081)')))
+2026-07-04 23:07:00 | ERROR    | http_client               | Giving up on https://thecityofpraise.org/contact-us after 3 attempts
+2026-07-04 23:07:03 | INFO     | http_client               | Detected anti-bot at https://lampasasbaptistchurch.com/contact. Falling back to Playwright.
+2026-07-04 23:07:03 | WARNING  | http_client               | Attempt 1/3 failed for https://thecityofpraise.org/contactus: HTTPSConnectionPool(host='thecityofpraise.org', port=443): Max retries exceeded with url: /contactus (Caused by SSLError(SSLError(1, '[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1081)')))
+2026-07-04 23:07:03 | ERROR    | http_client               | Giving up on https://thecityofpraise.org/contactus after 3 attempts
+2026-07-04 23:07:04 | INFO     | http_client               | Detected anti-bot at https://lampasasbaptistchurch.com/contact-us. Falling back to Playwright.
+2026-07-04 23:07:04 | WARNING  | http_client               | Attempt 1/3 failed for https://thecityofpraise.org/about: HTTPSConnectionPool(host='thecityofpraise.org', port=443): Max retries exceeded with url: /about (Caused by SSLError(SSLError(1, '[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1081)')))
+2026-07-04 23:07:04 | ERROR    | http_client               | Giving up on https://thecityofpraise.org/about after 3 attempts
+2026-07-04 23:07:06 | INFO     | http_client               | Detected anti-bot at https://lampasasbaptistchurch.com/contactus. Falling back to Playwright.
+2026-07-04 23:07:07 | WARNING  | http_client               | Attempt 1/3 failed for https://thecityofpraise.org/about-us: HTTPSConnectionPool(host='thecityofpraise.org', port=443): Max retries exceeded with url: /about-us (Caused by SSLError(SSLError(1, '[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1081)')))
+2026-07-04 23:07:07 | ERROR    | http_client               | Giving up on https://thecityofpraise.org/about-us after 3 attempts
+2026-07-04 23:07:09 | WARNING  | http_client               | Attempt 1/3 failed for https://thecityofpraise.org/staff: HTTPSConnectionPool(host='thecityofpraise.org', port=443): Max retries exceeded with url: /staff (Caused by SSLError(SSLError(1, '[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1081)')))
+2026-07-04 23:07:09 | INFO     | http_client               | Detected anti-bot at https://lampasasbaptistchurch.com/about. Falling back to Playwright.
+2026-07-04 23:07:09 | ERROR    | http_client               | Giving up on https://thecityofpraise.org/staff after 3 attempts
+2026-07-04 23:07:09 | WARNING  | http_client               | Attempt 1/3 failed for https://thecityofpraise.org/team: HTTPSConnectionPool(host='thecityofpraise.org', port=443): Max retries exceeded with url: /team (Caused by SSLError(SSLError(1, '[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1081)')))
+2026-07-04 23:07:09 | ERROR    | http_client               | Giving up on https://thecityofpraise.org/team after 3 attempts
+2026-07-04 23:07:10 | INFO     | http_client               | Detected anti-bot at https://lampasasbaptistchurch.com/about-us. Falling back to Playwright.
+2026-07-04 23:07:10 | INFO     | http_client               | Detected anti-bot at https://lampasasbaptistchurch.com/team. Falling back to Playwright.
+2026-07-04 23:07:10 | WARNING  | http_client               | Attempt 1/3 failed for https://thecityofpraise.org/leadership: HTTPSConnectionPool(host='thecityofpraise.org', port=443): Max retries exceeded with url: /leadership (Caused by SSLError(SSLError(1, '[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1081)')))
+2026-07-04 23:07:10 | ERROR    | http_client               | Giving up on https://thecityofpraise.org/leadership after 3 attempts
+2026-07-04 23:07:12 | INFO     | http_client               | Detected anti-bot at https://lampasasbaptistchurch.com/staff. Falling back to Playwright.
+2026-07-04 23:07:13 | WARNING  | http_client               | Attempt 1/3 failed for https://thecityofpraise.org/support: HTTPSConnectionPool(host='thecityofpraise.org', port=443): Max retries exceeded with url: /support (Caused by SSLError(SSLError(1, '[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1081)')))
+2026-07-04 23:07:13 | ERROR    | http_client               | Giving up on https://thecityofpraise.org/support after 3 attempts
+2026-07-04 23:07:15 | INFO     | http_client               | Detected anti-bot at https://lampasasbaptistchurch.com/support. Falling back to Playwright.
+2026-07-04 23:07:15 | INFO     | http_client               | Detected anti-bot at https://churchofengland.org/about. Falling back to Playwright.
+2026-07-04 23:07:15 | INFO     | http_client               | Detected anti-bot at https://lampasasbaptistchurch.com/leadership. Falling back to Playwright.
+2026-07-04 23:07:16 | WARNING  | http_client               | Attempt 1/3 failed for https://thecityofpraise.org/connect: HTTPSConnectionPool(host='thecityofpraise.org', port=443): Max retries exceeded with url: /connect (Caused by SSLError(SSLError(1, '[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1081)')))
+2026-07-04 23:07:16 | ERROR    | http_client               | Giving up on https://thecityofpraise.org/connect after 3 attempts
+2026-07-04 23:07:16 | INFO     | http_client               | Detected anti-bot at https://lampasasbaptistchurch.com/connect. Falling back to Playwright.
+2026-07-04 23:07:17 | WARNING  | http_client               | Attempt 1/3 failed for https://thecityofpraise.org/privacy: HTTPSConnectionPool(host='thecityofpraise.org', port=443): Max retries exceeded with url: /privacy (Caused by SSLError(SSLError(1, '[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1081)')))
+2026-07-04 23:07:17 | ERROR    | http_client               | Giving up on https://thecityofpraise.org/privacy after 3 attempts
+2026-07-04 23:07:17 | INFO     | http_client               | Detected anti-bot at https://lampasasbaptistchurch.com/privacy. Falling back to Playwright.
+2026-07-04 23:07:18 | WARNING  | http_client               | Attempt 1/3 failed for https://thecityofpraise.org/sitemap.xml: HTTPSConnectionPool(host='thecityofpraise.org', port=443): Max retries exceeded with url: /sitemap.xml (Caused by SSLError(SSLError(1, '[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1081)')))
+2026-07-04 23:07:18 | ERROR    | http_client               | Giving up on https://thecityofpraise.org/sitemap.xml after 3 attempts
+2026-07-04 23:07:18 | INFO     | website_crawler           | [https://thecityofpraise.org/] crawled 13 pages -> 0 emails, 0 phones
+2026-07-04 23:07:20 | INFO     | http_client               | Detected anti-bot at https://lampasasbaptistchurch.com/sitemap.xml. Falling back to Playwright.
+2026-07-04 23:07:29 | INFO     | http_client               | Skipping (robots.txt disallow): https://churchofengland.org/node/1/printable/print
+2026-07-04 23:07:29 | INFO     | http_client               | Skipping (robots.txt disallow): https://churchofengland.org/user/register
+2026-07-04 23:07:31 | INFO     | website_crawler           | [https://trinitylutheran.org/] crawled 16 pages -> 1 emails, 9 phones
+2026-07-04 23:07:50 | INFO     | website_crawler           | [https://lampasasbaptistchurch.com/] crawled 13 pages -> 0 emails, 0 phones
+2026-07-04 23:08:02 | INFO     | http_client               | Skipping (robots.txt disallow): https://churchofengland.org/user/password
+2026-07-04 23:08:09 | INFO     | website_crawler           | [https://cbckaty.org/] crawled 40 pages -> 13 emails, 26 phones
+2026-07-04 23:08:15 | INFO     | website_crawler           | [https://churchofengland.org/] crawled 40 pages -> 0 emails, 7 phones
+2026-07-04 23:08:15 | INFO     | main                      | === Phase 6+7: cleaning & exporting ===
+2026-07-04 23:08:16 | INFO     | exporter                  | Exported 8 discovered URLs, 5 websites, 5 contact records -> output/
+2026-07-04 23:08:16 | INFO     | main                      | Done in 112.6s. Outputs written to 'output/'.
+2026-07-05 00:56:33 | INFO     | main                      | === Universal Website Discovery & Contact Extraction Framework ===
+2026-07-05 00:56:33 | INFO     | main                      | Seed file: D:/links.txt
+2026-07-05 00:56:33 | INFO     | main                      | Concurrency: 5 | Max depth: 3 | Respect robots.txt: True
+2026-07-05 00:56:33 | INFO     | checkpoint                | Resuming from checkpoint: 3 seeds, 5 websites already done
+2026-07-05 00:56:33 | INFO     | seed_loader               | Loaded 32 seed URLs from D:/links.txt
+2026-07-05 00:56:33 | INFO     | main                      | Skipping already-completed seed: https://usachurches.org/
+2026-07-05 00:56:33 | INFO     | main                      | Skipping already-completed seed: https://churchfinder.com/
+2026-07-05 00:56:33 | INFO     | main                      | === Phase 1: crawling seed https://faithstreet.com/ ===
+2026-07-05 00:56:43 | WARNING  | directory_crawler         | Listing page fetch failed (http_403): https://faithstreet.com/
+2026-07-05 00:56:43 | INFO     | directory_crawler         | [https://faithstreet.com/] crawled 1 listing pages, found 0 profile links
+2026-07-05 00:56:43 | WARNING  | main                      | No profile links discovered for seed: https://faithstreet.com/
+2026-07-05 00:56:43 | INFO     | main                      | === Phase 1: crawling seed https://joinmychurch.com/us ===
+2026-07-05 00:56:51 | WARNING  | directory_crawler         | Listing page fetch failed (http_404): https://joinmychurch.com/us
+2026-07-05 00:56:51 | INFO     | directory_crawler         | [https://joinmychurch.com/us] crawled 1 listing pages, found 0 profile links
+2026-07-05 00:56:51 | WARNING  | main                      | No profile links discovered for seed: https://joinmychurch.com/us
+2026-07-05 00:56:51 | INFO     | main                      | === Phase 1: crawling seed https://netministries.org/churches ===
+2026-07-05 00:57:04 | INFO     | directory_crawler         | [https://netministries.org/churches] crawled 1 listing pages, found 68 profile links
+2026-07-05 00:57:04 | INFO     | main                      | === Phase 2+3: processing 68 profile pages for https://netministries.org/churches ===
+2026-07-05 00:57:22 | INFO     | main                      |   ...10/68 profile pages processed
+2026-07-05 00:57:38 | INFO     | main                      |   ...20/68 profile pages processed
+2026-07-05 00:57:57 | INFO     | main                      |   ...30/68 profile pages processed
+2026-07-05 00:58:13 | INFO     | main                      |   ...40/68 profile pages processed
+2026-07-05 00:58:32 | INFO     | main                      |   ...50/68 profile pages processed
+2026-07-05 00:58:49 | INFO     | main                      |   ...60/68 profile pages processed
+2026-07-05 00:59:10 | INFO     | main                      | === Phase 1: crawling seed https://churchangel.com/ ===
+2026-07-05 00:59:26 | INFO     | directory_crawler         | [https://churchangel.com/] crawled 1 listing pages, found 105 profile links
+2026-07-05 00:59:26 | INFO     | main                      | === Phase 2+3: processing 105 profile pages for https://churchangel.com/ ===
+2026-07-05 00:59:54 | INFO     | main                      |   ...10/105 profile pages processed
+2026-07-05 01:00:11 | INFO     | main                      |   ...20/105 profile pages processed
+2026-07-05 01:00:25 | INFO     | main                      |   ...30/105 profile pages processed
+2026-07-05 01:00:41 | INFO     | main                      |   ...40/105 profile pages processed
+2026-07-05 01:00:54 | INFO     | main                      |   ...50/105 profile pages processed
+2026-07-05 01:01:09 | INFO     | main                      |   ...60/105 profile pages processed
+2026-07-05 01:01:24 | INFO     | main                      |   ...70/105 profile pages processed
+2026-07-05 01:01:39 | INFO     | main                      |   ...80/105 profile pages processed
+2026-07-05 01:01:54 | INFO     | main                      |   ...90/105 profile pages processed
+2026-07-05 01:02:09 | INFO     | main                      |   ...100/105 profile pages processed
+2026-07-05 01:02:16 | INFO     | main                      | === Phase 1: crawling seed https://churches-in.com/ ===
+2026-07-05 01:02:24 | INFO     | directory_crawler         | [https://churches-in.com/] crawled 1 listing pages, found 16 profile links
+2026-07-05 01:02:24 | INFO     | main                      | === Phase 2+3: processing 16 profile pages for https://churches-in.com/ ===
+2026-07-05 01:02:43 | INFO     | main                      |   ...10/16 profile pages processed
+2026-07-05 01:02:52 | INFO     | main                      | === Phase 1: crawling seed https://joinmychurch.com/search ===
+2026-07-05 01:02:58 | WARNING  | directory_crawler         | Listing page fetch failed (http_404): https://joinmychurch.com/search
+2026-07-05 01:02:58 | INFO     | directory_crawler         | [https://joinmychurch.com/search] crawled 1 listing pages, found 0 profile links
+2026-07-05 01:02:58 | WARNING  | main                      | No profile links discovered for seed: https://joinmychurch.com/search
+2026-07-05 01:02:58 | INFO     | main                      | === Phase 1: crawling seed https://church.org/ ===
+2026-07-05 01:03:03 | INFO     | directory_crawler         | [https://church.org/] crawled 1 listing pages, found 9 profile links
+2026-07-05 01:03:03 | INFO     | main                      | === Phase 2+3: processing 9 profile pages for https://church.org/ ===
+2026-07-05 01:03:17 | INFO     | main                      | Skipping already-completed seed: https://achurchnearyou.com/
+2026-07-05 01:03:17 | INFO     | main                      | === Phase 1: crawling seed https://fiec.org.uk/churches ===
+2026-07-05 01:03:23 | INFO     | directory_crawler         | [https://fiec.org.uk/churches] crawled 1 listing pages, found 35 profile links
+2026-07-05 01:03:23 | INFO     | main                      | === Phase 2+3: processing 35 profile pages for https://fiec.org.uk/churches ===
+2026-07-05 01:03:40 | INFO     | main                      |   ...10/35 profile pages processed
+2026-07-05 01:03:53 | INFO     | main                      |   ...20/35 profile pages processed
+2026-07-05 01:04:08 | INFO     | main                      |   ...30/35 profile pages processed
+2026-07-05 01:04:16 | INFO     | main                      | === Phase 1: crawling seed https://christianweb.org.uk/uk-church-directory ===
+2026-07-05 01:06:41 | INFO     | directory_crawler         | [https://christianweb.org.uk/uk-church-directory] crawled 28 listing pages, found 6 profile links
+2026-07-05 01:06:41 | INFO     | main                      | === Phase 2+3: processing 6 profile pages for https://christianweb.org.uk/uk-church-directory ===
+2026-07-05 01:06:58 | INFO     | main                      | === Phase 1: crawling seed https://eauk.org/ ===
+2026-07-05 01:07:08 | INFO     | directory_crawler         | [https://eauk.org/] crawled 1 listing pages, found 90 profile links
+2026-07-05 01:07:08 | INFO     | main                      | === Phase 2+3: processing 90 profile pages for https://eauk.org/ ===
+2026-07-05 01:07:24 | INFO     | main                      |   ...10/90 profile pages processed
+2026-07-05 01:07:40 | INFO     | main                      |   ...20/90 profile pages processed
+2026-07-05 01:07:54 | INFO     | main                      |   ...30/90 profile pages processed
+2026-07-05 01:08:08 | INFO     | main                      |   ...40/90 profile pages processed
+2026-07-05 01:08:24 | INFO     | main                      |   ...50/90 profile pages processed
+2026-07-05 01:08:40 | INFO     | main                      |   ...60/90 profile pages processed
+2026-07-05 01:08:54 | INFO     | main                      |   ...70/90 profile pages processed
+2026-07-05 01:09:10 | INFO     | main                      |   ...80/90 profile pages processed
+2026-07-05 01:09:24 | INFO     | main                      |   ...90/90 profile pages processed
+2026-07-05 01:09:24 | INFO     | main                      | === Phase 1: crawling seed https://findachurch.co.uk/ ===
+2026-07-05 01:09:30 | WARNING  | directory_crawler         | Listing page fetch failed (http_403): https://findachurch.co.uk/
+2026-07-05 01:09:30 | INFO     | directory_crawler         | [https://findachurch.co.uk/] crawled 1 listing pages, found 0 profile links
+2026-07-05 01:09:30 | WARNING  | main                      | No profile links discovered for seed: https://findachurch.co.uk/
+2026-07-05 01:09:30 | INFO     | main                      | === Phase 1: crawling seed https://churchescanada.com/ ===
+2026-07-05 01:09:30 | WARNING  | http_client               | Attempt 1/3 failed for https://churchescanada.com/: HTTPSConnectionPool(host='churchescanada.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("HTTPSConnection(host='churchescanada.com', port=443): Failed to resolve 'churchescanada.com' ([Errno 11001] getaddrinfo failed)"))
+2026-07-05 01:09:30 | ERROR    | http_client               | Giving up on https://churchescanada.com/ after 3 attempts
+2026-07-05 01:09:30 | WARNING  | directory_crawler         | Listing page fetch failed (failed): https://churchescanada.com/
+2026-07-05 01:09:30 | INFO     | directory_crawler         | [https://churchescanada.com/] crawled 1 listing pages, found 0 profile links
+2026-07-05 01:09:30 | WARNING  | main                      | No profile links discovered for seed: https://churchescanada.com/
+2026-07-05 01:09:30 | INFO     | main                      | === Phase 1: crawling seed https://findachurch.ca/ ===
+2026-07-05 01:09:35 | INFO     | directory_crawler         | [https://findachurch.ca/] crawled 1 listing pages, found 37 profile links
+2026-07-05 01:09:35 | INFO     | main                      | === Phase 2+3: processing 37 profile pages for https://findachurch.ca/ ===
+2026-07-05 01:09:52 | INFO     | main                      |   ...10/37 profile pages processed
+2026-07-05 01:10:06 | INFO     | main                      |   ...20/37 profile pages processed
+2026-07-05 01:10:21 | INFO     | main                      |   ...30/37 profile pages processed
+2026-07-05 01:10:31 | INFO     | main                      | === Phase 1: crawling seed https://bgc.ca/bgc-churches ===
+2026-07-05 01:10:37 | INFO     | directory_crawler         | [https://bgc.ca/bgc-churches] crawled 1 listing pages, found 0 profile links
+2026-07-05 01:10:37 | WARNING  | main                      | No profile links discovered for seed: https://bgc.ca/bgc-churches
+2026-07-05 01:10:37 | INFO     | main                      | === Phase 1: crawling seed https://presbyterian.ca/congregations ===
+2026-07-05 01:10:42 | WARNING  | directory_crawler         | Listing page fetch failed (http_404): https://presbyterian.ca/congregations
+2026-07-05 01:10:42 | INFO     | directory_crawler         | [https://presbyterian.ca/congregations] crawled 1 listing pages, found 0 profile links
+2026-07-05 01:10:42 | WARNING  | main                      | No profile links discovered for seed: https://presbyterian.ca/congregations
+2026-07-05 01:10:42 | INFO     | main                      | === Phase 1: crawling seed https://anglican.ca/ ===
+2026-07-05 01:10:49 | INFO     | directory_crawler         | [https://anglican.ca/] crawled 1 listing pages, found 24 profile links
+2026-07-05 01:10:49 | INFO     | main                      | === Phase 2+3: processing 24 profile pages for https://anglican.ca/ ===
+2026-07-05 01:11:11 | INFO     | main                      |   ...10/24 profile pages processed
+2026-07-05 01:11:26 | INFO     | main                      |   ...20/24 profile pages processed
+2026-07-05 01:11:32 | INFO     | main                      | === Phase 1: crawling seed https://acc.org.au/ ===
+2026-07-05 01:11:43 | INFO     | directory_crawler         | [https://acc.org.au/] crawled 2 listing pages, found 0 profile links
+2026-07-05 01:11:43 | WARNING  | main                      | No profile links discovered for seed: https://acc.org.au/
+2026-07-05 01:11:43 | INFO     | main                      | === Phase 1: crawling seed https://anglican.org.au/ ===
+2026-07-05 01:11:48 | INFO     | directory_crawler         | [https://anglican.org.au/] crawled 1 listing pages, found 48 profile links
+2026-07-05 01:11:48 | INFO     | main                      | === Phase 2+3: processing 48 profile pages for https://anglican.org.au/ ===
+2026-07-05 01:12:04 | INFO     | main                      |   ...10/48 profile pages processed
+2026-07-05 01:12:22 | INFO     | main                      |   ...20/48 profile pages processed
+2026-07-05 01:12:25 | WARNING  | http_client               | 429 from anglican.org.au, backing off 4.0s
+2026-07-05 01:12:26 | WARNING  | http_client               | 429 from anglican.org.au, backing off 4.0s
+2026-07-05 01:12:27 | WARNING  | http_client               | 429 from anglican.org.au, backing off 4.0s
+2026-07-05 01:12:28 | WARNING  | http_client               | 429 from anglican.org.au, backing off 4.0s
+2026-07-05 01:12:34 | WARNING  | http_client               | 429 from anglican.org.au, backing off 4.0s
+2026-07-05 01:12:45 | WARNING  | http_client               | 429 from anglican.org.au, backing off 8.0s
+2026-07-05 01:12:46 | WARNING  | http_client               | 429 from anglican.org.au, backing off 8.0s
+2026-07-05 01:12:49 | WARNING  | http_client               | 429 from anglican.org.au, backing off 8.0s
+2026-07-05 01:12:50 | WARNING  | http_client               | 429 from anglican.org.au, backing off 4.0s
+2026-07-05 01:12:50 | WARNING  | http_client               | 429 from anglican.org.au, backing off 8.0s
+2026-07-05 01:13:05 | WARNING  | http_client               | 429 from anglican.org.au, backing off 12.0s
+2026-07-05 01:13:06 | WARNING  | http_client               | 429 from anglican.org.au, backing off 12.0s
+2026-07-05 01:13:10 | WARNING  | http_client               | 429 from anglican.org.au, backing off 4.0s
+2026-07-05 01:13:11 | WARNING  | http_client               | 429 from anglican.org.au, backing off 4.0s
+2026-07-05 01:13:21 | ERROR    | http_client               | Giving up on https://anglican.org.au/our-work after 3 attempts
+2026-07-05 01:13:21 | ERROR    | http_client               | Giving up on https://anglican.org.au/our-work/children-and-youth-ministry after 3 attempts
+2026-07-05 01:13:21 | INFO     | main                      |   ...30/48 profile pages processed
+2026-07-05 01:13:29 | WARNING  | http_client               | 429 from anglican.org.au, backing off 4.0s
+2026-07-05 01:13:31 | WARNING  | http_client               | 429 from anglican.org.au, backing off 4.0s
+2026-07-05 01:13:31 | WARNING  | http_client               | 429 from anglican.org.au, backing off 4.0s
+2026-07-05 01:13:42 | WARNING  | http_client               | 429 from anglican.org.au, backing off 4.0s
+2026-07-05 01:13:43 | WARNING  | http_client               | 429 from anglican.org.au, backing off 8.0s
+2026-07-05 01:13:44 | WARNING  | http_client               | 429 from anglican.org.au, backing off 8.0s
+2026-07-05 01:13:47 | WARNING  | http_client               | 429 from anglican.org.au, backing off 4.0s
+2026-07-05 01:13:56 | INFO     | main                      |   ...40/48 profile pages processed
+2026-07-05 01:14:00 | WARNING  | http_client               | 429 from anglican.org.au, backing off 12.0s
+2026-07-05 01:14:01 | WARNING  | http_client               | 429 from anglican.org.au, backing off 4.0s
+2026-07-05 01:14:07 | WARNING  | http_client               | 429 from anglican.org.au, backing off 4.0s
+2026-07-05 01:14:17 | ERROR    | http_client               | Giving up on https://anglican.org.au/our-work/migrants-refugees after 3 attempts
+2026-07-05 01:14:20 | INFO     | main                      | === Phase 1: crawling seed https://uniting.church/ ===
+2026-07-05 01:14:23 | INFO     | directory_crawler         | [https://uniting.church/] crawled 1 listing pages, found 0 profile links
+2026-07-05 01:14:23 | WARNING  | main                      | No profile links discovered for seed: https://uniting.church/
+2026-07-05 01:14:23 | INFO     | main                      | === Phase 1: crawling seed https://ncls.org.au/ ===
+2026-07-05 01:14:35 | INFO     | directory_crawler         | [https://ncls.org.au/] crawled 1 listing pages, found 86 profile links
+2026-07-05 01:14:35 | INFO     | main                      | === Phase 2+3: processing 86 profile pages for https://ncls.org.au/ ===
+2026-07-05 01:14:53 | INFO     | main                      |   ...10/86 profile pages processed
+2026-07-05 01:15:08 | INFO     | main                      |   ...20/86 profile pages processed
+2026-07-05 01:15:27 | INFO     | main                      |   ...30/86 profile pages processed
+2026-07-05 01:15:42 | INFO     | main                      |   ...40/86 profile pages processed
+2026-07-05 01:16:00 | INFO     | main                      |   ...50/86 profile pages processed
+2026-07-05 01:16:12 | INFO     | main                      |   ...60/86 profile pages processed
+2026-07-05 01:16:29 | INFO     | main                      |   ...70/86 profile pages processed
+2026-07-05 01:16:44 | INFO     | main                      |   ...80/86 profile pages processed
+2026-07-05 01:16:47 | WARNING  | http_client               | Attempt 1/3 failed for https://ncls.org.au/research/library: Exceeded 30 redirects.
+2026-07-05 01:16:47 | ERROR    | http_client               | Giving up on https://ncls.org.au/research/library after 3 attempts
+2026-07-05 01:16:52 | INFO     | main                      | === Phase 1: crawling seed https://joinmychurch.com/ ===
+2026-07-05 01:17:01 | INFO     | directory_crawler         | [https://joinmychurch.com/] crawled 1 listing pages, found 109 profile links
+2026-07-05 01:17:01 | INFO     | main                      | === Phase 2+3: processing 109 profile pages for https://joinmychurch.com/ ===
+2026-07-05 01:17:20 | INFO     | main                      |   ...10/109 profile pages processed
+2026-07-05 01:17:36 | INFO     | main                      |   ...20/109 profile pages processed
+2026-07-05 01:17:49 | INFO     | main                      |   ...30/109 profile pages processed
+2026-07-05 01:18:05 | INFO     | main                      |   ...40/109 profile pages processed
+2026-07-05 01:18:19 | INFO     | main                      |   ...50/109 profile pages processed
+2026-07-05 01:18:34 | INFO     | main                      |   ...60/109 profile pages processed
+2026-07-05 01:18:50 | INFO     | main                      |   ...70/109 profile pages processed
+2026-07-05 01:19:04 | INFO     | main                      |   ...80/109 profile pages processed
+2026-07-05 01:19:20 | INFO     | main                      |   ...90/109 profile pages processed
+2026-07-05 01:19:34 | INFO     | main                      |   ...100/109 profile pages processed
+2026-07-05 01:19:48 | INFO     | main                      | === Phase 1: crawling seed https://sbc.net/ ===
+2026-07-05 01:19:58 | INFO     | directory_crawler         | [https://sbc.net/] crawled 1 listing pages, found 17 profile links
+2026-07-05 01:19:58 | INFO     | main                      | === Phase 2+3: processing 17 profile pages for https://sbc.net/ ===
+2026-07-05 01:20:17 | INFO     | main                      |   ...10/17 profile pages processed
+2026-07-05 01:20:28 | INFO     | main                      | === Phase 1: crawling seed https://elca.org/ ===
+2026-07-05 01:20:39 | INFO     | directory_crawler         | [https://elca.org/] crawled 1 listing pages, found 79 profile links
+2026-07-05 01:20:39 | INFO     | main                      | === Phase 2+3: processing 79 profile pages for https://elca.org/ ===
+2026-07-05 01:20:57 | INFO     | main                      |   ...10/79 profile pages processed
+2026-07-05 01:21:10 | INFO     | main                      |   ...20/79 profile pages processed
+2026-07-05 01:21:25 | INFO     | main                      |   ...30/79 profile pages processed
+2026-07-05 01:21:40 | INFO     | main                      |   ...40/79 profile pages processed
+2026-07-05 01:21:54 | INFO     | main                      |   ...50/79 profile pages processed
+2026-07-05 01:22:10 | INFO     | main                      |   ...60/79 profile pages processed
+2026-07-05 01:22:25 | INFO     | main                      |   ...70/79 profile pages processed
+2026-07-05 01:22:39 | INFO     | main                      | === Phase 1: crawling seed https://pcusa.org/ ===
+2026-07-05 01:25:32 | INFO     | directory_crawler         | [https://pcusa.org/] crawled 50 listing pages, found 523 profile links
+2026-07-05 01:25:32 | INFO     | main                      | === Phase 2+3: processing 523 profile pages for https://pcusa.org/ ===
+2026-07-05 01:25:49 | INFO     | main                      |   ...10/523 profile pages processed
+2026-07-05 01:26:03 | INFO     | main                      |   ...20/523 profile pages processed
+2026-07-05 01:26:18 | INFO     | main                      |   ...30/523 profile pages processed
+2026-07-05 01:26:35 | INFO     | main                      |   ...40/523 profile pages processed
+2026-07-05 01:26:49 | INFO     | main                      |   ...50/523 profile pages processed
+2026-07-05 01:27:04 | INFO     | main                      |   ...60/523 profile pages processed
+2026-07-05 01:27:20 | INFO     | main                      |   ...70/523 profile pages processed
+2026-07-05 01:27:34 | INFO     | main                      |   ...80/523 profile pages processed
+2026-07-05 01:27:49 | INFO     | main                      |   ...90/523 profile pages processed
+2026-07-05 01:28:04 | INFO     | main                      |   ...100/523 profile pages processed
+2026-07-05 01:28:19 | INFO     | main                      |   ...110/523 profile pages processed
+2026-07-05 01:28:34 | INFO     | main                      |   ...120/523 profile pages processed
+2026-07-05 01:28:50 | INFO     | main                      |   ...130/523 profile pages processed
+2026-07-05 01:29:05 | INFO     | main                      |   ...140/523 profile pages processed
+2026-07-05 01:29:20 | INFO     | main                      |   ...150/523 profile pages processed
+2026-07-05 01:29:35 | INFO     | main                      |   ...160/523 profile pages processed
+2026-07-05 01:29:49 | INFO     | main                      |   ...170/523 profile pages processed
+2026-07-05 01:30:05 | INFO     | main                      |   ...180/523 profile pages processed
+2026-07-05 01:30:20 | INFO     | main                      |   ...190/523 profile pages processed
+2026-07-05 01:30:34 | INFO     | main                      |   ...200/523 profile pages processed
+2026-07-05 01:30:49 | INFO     | main                      |   ...210/523 profile pages processed
+2026-07-05 01:31:04 | INFO     | main                      |   ...220/523 profile pages processed
+2026-07-05 01:31:19 | INFO     | main                      |   ...230/523 profile pages processed
+2026-07-05 01:31:33 | INFO     | main                      |   ...240/523 profile pages processed
+2026-07-05 01:31:49 | INFO     | main                      |   ...250/523 profile pages processed
+2026-07-05 01:32:04 | INFO     | main                      |   ...260/523 profile pages processed
+2026-07-05 01:32:20 | INFO     | main                      |   ...270/523 profile pages processed
+2026-07-05 01:32:33 | INFO     | main                      |   ...280/523 profile pages processed
+2026-07-05 01:32:49 | INFO     | main                      |   ...290/523 profile pages processed
+2026-07-05 01:33:04 | INFO     | main                      |   ...300/523 profile pages processed
+2026-07-05 01:33:19 | INFO     | main                      |   ...310/523 profile pages processed
+2026-07-05 01:33:34 | INFO     | main                      |   ...320/523 profile pages processed
+2026-07-05 01:33:49 | INFO     | main                      |   ...330/523 profile pages processed
+2026-07-05 01:34:04 | INFO     | main                      |   ...340/523 profile pages processed
+2026-07-05 01:34:19 | INFO     | main                      |   ...350/523 profile pages processed
+2026-07-05 01:34:34 | INFO     | main                      |   ...360/523 profile pages processed
+2026-07-05 01:34:49 | INFO     | main                      |   ...370/523 profile pages processed
+2026-07-05 01:35:03 | INFO     | main                      |   ...380/523 profile pages processed
+2026-07-05 01:35:20 | INFO     | main                      |   ...390/523 profile pages processed
+2026-07-05 01:35:36 | INFO     | main                      |   ...400/523 profile pages processed
+2026-07-05 01:35:51 | INFO     | main                      |   ...410/523 profile pages processed
+2026-07-05 01:36:06 | INFO     | main                      |   ...420/523 profile pages processed
+2026-07-05 01:36:20 | INFO     | main                      |   ...430/523 profile pages processed
+2026-07-05 01:36:35 | INFO     | main                      |   ...440/523 profile pages processed
+2026-07-05 01:36:52 | INFO     | main                      |   ...450/523 profile pages processed
+2026-07-05 01:37:06 | INFO     | main                      |   ...460/523 profile pages processed
+2026-07-05 01:37:19 | INFO     | main                      |   ...470/523 profile pages processed
+2026-07-05 01:37:34 | INFO     | main                      |   ...480/523 profile pages processed
+2026-07-05 01:37:49 | INFO     | main                      |   ...490/523 profile pages processed
+2026-07-05 01:38:04 | INFO     | main                      |   ...500/523 profile pages processed
+2026-07-05 01:38:21 | INFO     | main                      |   ...510/523 profile pages processed
+2026-07-05 01:38:34 | INFO     | main                      |   ...520/523 profile pages processed
+2026-07-05 01:38:40 | INFO     | main                      | === Phase 1: crawling seed https://umc.org/ ===
+2026-07-05 01:38:52 | INFO     | directory_crawler         | [https://umc.org/] crawled 1 listing pages, found 43 profile links
+2026-07-05 01:38:52 | INFO     | main                      | === Phase 2+3: processing 43 profile pages for https://umc.org/ ===
+2026-07-05 01:39:10 | INFO     | main                      |   ...10/43 profile pages processed
+2026-07-05 01:39:25 | INFO     | main                      |   ...20/43 profile pages processed
+2026-07-05 01:39:41 | INFO     | main                      |   ...30/43 profile pages processed
+2026-07-05 01:39:56 | INFO     | main                      |   ...40/43 profile pages processed
+2026-07-05 01:40:00 | INFO     | main                      | === Phase 1: crawling seed https://episcopalchurch.org/ ===
+2026-07-05 01:40:10 | INFO     | directory_crawler         | [https://episcopalchurch.org/] crawled 1 listing pages, found 43 profile links
+2026-07-05 01:40:10 | INFO     | main                      | === Phase 2+3: processing 43 profile pages for https://episcopalchurch.org/ ===
+2026-07-05 01:40:30 | INFO     | main                      |   ...10/43 profile pages processed
+2026-07-05 01:40:46 | INFO     | main                      |   ...20/43 profile pages processed
+2026-07-05 01:41:01 | INFO     | main                      |   ...30/43 profile pages processed
+2026-07-05 01:41:15 | INFO     | main                      |   ...40/43 profile pages processed
+2026-07-05 01:41:19 | INFO     | main                      | === Phase 1: crawling seed https://ag.org/ ===
+2026-07-05 01:41:22 | WARNING  | directory_crawler         | Listing page fetch failed (http_403): https://ag.org/
+2026-07-05 01:41:22 | INFO     | directory_crawler         | [https://ag.org/] crawled 1 listing pages, found 0 profile links
+2026-07-05 01:41:22 | WARNING  | main                      | No profile links discovered for seed: https://ag.org/
+2026-07-05 01:41:22 | INFO     | main                      | === Phase 1: crawling seed https://assemblies.org.uk/ ===
+2026-07-05 01:41:25 | WARNING  | http_client               | Attempt 1/3 failed for https://assemblies.org.uk/: HTTPSConnectionPool(host='assemblies.org.uk', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'assemblies.org.uk'. (_ssl.c:1081)")))
+2026-07-05 01:41:25 | ERROR    | http_client               | Giving up on https://assemblies.org.uk/ after 3 attempts
+2026-07-05 01:41:25 | WARNING  | directory_crawler         | Listing page fetch failed (failed): https://assemblies.org.uk/
+2026-07-05 01:41:25 | INFO     | directory_crawler         | [https://assemblies.org.uk/] crawled 1 listing pages, found 0 profile links
+2026-07-05 01:41:25 | WARNING  | main                      | No profile links discovered for seed: https://assemblies.org.uk/
+2026-07-05 01:41:25 | INFO     | main                      | === Phase 1: crawling seed https://presbyterianmission.org/ ===
+2026-07-05 01:41:37 | INFO     | directory_crawler         | [https://presbyterianmission.org/] crawled 4 listing pages, found 114 profile links
+2026-07-05 01:41:37 | INFO     | main                      | === Phase 2+3: processing 114 profile pages for https://presbyterianmission.org/ ===
+2026-07-05 01:41:53 | INFO     | main                      |   ...10/114 profile pages processed
+2026-07-05 01:42:09 | INFO     | main                      |   ...20/114 profile pages processed
+2026-07-05 01:42:23 | INFO     | main                      |   ...30/114 profile pages processed
+2026-07-05 01:42:38 | INFO     | main                      |   ...40/114 profile pages processed
+2026-07-05 01:42:52 | INFO     | main                      |   ...50/114 profile pages processed
+2026-07-05 01:43:08 | INFO     | main                      |   ...60/114 profile pages processed
+2026-07-05 01:43:23 | INFO     | main                      |   ...70/114 profile pages processed
+2026-07-05 01:43:37 | INFO     | main                      |   ...80/114 profile pages processed
+2026-07-05 01:43:54 | INFO     | main                      |   ...90/114 profile pages processed
+2026-07-05 01:44:08 | INFO     | main                      |   ...100/114 profile pages processed
+2026-07-05 01:44:24 | INFO     | main                      |   ...110/114 profile pages processed
+2026-07-05 01:44:29 | INFO     | main                      | === Phase 4+5: crawling 105 discovered websites (5 already done) ===
+2026-07-05 01:44:35 | WARNING  | http_client               | Attempt 1/3 failed for https://achurchesdirectory.com.au/: HTTPSConnectionPool(host='achurchesdirectory.com.au', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("HTTPSConnection(host='achurchesdirectory.com.au', port=443): Failed to resolve 'achurchesdirectory.com.au' ([Errno 11001] getaddrinfo failed)"))
+2026-07-05 01:44:35 | ERROR    | http_client               | Giving up on https://achurchesdirectory.com.au/ after 3 attempts
+2026-07-05 01:44:37 | WARNING  | http_client               | Attempt 1/3 failed for https://achurchesdirectory.com.au/contact: HTTPSConnectionPool(host='achurchesdirectory.com.au', port=443): Max retries exceeded with url: /contact (Caused by NameResolutionError("HTTPSConnection(host='achurchesdirectory.com.au', port=443): Failed to resolve 'achurchesdirectory.com.au' ([Errno 11001] getaddrinfo failed)"))
+2026-07-05 01:44:37 | ERROR    | http_client               | Giving up on https://achurchesdirectory.com.au/contact after 3 attempts
+2026-07-05 01:44:53 | WARNING  | http_client               | Attempt 1/3 failed for https://achurchesdirectory.com.au/contact-us: HTTPSConnectionPool(host='achurchesdirectory.com.au', port=443): Max retries exceeded with url: /contact-us (Caused by NameResolutionError("HTTPSConnection(host='achurchesdirectory.com.au', port=443): Failed to resolve 'achurchesdirectory.com.au' ([Errno 11001] getaddrinfo failed)"))
+2026-07-05 01:44:53 | ERROR    | http_client               | Giving up on https://achurchesdirectory.com.au/contact-us after 3 attempts
+2026-07-05 01:44:57 | WARNING  | http_client               | Attempt 1/3 failed for https://achurchesdirectory.com.au/contactus: HTTPSConnectionPool(host='achurchesdirectory.com.au', port=443): Max retries exceeded with url: /contactus (Caused by NameResolutionError("HTTPSConnection(host='achurchesdirectory.com.au', port=443): Failed to resolve 'achurchesdirectory.com.au' ([Errno 11001] getaddrinfo failed)"))
+2026-07-05 01:44:57 | ERROR    | http_client               | Giving up on https://achurchesdirectory.com.au/contactus after 3 attempts
+2026-07-05 01:44:59 | INFO     | http_client               | Detected anti-bot at https://acahome.org/contact. Falling back to Playwright.
+2026-07-05 01:45:01 | WARNING  | http_client               | Attempt 1/3 failed for https://achurchesdirectory.com.au/about: HTTPSConnectionPool(host='achurchesdirectory.com.au', port=443): Max retries exceeded with url: /about (Caused by NameResolutionError("HTTPSConnection(host='achurchesdirectory.com.au', port=443): Failed to resolve 'achurchesdirectory.com.au' ([Errno 11001] getaddrinfo failed)"))
+2026-07-05 01:45:01 | ERROR    | http_client               | Giving up on https://achurchesdirectory.com.au/about after 3 attempts
+2026-07-05 01:45:02 | WARNING  | http_client               | Attempt 1/3 failed for https://achurchesdirectory.com.au/about-us: HTTPSConnectionPool(host='achurchesdirectory.com.au', port=443): Max retries exceeded with url: /about-us (Caused by NameResolutionError("HTTPSConnection(host='achurchesdirectory.com.au', port=443): Failed to resolve 'achurchesdirectory.com.au' ([Errno 11001] getaddrinfo failed)"))
+2026-07-05 01:45:02 | ERROR    | http_client               | Giving up on https://achurchesdirectory.com.au/about-us after 3 attempts
+2026-07-05 01:45:02 | INFO     | http_client               | Detected anti-bot at https://acahome.org/contact-us. Falling back to Playwright.
+2026-07-05 01:45:04 | WARNING  | http_client               | Attempt 1/3 failed for https://achurchesdirectory.com.au/team: HTTPSConnectionPool(host='achurchesdirectory.com.au', port=443): Max retries exceeded with url: /team (Caused by NameResolutionError("HTTPSConnection(host='achurchesdirectory.com.au', port=443): Failed to resolve 'achurchesdirectory.com.au' ([Errno 11001] getaddrinfo failed)"))
+2026-07-05 01:45:04 | ERROR    | http_client               | Giving up on https://achurchesdirectory.com.au/team after 3 attempts
+2026-07-05 01:45:04 | INFO     | http_client               | Detected anti-bot at https://acahome.org/contactus. Falling back to Playwright.
+2026-07-05 01:45:05 | WARNING  | http_client               | Attempt 1/3 failed for https://achurchesdirectory.com.au/staff: HTTPSConnectionPool(host='achurchesdirectory.com.au', port=443): Max retries exceeded with url: /staff (Caused by NameResolutionError("HTTPSConnection(host='achurchesdirectory.com.au', port=443): Failed to resolve 'achurchesdirectory.com.au' ([Errno 11001] getaddrinfo failed)"))
+2026-07-05 01:45:05 | ERROR    | http_client               | Giving up on https://achurchesdirectory.com.au/staff after 3 attempts
+2026-07-05 01:45:07 | WARNING  | http_client               | Attempt 1/3 failed for https://achurchesdirectory.com.au/leadership: HTTPSConnectionPool(host='achurchesdirectory.com.au', port=443): Max retries exceeded with url: /leadership (Caused by NameResolutionError("HTTPSConnection(host='achurchesdirectory.com.au', port=443): Failed to resolve 'achurchesdirectory.com.au' ([Errno 11001] getaddrinfo failed)"))
+2026-07-05 01:45:07 | ERROR    | http_client               | Giving up on https://achurchesdirectory.com.au/leadership after 3 attempts
+2026-07-05 01:45:08 | WARNING  | http_client               | Attempt 1/3 failed for https://achurchesdirectory.com.au/support: HTTPSConnectionPool(host='achurchesdirectory.com.au', port=443): Max retries exceeded with url: /support (Caused by NameResolutionError("HTTPSConnection(host='achurchesdirectory.com.au', port=443): Failed to resolve 'achurchesdirectory.com.au' ([Errno 11001] getaddrinfo failed)"))
+2026-07-05 01:45:08 | ERROR    | http_client               | Giving up on https://achurchesdirectory.com.au/support after 3 attempts
+2026-07-05 01:45:10 | WARNING  | http_client               | Attempt 1/3 failed for https://achurchesdirectory.com.au/connect: HTTPSConnectionPool(host='achurchesdirectory.com.au', port=443): Max retries exceeded with url: /connect (Caused by NameResolutionError("HTTPSConnection(host='achurchesdirectory.com.au', port=443): Failed to resolve 'achurchesdirectory.com.au' ([Errno 11001] getaddrinfo failed)"))
+2026-07-05 01:45:10 | ERROR    | http_client               | Giving up on https://achurchesdirectory.com.au/connect after 3 attempts
+2026-07-05 01:45:11 | WARNING  | http_client               | Attempt 1/3 failed for https://achurchesdirectory.com.au/privacy: HTTPSConnectionPool(host='achurchesdirectory.com.au', port=443): Max retries exceeded with url: /privacy (Caused by NameResolutionError("HTTPSConnection(host='achurchesdirectory.com.au', port=443): Failed to resolve 'achurchesdirectory.com.au' ([Errno 11001] getaddrinfo failed)"))
+2026-07-05 01:45:11 | ERROR    | http_client               | Giving up on https://achurchesdirectory.com.au/privacy after 3 attempts
+2026-07-05 01:45:13 | WARNING  | http_client               | Attempt 1/3 failed for https://achurchesdirectory.com.au/sitemap.xml: HTTPSConnectionPool(host='achurchesdirectory.com.au', port=443): Max retries exceeded with url: /sitemap.xml (Caused by NameResolutionError("HTTPSConnection(host='achurchesdirectory.com.au', port=443): Failed to resolve 'achurchesdirectory.com.au' ([Errno 11001] getaddrinfo failed)"))
+2026-07-05 01:45:13 | ERROR    | http_client               | Giving up on https://achurchesdirectory.com.au/sitemap.xml after 3 attempts
+2026-07-05 01:45:13 | INFO     | website_crawler           | [https://achurchesdirectory.com.au/] crawled 13 pages -> 0 emails, 0 phones
+2026-07-05 01:45:20 | INFO     | http_client               | Skipping (robots.txt disallow): https://christianity.com/search
+2026-07-05 01:45:20 | INFO     | http_client               | Skipping (robots.txt disallow): https://netministry.com/manage/apps/support/deploy/help?view=ticket&fldTicketID=0&fldTicketType=Technical%20Support
+2026-07-05 01:45:20 | INFO     | http_client               | Skipping (robots.txt disallow): https://netministry.com/manage/apps/support/deploy/help?view=ticket&fldTicketID=0&fldTicketType=Project Issues
+2026-07-05 01:45:31 | INFO     | http_client               | Detected anti-bot at https://acahome.org/contactnow.html. Falling back to Playwright.
+2026-07-05 01:45:49 | INFO     | website_crawler           | [https://app.church.org/find-a-church] crawled 21 pages -> 0 emails, 0 phones
+2026-07-05 01:46:12 | INFO     | website_crawler           | [https://netministry.com/lp/Affordable-Church-Websites/99-Church-Websites?affiliateid=3414] crawled 40 pages -> 1 emails, 4 phones
+2026-07-05 01:46:15 | INFO     | website_crawler           | [https://christianity.com/] crawled 40 pages -> 0 emails, 0 phones
+2026-07-05 01:46:20 | INFO     | website_crawler           | [https://acahome.org/tac/index.htm] crawled 40 pages -> 0 emails, 5 phones
+2026-07-05 01:46:21 | INFO     | website_crawler           | [https://churchfinder.com/] crawled 40 pages -> 0 emails, 11 phones
+2026-07-05 01:46:37 | INFO     | website_crawler           | [https://boxhead.io/] crawled 24 pages -> 0 emails, 1 phones
+2026-07-05 01:46:59 | INFO     | website_crawler           | [https://ets.ac.uk/] crawled 13 pages -> 0 emails, 0 phones
+2026-07-05 01:47:02 | INFO     | http_client               | Detected anti-bot at https://uk.bookshop.org/. Falling back to Playwright.
+2026-07-05 01:47:04 | INFO     | http_client               | Detected anti-bot at https://uk.bookshop.org/contact. Falling back to Playwright.
+2026-07-05 01:47:05 | INFO     | http_client               | Detected anti-bot at https://uk.bookshop.org/lists/bibles-d7b02c1f-2669-4a6c-b3fd-3938ae23a571. Falling back to Playwright.
+2026-07-05 01:47:06 | INFO     | http_client               | Detected anti-bot at https://uk.bookshop.org/contact-us. Falling back to Playwright.
+2026-07-05 01:47:08 | INFO     | http_client               | Detected anti-bot at https://uk.bookshop.org/contactus. Falling back to Playwright.
+2026-07-05 01:47:09 | INFO     | http_client               | Detected anti-bot at https://uk.bookshop.org/about. Falling back to Playwright.
+2026-07-05 01:47:11 | INFO     | http_client               | Detected anti-bot at https://uk.bookshop.org/about-us. Falling back to Playwright.
+2026-07-05 01:47:12 | INFO     | http_client               | Detected anti-bot at https://uk.bookshop.org/team. Falling back to Playwright.
+2026-07-05 01:47:14 | INFO     | http_client               | Detected anti-bot at https://uk.bookshop.org/staff. Falling back to Playwright.
+2026-07-05 01:47:15 | INFO     | http_client               | Detected anti-bot at https://uk.bookshop.org/leadership. Falling back to Playwright.
+2026-07-05 01:47:17 | INFO     | http_client               | Detected anti-bot at https://uk.bookshop.org/support. Falling back to Playwright.
+2026-07-05 01:47:18 | INFO     | http_client               | Detected anti-bot at https://uk.bookshop.org/connect. Falling back to Playwright.
+2026-07-05 01:47:20 | INFO     | http_client               | Detected anti-bot at https://uk.bookshop.org/privacy. Falling back to Playwright.
+2026-07-05 01:47:20 | INFO     | website_crawler           | [https://uk.10ofthose.com/] crawled 40 pages -> 0 emails, 142 phones
+2026-07-05 01:47:21 | INFO     | http_client               | Detected anti-bot at https://uk.bookshop.org/sitemap.xml. Falling back to Playwright.
+2026-07-05 01:47:22 | INFO     | website_crawler           | [https://register-of-charities.charitycommission.gov.uk/charity-search/-/charity-details/5083144/charity-overview] crawled 40 pages -> 2 emails, 15 phones
+2026-07-05 01:47:22 | INFO     | main                      |   ...10/105 websites processed
+2026-07-05 01:47:27 | INFO     | website_crawler           | [https://visitblackpool.com/all-accommodation] crawled 40 pages -> 8 emails, 8 phones
+2026-07-05 01:47:42 | INFO     | website_crawler           | [https://apassionforlife.org.uk/] crawled 40 pages -> 2 emails, 1 phones
+2026-07-05 01:47:53 | INFO     | website_crawler           | [https://uk.bookshop.org/lists/bibles-d7b02c1f-2669-4a6c-b3fd-3938ae23a571] crawled 14 pages -> 0 emails, 1 phones
+2026-07-05 01:48:28 | INFO     | website_crawler           | [https://ealistings.co.uk/?utm_source=eaukorg] crawled 40 pages -> 0 emails, 11 phones
+2026-07-05 01:48:32 | INFO     | website_crawler           | [https://homeforgood.org.uk/] crawled 40 pages -> 0 emails, 23 phones
+2026-07-05 01:48:36 | INFO     | website_crawler           | [https://bbc.co.uk/religion/religions/christianity/texts/bible.shtml] crawled 40 pages -> 0 emails, 5 phones
+2026-07-05 01:48:45 | INFO     | website_crawler           | [https://israelolofinjana.wordpress.com/] crawled 40 pages -> 2 emails, 177 phones
+2026-07-05 01:48:51 | INFO     | website_crawler           | [https://wa.me/?text=[[title_url]]%20-%20[[url]]] crawled 14 pages -> 0 emails, 0 phones
+2026-07-05 01:48:53 | INFO     | http_client               | Skipping (robots.txt disallow): https://link.springer.com/contact
+2026-07-05 01:48:53 | INFO     | http_client               | Skipping (robots.txt disallow): https://link.springer.com/contact-us
+2026-07-05 01:48:53 | INFO     | http_client               | Skipping (robots.txt disallow): https://link.springer.com/contactus
+2026-07-05 01:48:53 | INFO     | http_client               | Skipping (robots.txt disallow): https://link.springer.com/team
+2026-07-05 01:48:53 | INFO     | http_client               | Skipping (robots.txt disallow): https://link.springer.com/staff
+2026-07-05 01:48:53 | INFO     | http_client               | Skipping (robots.txt disallow): https://link.springer.com/leadership
+2026-07-05 01:48:53 | INFO     | http_client               | Skipping (robots.txt disallow): https://link.springer.com/support
+2026-07-05 01:48:53 | INFO     | http_client               | Skipping (robots.txt disallow): https://link.springer.com/connect
+2026-07-05 01:48:53 | INFO     | http_client               | Skipping (robots.txt disallow): https://link.springer.com/privacy
+2026-07-05 01:48:57 | INFO     | website_crawler           | [https://beinghumanlens.com/] crawled 40 pages -> 0 emails, 97 phones
+2026-07-05 01:49:03 | INFO     | http_client               | Skipping (robots.txt disallow): https://link.springer.com/saved-research
+2026-07-05 01:49:03 | INFO     | http_client               | Skipping (robots.txt disallow): https://link.springer.com/article/10.1007/s13644-022-00520-2/save-research?_csrf=kmn9NGCoz_lpGmDRRcMdHzLi48RsOb6-
+2026-07-05 01:49:03 | INFO     | http_client               | Skipping (robots.txt disallow): https://link.springer.com/article/10.1007/s13644-022-00520-2/metrics
+2026-07-05 01:49:03 | INFO     | http_client               | Skipping (robots.txt disallow): https://link.springer.com/article/10.1007/s13644-022-00520-2/tables/1
+2026-07-05 01:49:03 | INFO     | http_client               | Skipping (robots.txt disallow): https://link.springer.com/article/10.1007/s13644-022-00520-2/tables/2
+2026-07-05 01:49:27 | INFO     | http_client               | Skipping (robots.txt disallow): https://link.springer.com/search?sortBy=newestFirst&contributor=Sarah%20E.%20Holmes
+2026-07-05 01:49:27 | INFO     | http_client               | Skipping (robots.txt disallow): https://link.springer.com/search?query=Christian%20faith&facet-discipline="Social%20Sciences"
+2026-07-05 01:49:27 | INFO     | http_client               | Skipping (robots.txt disallow): https://link.springer.com/search?query=Grandparents&facet-discipline="Social%20Sciences"
+2026-07-05 01:49:27 | INFO     | http_client               | Skipping (robots.txt disallow): https://link.springer.com/search?query=Discourse%20analysis&facet-discipline="Social%20Sciences"
+2026-07-05 01:49:27 | INFO     | http_client               | Skipping (robots.txt disallow): https://link.springer.com/search?query=Child&facet-discipline="Social%20Sciences"
+2026-07-05 01:49:27 | INFO     | http_client               | Skipping (robots.txt disallow): https://link.springer.com/search?query=Family&facet-discipline="Social%20Sciences"
+2026-07-05 01:49:27 | INFO     | http_client               | Skipping (robots.txt disallow): https://link.springer.com/search?query=Spiritual%20heritage&facet-discipline="Social%20Sciences"
+2026-07-05 01:49:31 | INFO     | website_crawler           | [https://link.springer.com/article/10.1007/s13644-022-00520-2] crawled 40 pages -> 3 emails, 6432 phones
+2026-07-05 01:49:31 | INFO     | main                      |   ...20/105 websites processed
+2026-07-05 01:49:46 | INFO     | website_crawler           | [https://worldea.org/] crawled 40 pages -> 0 emails, 38 phones
+2026-07-05 01:49:53 | INFO     | website_crawler           | [https://bbc.co.uk/news/articles/cd0mdzvp9kgo] crawled 40 pages -> 0 emails, 1 phones
+2026-07-05 01:50:09 | INFO     | website_crawler           | [https://open.spotify.com/show/5O1FndGS6NmmDSYPXXhwYr] crawled 14 pages -> 0 emails, 0 phones
+2026-07-05 01:50:09 | INFO     | website_crawler           | [https://4front-theatre.com/] crawled 40 pages -> 13 emails, 116 phones
+2026-07-05 01:50:24 | INFO     | website_crawler           | [https://cornerstoneresources.co.uk/hr-services/churches?utm_source=evangelical-alliance&utm_medium=banner&utm_campaign=2026-brand-awareness&utm_content=article-pages] crawled 40 pages -> 0 emails, 26 phones
+2026-07-05 01:50:38 | INFO     | website_crawler           | [https://goodnewsuk.com/findingjesus] crawled 40 pages -> 2 emails, 4 phones
+2026-07-05 01:50:42 | INFO     | website_crawler           | [https://ethos.beinghumanlens.com/] crawled 20 pages -> 0 emails, 5 phones
+2026-07-05 01:50:58 | INFO     | http_client               | Skipping (robots.txt disallow): https://mahabbanetwork.com/resource?author=6389016fe458d747c83ada4c
+2026-07-05 01:51:10 | INFO     | website_crawler           | [https://beinghumanlens.com/articles/from-rainbow-flags-to-national-flags] crawled 40 pages -> 0 emails, 97 phones
+2026-07-05 01:51:11 | INFO     | website_crawler           | [https://mahabbanetwork.com/resource/a-quick-guide-to-islam-and-sharing-faith-with-muslim-friends] crawled 40 pages -> 4 emails, 991 phones
+2026-07-05 01:51:13 | INFO     | http_client               | Detected anti-bot at https://dioceseofalgoma.com/. Falling back to Playwright.
+2026-07-05 01:51:15 | INFO     | http_client               | Detected anti-bot at https://dioceseofalgoma.com/contact. Falling back to Playwright.
+2026-07-05 01:51:16 | INFO     | http_client               | Detected anti-bot at https://dioceseofalgoma.com/contact-us. Falling back to Playwright.
+2026-07-05 01:51:18 | INFO     | http_client               | Detected anti-bot at https://dioceseofalgoma.com/contactus. Falling back to Playwright.
+2026-07-05 01:51:20 | INFO     | http_client               | Detected anti-bot at https://dioceseofalgoma.com/about. Falling back to Playwright.
+2026-07-05 01:51:21 | INFO     | http_client               | Detected anti-bot at https://dioceseofalgoma.com/about-us. Falling back to Playwright.
+2026-07-05 01:51:22 | INFO     | http_client               | Detected anti-bot at https://dioceseofalgoma.com/team. Falling back to Playwright.
+2026-07-05 01:51:24 | INFO     | http_client               | Detected anti-bot at https://dioceseofalgoma.com/staff. Falling back to Playwright.
+2026-07-05 01:51:25 | INFO     | http_client               | Detected anti-bot at https://dioceseofalgoma.com/leadership. Falling back to Playwright.
+2026-07-05 01:51:27 | INFO     | http_client               | Detected anti-bot at https://dioceseofalgoma.com/support. Falling back to Playwright.
+2026-07-05 01:51:28 | INFO     | http_client               | Detected anti-bot at https://dioceseofalgoma.com/connect. Falling back to Playwright.
+2026-07-05 01:51:30 | INFO     | http_client               | Detected anti-bot at https://dioceseofalgoma.com/privacy. Falling back to Playwright.
+2026-07-05 01:51:31 | INFO     | http_client               | Detected anti-bot at https://dioceseofalgoma.com/sitemap.xml. Falling back to Playwright.
+2026-07-05 01:51:32 | INFO     | website_crawler           | [https://bible.com/reading-plans/73543-good-news-people] crawled 40 pages -> 1 emails, 1 phones
+2026-07-05 01:51:32 | INFO     | main                      |   ...30/105 websites processed
+2026-07-05 01:51:45 | INFO     | website_crawler           | [https://findingjesus.co.uk/] crawled 39 pages -> 0 emails, 1 phones
+2026-07-05 01:51:58 | INFO     | website_crawler           | [https://dioceseofalgoma.com/] crawled 13 pages -> 0 emails, 0 phones
+2026-07-05 01:52:08 | INFO     | website_crawler           | [https://anglican.ca/] crawled 40 pages -> 0 emails, 5 phones
+2026-07-05 01:52:11 | INFO     | http_client               | Detected anti-bot at https://anglicannews.org/. Falling back to Playwright.
+2026-07-05 01:52:13 | INFO     | http_client               | Detected anti-bot at https://anglicannews.org/contact. Falling back to Playwright.
+2026-07-05 01:52:15 | INFO     | http_client               | Detected anti-bot at https://anglicannews.org/contact-us. Falling back to Playwright.
+2026-07-05 01:52:16 | INFO     | http_client               | Detected anti-bot at https://anglicannews.org/contactus. Falling back to Playwright.
+2026-07-05 01:52:17 | INFO     | http_client               | Detected anti-bot at https://anglicannews.org/about. Falling back to Playwright.
+2026-07-05 01:52:19 | INFO     | http_client               | Detected anti-bot at https://anglicannews.org/about-us. Falling back to Playwright.
+2026-07-05 01:52:20 | INFO     | website_crawler           | [https://quappelle.anglican.ca/] crawled 40 pages -> 0 emails, 406 phones
+2026-07-05 01:52:21 | INFO     | http_client               | Detected anti-bot at https://anglicannews.org/team. Falling back to Playwright.
+2026-07-05 01:52:22 | INFO     | http_client               | Detected anti-bot at https://anglicannews.org/staff. Falling back to Playwright.
+2026-07-05 01:52:23 | INFO     | http_client               | Detected anti-bot at https://anglicannews.org/leadership. Falling back to Playwright.
+2026-07-05 01:52:25 | INFO     | http_client               | Detected anti-bot at https://anglicannews.org/support. Falling back to Playwright.
+2026-07-05 01:52:27 | INFO     | http_client               | Detected anti-bot at https://anglicannews.org/connect. Falling back to Playwright.
+2026-07-05 01:52:28 | INFO     | http_client               | Detected anti-bot at https://anglicannews.org/privacy. Falling back to Playwright.
+2026-07-05 01:52:30 | INFO     | http_client               | Detected anti-bot at https://anglicannews.org/sitemap.xml. Falling back to Playwright.
+2026-07-05 01:52:39 | INFO     | website_crawler           | [https://quebec.anglican.ca/] crawled 40 pages -> 17 emails, 94 phones
+2026-07-05 01:52:51 | INFO     | website_crawler           | [https://findachurch.ca/] crawled 40 pages -> 0 emails, 15 phones
+2026-07-05 01:53:01 | INFO     | website_crawler           | [https://anglicannews.org/] crawled 13 pages -> 0 emails, 0 phones
+2026-07-05 01:53:05 | WARNING  | http_client               | Attempt 1/3 failed for https://gippsanglican.org.au/: HTTPSConnectionPool(host='gippsanglican.org.au', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gippsanglican.org.au'. (_ssl.c:1081)")))
+2026-07-05 01:53:05 | ERROR    | http_client               | Giving up on https://gippsanglican.org.au/ after 3 attempts
+2026-07-05 01:53:07 | WARNING  | http_client               | Attempt 1/3 failed for https://gippsanglican.org.au/contact: HTTPSConnectionPool(host='gippsanglican.org.au', port=443): Max retries exceeded with url: /contact (Caused by SSLError(SSLCertVerificationError(1, "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gippsanglican.org.au'. (_ssl.c:1081)")))
+2026-07-05 01:53:07 | ERROR    | http_client               | Giving up on https://gippsanglican.org.au/contact after 3 attempts
+2026-07-05 01:53:08 | WARNING  | http_client               | Attempt 1/3 failed for https://gippsanglican.org.au/contact-us: HTTPSConnectionPool(host='gippsanglican.org.au', port=443): Max retries exceeded with url: /contact-us (Caused by SSLError(SSLCertVerificationError(1, "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gippsanglican.org.au'. (_ssl.c:1081)")))
+2026-07-05 01:53:08 | ERROR    | http_client               | Giving up on https://gippsanglican.org.au/contact-us after 3 attempts
+2026-07-05 01:53:10 | WARNING  | http_client               | Attempt 1/3 failed for https://gippsanglican.org.au/contactus: HTTPSConnectionPool(host='gippsanglican.org.au', port=443): Max retries exceeded with url: /contactus (Caused by SSLError(SSLCertVerificationError(1, "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gippsanglican.org.au'. (_ssl.c:1081)")))
+2026-07-05 01:53:10 | ERROR    | http_client               | Giving up on https://gippsanglican.org.au/contactus after 3 attempts
+2026-07-05 01:53:11 | WARNING  | http_client               | Attempt 1/3 failed for https://gippsanglican.org.au/about: HTTPSConnectionPool(host='gippsanglican.org.au', port=443): Max retries exceeded with url: /about (Caused by SSLError(SSLCertVerificationError(1, "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gippsanglican.org.au'. (_ssl.c:1081)")))
+2026-07-05 01:53:11 | ERROR    | http_client               | Giving up on https://gippsanglican.org.au/about after 3 attempts
+2026-07-05 01:53:13 | WARNING  | http_client               | Attempt 1/3 failed for https://gippsanglican.org.au/about-us: HTTPSConnectionPool(host='gippsanglican.org.au', port=443): Max retries exceeded with url: /about-us (Caused by SSLError(SSLCertVerificationError(1, "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gippsanglican.org.au'. (_ssl.c:1081)")))
+2026-07-05 01:53:13 | ERROR    | http_client               | Giving up on https://gippsanglican.org.au/about-us after 3 attempts
+2026-07-05 01:53:14 | WARNING  | http_client               | Attempt 1/3 failed for https://gippsanglican.org.au/team: HTTPSConnectionPool(host='gippsanglican.org.au', port=443): Max retries exceeded with url: /team (Caused by SSLError(SSLCertVerificationError(1, "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gippsanglican.org.au'. (_ssl.c:1081)")))
+2026-07-05 01:53:14 | ERROR    | http_client               | Giving up on https://gippsanglican.org.au/team after 3 attempts
+2026-07-05 01:53:16 | WARNING  | http_client               | Attempt 1/3 failed for https://gippsanglican.org.au/staff: HTTPSConnectionPool(host='gippsanglican.org.au', port=443): Max retries exceeded with url: /staff (Caused by SSLError(SSLCertVerificationError(1, "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gippsanglican.org.au'. (_ssl.c:1081)")))
+2026-07-05 01:53:16 | ERROR    | http_client               | Giving up on https://gippsanglican.org.au/staff after 3 attempts
+2026-07-05 01:53:17 | WARNING  | http_client               | Attempt 1/3 failed for https://gippsanglican.org.au/leadership: HTTPSConnectionPool(host='gippsanglican.org.au', port=443): Max retries exceeded with url: /leadership (Caused by SSLError(SSLCertVerificationError(1, "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gippsanglican.org.au'. (_ssl.c:1081)")))
+2026-07-05 01:53:17 | ERROR    | http_client               | Giving up on https://gippsanglican.org.au/leadership after 3 attempts
+2026-07-05 01:53:19 | WARNING  | http_client               | Attempt 1/3 failed for https://gippsanglican.org.au/support: HTTPSConnectionPool(host='gippsanglican.org.au', port=443): Max retries exceeded with url: /support (Caused by SSLError(SSLCertVerificationError(1, "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gippsanglican.org.au'. (_ssl.c:1081)")))
+2026-07-05 01:53:19 | ERROR    | http_client               | Giving up on https://gippsanglican.org.au/support after 3 attempts
+2026-07-05 01:53:20 | WARNING  | http_client               | Attempt 1/3 failed for https://gippsanglican.org.au/connect: HTTPSConnectionPool(host='gippsanglican.org.au', port=443): Max retries exceeded with url: /connect (Caused by SSLError(SSLCertVerificationError(1, "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gippsanglican.org.au'. (_ssl.c:1081)")))
+2026-07-05 01:53:20 | ERROR    | http_client               | Giving up on https://gippsanglican.org.au/connect after 3 attempts
+2026-07-05 01:53:22 | WARNING  | http_client               | Attempt 1/3 failed for https://gippsanglican.org.au/privacy: HTTPSConnectionPool(host='gippsanglican.org.au', port=443): Max retries exceeded with url: /privacy (Caused by SSLError(SSLCertVerificationError(1, "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gippsanglican.org.au'. (_ssl.c:1081)")))
+2026-07-05 01:53:22 | ERROR    | http_client               | Giving up on https://gippsanglican.org.au/privacy after 3 attempts
+2026-07-05 01:53:23 | WARNING  | http_client               | Attempt 1/3 failed for https://gippsanglican.org.au/sitemap.xml: HTTPSConnectionPool(host='gippsanglican.org.au', port=443): Max retries exceeded with url: /sitemap.xml (Caused by SSLError(SSLCertVerificationError(1, "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gippsanglican.org.au'. (_ssl.c:1081)")))
+2026-07-05 01:53:23 | ERROR    | http_client               | Giving up on https://gippsanglican.org.au/sitemap.xml after 3 attempts
+2026-07-05 01:53:23 | INFO     | website_crawler           | [https://gippsanglican.org.au/] crawled 13 pages -> 0 emails, 0 phones
+2026-07-05 01:53:26 | INFO     | website_crawler           | [https://adelaideanglicans.com/positions-vacant] crawled 40 pages -> 11 emails, 33 phones
+2026-07-05 01:53:57 | INFO     | website_crawler           | [https://anglicanconsecratedlife.org/] crawled 40 pages -> 0 emails, 3 phones
+2026-07-05 01:53:57 | INFO     | main                      |   ...40/105 websites processed
+2026-07-05 01:54:02 | INFO     | website_crawler           | [https://anglicancommunion.org/resource/thirty-nine-articles-of-religion] crawled 40 pages -> 2 emails, 25 phones
+2026-07-05 01:54:26 | INFO     | website_crawler           | [https://anglicare.asn.au/] crawled 13 pages -> 0 emails, 0 phones
+2026-07-05 01:54:31 | INFO     | website_crawler           | [https://anglicanschoolsaustralia.edu.au/] crawled 40 pages -> 6 emails, 23 phones
+2026-07-05 01:54:40 | WARNING  | http_client               | 429 from actheology.edu.au, backing off 4.0s
+2026-07-05 01:54:41 | WARNING  | http_client               | 429 from actheology.edu.au, backing off 4.0s
+2026-07-05 01:54:43 | WARNING  | http_client               | 429 from actheology.edu.au, backing off 4.0s
+2026-07-05 01:54:52 | WARNING  | http_client               | 429 from actheology.edu.au, backing off 8.0s
+2026-07-05 01:54:52 | INFO     | website_crawler           | [https://garrattpublishing.com.au/product/9780648265955] crawled 40 pages -> 1 emails, 4 phones
+2026-07-05 01:54:52 | WARNING  | http_client               | 429 from actheology.edu.au, backing off 8.0s
+2026-07-05 01:54:53 | INFO     | website_crawler           | [https://defenceanglicans.org.au/] crawled 13 pages -> 0 emails, 0 phones
+2026-07-05 01:54:54 | WARNING  | http_client               | 429 from actheology.edu.au, backing off 8.0s
+2026-07-05 01:54:57 | INFO     | http_client               | Detected anti-bot at https://legislation.nsw.gov.au/view/whole/html/inforce/current/act-1976-021. Falling back to Playwright.
+2026-07-05 01:54:59 | INFO     | http_client               | Detected anti-bot at https://legislation.nsw.gov.au/contact. Falling back to Playwright.
+2026-07-05 01:54:59 | INFO     | website_crawler           | [https://abmission.org/] crawled 40 pages -> 2 emails, 11 phones
+2026-07-05 01:54:59 | INFO     | http_client               | Detected anti-bot at https://legislation.nsw.gov.au/. Falling back to Playwright.
+2026-07-05 01:55:00 | INFO     | http_client               | Detected anti-bot at https://legislation.nsw.gov.au/contact-us. Falling back to Playwright.
+2026-07-05 01:55:00 | INFO     | website_crawler           | [https://lslf.anglican.org.au/Public/Index] crawled 18 pages -> 1 emails, 1 phones
+2026-07-05 01:55:01 | INFO     | http_client               | Detected anti-bot at https://legislation.nsw.gov.au/contactus. Falling back to Playwright.
+2026-07-05 01:55:03 | INFO     | http_client               | Detected anti-bot at https://legislation.nsw.gov.au/about. Falling back to Playwright.
+2026-07-05 01:55:04 | INFO     | http_client               | Detected anti-bot at https://legislation.nsw.gov.au/about-us. Falling back to Playwright.
+2026-07-05 01:55:06 | INFO     | http_client               | Detected anti-bot at https://legislation.nsw.gov.au/team. Falling back to Playwright.
+2026-07-05 01:55:08 | INFO     | http_client               | Detected anti-bot at https://legislation.nsw.gov.au/staff. Falling back to Playwright.
+2026-07-05 01:55:09 | INFO     | http_client               | Detected anti-bot at https://legislation.nsw.gov.au/leadership. Falling back to Playwright.
+2026-07-05 01:55:11 | INFO     | http_client               | Detected anti-bot at https://legislation.nsw.gov.au/support. Falling back to Playwright.
+2026-07-05 01:55:14 | INFO     | http_client               | Detected anti-bot at https://legislation.nsw.gov.au/connect. Falling back to Playwright.
+2026-07-05 01:55:16 | INFO     | http_client               | Detected anti-bot at https://legislation.nsw.gov.au/privacy. Falling back to Playwright.
+2026-07-05 01:55:17 | INFO     | http_client               | Detected anti-bot at https://legislation.nsw.gov.au/sitemap.xml. Falling back to Playwright.
+2026-07-05 01:55:18 | INFO     | website_crawler           | [https://anglicare.asn.au/find-a-provider] crawled 14 pages -> 0 emails, 0 phones
+2026-07-05 01:55:33 | WARNING  | http_client               | Playwright fetch failed for https://legislation.nsw.gov.au/contact: Page.goto: Timeout 15000ms exceeded.
+Call log:
+  - navigating to "https://legislation.nsw.gov.au/contact", waiting until "domcontentloaded"
+
+2026-07-05 01:55:41 | INFO     | website_crawler           | [https://legislation.nsw.gov.au/view/whole/html/inforce/current/act-1976-021] crawled 14 pages -> 0 emails, 0 phones
+2026-07-05 01:55:44 | INFO     | http_client               | Detected anti-bot at https://childsafe.humanrights.gov.au/sites/default/files/2019-02/National_Principles_for_Child_Safe_Organisations2019.pdf. Falling back to Playwright.
+2026-07-05 01:55:45 | INFO     | http_client               | Detected anti-bot at https://childsafe.humanrights.gov.au/. Falling back to Playwright.
+2026-07-05 01:55:47 | INFO     | http_client               | Detected anti-bot at https://childsafe.humanrights.gov.au/contact. Falling back to Playwright.
+2026-07-05 01:55:49 | INFO     | http_client               | Detected anti-bot at https://childsafe.humanrights.gov.au/contact-us. Falling back to Playwright.
+2026-07-05 01:55:50 | INFO     | http_client               | Detected anti-bot at https://childsafe.humanrights.gov.au/contactus. Falling back to Playwright.
+2026-07-05 01:55:51 | INFO     | http_client               | Detected anti-bot at https://childsafe.humanrights.gov.au/about. Falling back to Playwright.
+2026-07-05 01:55:53 | INFO     | http_client               | Detected anti-bot at https://childsafe.humanrights.gov.au/about-us. Falling back to Playwright.
+2026-07-05 01:55:54 | INFO     | http_client               | Detected anti-bot at https://childsafe.humanrights.gov.au/team. Falling back to Playwright.
+2026-07-05 01:55:56 | INFO     | http_client               | Detected anti-bot at https://childsafe.humanrights.gov.au/staff. Falling back to Playwright.
+2026-07-05 01:55:57 | INFO     | http_client               | Detected anti-bot at https://childsafe.humanrights.gov.au/leadership. Falling back to Playwright.
+2026-07-05 01:55:59 | INFO     | http_client               | Detected anti-bot at https://childsafe.humanrights.gov.au/support. Falling back to Playwright.
+2026-07-05 01:56:01 | INFO     | http_client               | Detected anti-bot at https://childsafe.humanrights.gov.au/connect. Falling back to Playwright.
+2026-07-05 01:56:02 | INFO     | http_client               | Detected anti-bot at https://childsafe.humanrights.gov.au/privacy. Falling back to Playwright.
+2026-07-05 01:56:07 | INFO     | http_client               | Detected anti-bot at https://childsafe.humanrights.gov.au/sitemap.xml. Falling back to Playwright.
+2026-07-05 01:56:15 | INFO     | website_crawler           | [https://actheology.edu.au/] crawled 40 pages -> 0 emails, 16 phones
+2026-07-05 01:56:15 | INFO     | main                      |   ...50/105 websites processed
+2026-07-05 01:56:22 | WARNING  | http_client               | Playwright fetch failed for https://childsafe.humanrights.gov.au/: Page.goto: Timeout 15000ms exceeded.
+Call log:
+  - navigating to "https://childsafe.humanrights.gov.au/", waiting until "domcontentloaded"
+
+2026-07-05 01:56:23 | WARNING  | http_client               | Playwright fetch failed for https://childsafe.humanrights.gov.au/contact: Page.goto: Timeout 15000ms exceeded.
+Call log:
+  - navigating to "https://childsafe.humanrights.gov.au/contact", waiting until "domcontentloaded"
+
+2026-07-05 01:56:30 | INFO     | website_crawler           | [https://garrattpublishing.com.au/product/9780648265948] crawled 40 pages -> 1 emails, 4 phones
+2026-07-05 01:56:31 | WARNING  | http_client               | Playwright fetch failed for https://childsafe.humanrights.gov.au/team: Page.goto: Timeout 15000ms exceeded.
+Call log:
+  - navigating to "https://childsafe.humanrights.gov.au/team", waiting until "domcontentloaded"
+
+2026-07-05 01:56:39 | INFO     | website_crawler           | [https://childsafe.humanrights.gov.au/sites/default/files/2019-02/National_Principles_for_Child_Safe_Organisations2019.pdf] crawled 14 pages -> 0 emails, 0 phones
+2026-07-05 01:56:47 | INFO     | website_crawler           | [https://charidy.com/dvsunday] crawled 40 pages -> 1 emails, 1 phones
+2026-07-05 01:56:56 | INFO     | website_crawler           | [https://adelaideanglicans.com/bishop-chris] crawled 40 pages -> 11 emails, 33 phones
+2026-07-05 01:56:56 | WARNING  | http_client               | Attempt 1/3 failed for https://nationalredress.gov.au/: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:56:58 | WARNING  | http_client               | Attempt 1/3 failed for https://nationalredress.gov.au/contact: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:56:59 | WARNING  | http_client               | Attempt 1/3 failed for https://nationalredress.gov.au/contact-us: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:01 | WARNING  | http_client               | Attempt 1/3 failed for https://nationalredress.gov.au/contactus: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:02 | WARNING  | http_client               | Attempt 1/3 failed for https://nationalredress.gov.au/about: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:04 | WARNING  | http_client               | Attempt 1/3 failed for https://nationalredress.gov.au/about-us: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:06 | WARNING  | http_client               | Attempt 1/3 failed for https://nationalredress.gov.au/team: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:07 | WARNING  | http_client               | Attempt 1/3 failed for https://nationalredress.gov.au/staff: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:07 | INFO     | website_crawler           | [https://hope25.com.au/] crawled 13 pages -> 1 emails, 0 phones
+2026-07-05 01:57:09 | WARNING  | http_client               | Attempt 1/3 failed for https://nationalredress.gov.au/leadership: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:10 | WARNING  | http_client               | Attempt 1/3 failed for https://nationalredress.gov.au/support: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:11 | WARNING  | http_client               | Attempt 1/3 failed for https://nationalredress.gov.au/connect: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:13 | WARNING  | http_client               | Attempt 1/3 failed for https://nationalredress.gov.au/privacy: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:15 | WARNING  | http_client               | Attempt 1/3 failed for https://nationalredress.gov.au/sitemap.xml: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:16 | INFO     | http_client               | Detected SPA at https://cdn.forms-content-1.sg-form.com/1d6bea67-36af-11f0-af41-0ac8c7b35ec5. Falling back to Playwright.
+2026-07-05 01:57:16 | WARNING  | http_client               | Attempt 2/3 failed for https://nationalredress.gov.au/: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:18 | WARNING  | http_client               | Attempt 2/3 failed for https://nationalredress.gov.au/contact: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:19 | INFO     | http_client               | Skipping (robots.txt disallow): https://orcid.org/my-orcid
+2026-07-05 01:57:19 | WARNING  | http_client               | Attempt 2/3 failed for https://nationalredress.gov.au/contact-us: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:21 | WARNING  | http_client               | Attempt 2/3 failed for https://nationalredress.gov.au/contactus: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:22 | WARNING  | http_client               | Attempt 2/3 failed for https://nationalredress.gov.au/about: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:23 | WARNING  | http_client               | Attempt 2/3 failed for https://nationalredress.gov.au/about-us: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:25 | WARNING  | http_client               | Attempt 2/3 failed for https://nationalredress.gov.au/team: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:27 | WARNING  | http_client               | Attempt 2/3 failed for https://nationalredress.gov.au/staff: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:29 | WARNING  | http_client               | Attempt 2/3 failed for https://nationalredress.gov.au/leadership: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:30 | WARNING  | http_client               | Attempt 2/3 failed for https://nationalredress.gov.au/support: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:32 | WARNING  | http_client               | Attempt 2/3 failed for https://nationalredress.gov.au/connect: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:33 | WARNING  | http_client               | Attempt 2/3 failed for https://nationalredress.gov.au/privacy: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:35 | WARNING  | http_client               | Attempt 2/3 failed for https://nationalredress.gov.au/sitemap.xml: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:36 | INFO     | website_crawler           | [https://cdn.forms-content-1.sg-form.com/1d6bea67-36af-11f0-af41-0ac8c7b35ec5] crawled 14 pages -> 0 emails, 0 phones
+2026-07-05 01:57:38 | WARNING  | http_client               | Attempt 3/3 failed for https://nationalredress.gov.au/: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:38 | ERROR    | http_client               | Giving up on https://nationalredress.gov.au/ after 3 attempts
+2026-07-05 01:57:40 | WARNING  | http_client               | Attempt 3/3 failed for https://nationalredress.gov.au/contact: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:40 | ERROR    | http_client               | Giving up on https://nationalredress.gov.au/contact after 3 attempts
+2026-07-05 01:57:41 | WARNING  | http_client               | Attempt 3/3 failed for https://nationalredress.gov.au/contact-us: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:41 | ERROR    | http_client               | Giving up on https://nationalredress.gov.au/contact-us after 3 attempts
+2026-07-05 01:57:43 | WARNING  | http_client               | Attempt 3/3 failed for https://nationalredress.gov.au/contactus: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:43 | ERROR    | http_client               | Giving up on https://nationalredress.gov.au/contactus after 3 attempts
+2026-07-05 01:57:44 | WARNING  | http_client               | Attempt 3/3 failed for https://nationalredress.gov.au/about: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:44 | ERROR    | http_client               | Giving up on https://nationalredress.gov.au/about after 3 attempts
+2026-07-05 01:57:46 | WARNING  | http_client               | Attempt 3/3 failed for https://nationalredress.gov.au/about-us: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:46 | ERROR    | http_client               | Giving up on https://nationalredress.gov.au/about-us after 3 attempts
+2026-07-05 01:57:46 | INFO     | http_client               | Skipping (robots.txt disallow): https://orcid.org/register
+2026-07-05 01:57:47 | WARNING  | http_client               | Attempt 3/3 failed for https://nationalredress.gov.au/team: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:47 | ERROR    | http_client               | Giving up on https://nationalredress.gov.au/team after 3 attempts
+2026-07-05 01:57:49 | WARNING  | http_client               | Attempt 3/3 failed for https://nationalredress.gov.au/staff: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:49 | ERROR    | http_client               | Giving up on https://nationalredress.gov.au/staff after 3 attempts
+2026-07-05 01:57:50 | INFO     | website_crawler           | [https://2026ncls.org.au/] crawled 40 pages -> 4 emails, 3 phones
+2026-07-05 01:57:51 | WARNING  | http_client               | Attempt 3/3 failed for https://nationalredress.gov.au/leadership: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:51 | ERROR    | http_client               | Giving up on https://nationalredress.gov.au/leadership after 3 attempts
+2026-07-05 01:57:52 | WARNING  | http_client               | Attempt 3/3 failed for https://nationalredress.gov.au/support: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:52 | ERROR    | http_client               | Giving up on https://nationalredress.gov.au/support after 3 attempts
+2026-07-05 01:57:54 | WARNING  | http_client               | Attempt 3/3 failed for https://nationalredress.gov.au/connect: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:54 | ERROR    | http_client               | Giving up on https://nationalredress.gov.au/connect after 3 attempts
+2026-07-05 01:57:55 | WARNING  | http_client               | Attempt 3/3 failed for https://nationalredress.gov.au/privacy: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:55 | ERROR    | http_client               | Giving up on https://nationalredress.gov.au/privacy after 3 attempts
+2026-07-05 01:57:56 | INFO     | website_crawler           | [https://ncca.org.au/departments/justice-network] crawled 40 pages -> 12 emails, 19 phones
+2026-07-05 01:57:56 | WARNING  | http_client               | Attempt 3/3 failed for https://nationalredress.gov.au/sitemap.xml: HTTPSConnectionPool(host='www.nationalredress.gov.au', port=443): Read timed out. (read timeout=15)
+2026-07-05 01:57:56 | ERROR    | http_client               | Giving up on https://nationalredress.gov.au/sitemap.xml after 3 attempts
+2026-07-05 01:57:56 | INFO     | website_crawler           | [https://nationalredress.gov.au/] crawled 13 pages -> 0 emails, 0 phones
+2026-07-05 01:57:57 | INFO     | http_client               | Skipping (robots.txt disallow): https://forms.office.com/r/ZPDA2WRxgQ
+2026-07-05 01:57:57 | INFO     | http_client               | Skipping (robots.txt disallow): https://forms.office.com/contact
+2026-07-05 01:57:57 | INFO     | http_client               | Skipping (robots.txt disallow): https://forms.office.com/contact-us
+2026-07-05 01:57:57 | INFO     | http_client               | Skipping (robots.txt disallow): https://forms.office.com/contactus
+2026-07-05 01:57:57 | INFO     | http_client               | Skipping (robots.txt disallow): https://forms.office.com/about
+2026-07-05 01:57:57 | INFO     | http_client               | Skipping (robots.txt disallow): https://forms.office.com/about-us
+2026-07-05 01:57:57 | INFO     | http_client               | Skipping (robots.txt disallow): https://forms.office.com/team
+2026-07-05 01:57:57 | INFO     | http_client               | Skipping (robots.txt disallow): https://forms.office.com/leadership
+2026-07-05 01:57:57 | INFO     | http_client               | Skipping (robots.txt disallow): https://forms.office.com/staff
+2026-07-05 01:57:57 | INFO     | http_client               | Skipping (robots.txt disallow): https://forms.office.com/support
+2026-07-05 01:57:57 | INFO     | http_client               | Skipping (robots.txt disallow): https://forms.office.com/connect
+2026-07-05 01:57:57 | INFO     | http_client               | Skipping (robots.txt disallow): https://forms.office.com/privacy
+2026-07-05 01:57:57 | INFO     | http_client               | Skipping (robots.txt disallow): https://forms.office.com/sitemap.xml
+2026-07-05 01:57:58 | INFO     | website_crawler           | [https://orcid.org/0000-0002-9555-6962] crawled 40 pages -> 0 emails, 0 phones
+2026-07-05 01:57:58 | INFO     | main                      |   ...60/105 websites processed
+2026-07-05 01:57:59 | INFO     | website_crawler           | [https://forms.office.com/r/ZPDA2WRxgQ] crawled 14 pages -> 0 emails, 0 phones
+2026-07-05 02:00:00 | WARNING  | http_client               | Attempt 1/3 failed for https://enlivenchurches.ncls.org.au/church-stories: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-05 02:00:00 | WARNING  | http_client               | Attempt 1/3 failed for https://2026ncls.org.au/local-churches/find-your-coordinator: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-05 02:00:01 | WARNING  | http_client               | Attempt 1/3 failed for https://enlivenchurches.ncls.org.au/photo-gallery: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-05 02:00:02 | WARNING  | http_client               | Attempt 1/3 failed for https://2026ncls.org.au/local-churches/how-to-take-part: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-05 02:00:03 | WARNING  | http_client               | Attempt 1/3 failed for https://shop.ncls.org.au/collections/books: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-05 02:00:17 | INFO     | website_crawler           | [https://2026ncls.org.au/sign-up] crawled 40 pages -> 4 emails, 3 phones
+2026-07-05 02:00:24 | INFO     | website_crawler           | [https://enlivenchurches.ncls.org.au/] crawled 40 pages -> 2 emails, 4 phones
+2026-07-05 02:00:40 | INFO     | website_crawler           | [https://mysurveys.ncls.org.au/] crawled 13 pages -> 0 emails, 0 phones
+2026-07-05 02:03:16 | INFO     | website_crawler           | [https://shop.ncls.org.au/customer_authentication/redirect?locale=en&region_country=AU] crawled 34 pages -> 0 emails, 6 phones
+2026-07-05 02:03:55 | INFO     | website_crawler           | [https://shop.ncls.org.au/products/safeguarding-in-australian-churches] crawled 40 pages -> 0 emails, 6 phones
+2026-07-05 02:03:58 | INFO     | website_crawler           | [https://shop.ncls.org.au/products/australians-views-of-jesus-and-the-church-comparing-age-groups-in-2021] crawled 40 pages -> 0 emails, 6 phones
+2026-07-05 02:04:00 | INFO     | http_client               | Skipping (robots.txt disallow): https://sbcnet.wpengine.com/contact
+2026-07-05 02:04:00 | INFO     | http_client               | Skipping (robots.txt disallow): https://sbcnet.wpengine.com/contact-us
+2026-07-05 02:04:00 | INFO     | http_client               | Skipping (robots.txt disallow): https://sbcnet.wpengine.com/about
+2026-07-05 02:04:00 | INFO     | http_client               | Skipping (robots.txt disallow): https://sbcnet.wpengine.com/about-us
+2026-07-05 02:04:00 | INFO     | http_client               | Skipping (robots.txt disallow): https://sbcnet.wpengine.com/
+2026-07-05 02:04:00 | INFO     | http_client               | Skipping (robots.txt disallow): https://sbcnet.wpengine.com/team
+2026-07-05 02:04:00 | INFO     | http_client               | Skipping (robots.txt disallow): https://sbcnet.wpengine.com/contactus
+2026-07-05 02:04:00 | INFO     | http_client               | Skipping (robots.txt disallow): https://sbcnet.wpengine.com/support
+2026-07-05 02:04:00 | INFO     | http_client               | Skipping (robots.txt disallow): https://sbcnet.wpengine.com/leadership
+2026-07-05 02:04:00 | INFO     | http_client               | Skipping (robots.txt disallow): https://sbcnet.wpengine.com/staff
+2026-07-05 02:04:00 | INFO     | http_client               | Skipping (robots.txt disallow): https://sbcnet.wpengine.com/connect
+2026-07-05 02:04:00 | INFO     | http_client               | Skipping (robots.txt disallow): https://sbcnet.wpengine.com/privacy
+2026-07-05 02:04:00 | INFO     | http_client               | Skipping (robots.txt disallow): https://sbcnet.wpengine.com/sitemap.xml
+2026-07-05 02:04:00 | INFO     | website_crawler           | [https://sbcnet.wpengine.com/] crawled 13 pages -> 0 emails, 0 phones
+2026-07-05 02:04:19 | INFO     | website_crawler           | [https://shop.ncls.org.au/products/climate-action-survey-research-report] crawled 40 pages -> 0 emails, 5 phones
+2026-07-05 02:04:25 | INFO     | http_client               | Detected anti-bot at https://give.elca.org/. Falling back to Playwright.
+2026-07-05 02:04:37 | INFO     | website_crawler           | [https://shop.ncls.org.au/products/church-pulse-check-2021-to-2024?brand=NCLS&scode=WBYE-9NPE] crawled 40 pages -> 0 emails, 6 phones
+2026-07-05 02:04:37 | INFO     | main                      |   ...70/105 websites processed
+2026-07-05 02:04:37 | INFO     | website_crawler           | [https://bfm.sbc.net/] crawled 22 pages -> 0 emails, 10 phones
+2026-07-05 02:04:43 | INFO     | website_crawler           | [https://direct-sales.ezoic.com/joinmychurch.com] crawled 31 pages -> 0 emails, 0 phones
+2026-07-05 02:04:49 | INFO     | website_crawler           | [https://give.elca.org/page/89583/subscriptions/1] crawled 14 pages -> 0 emails, 6 phones
+2026-07-05 02:05:07 | WARNING  | http_client               | Attempt 1/3 failed for https://macromedia.com/support/documentation/en/flashplayer/help/settings_manager07.html: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /support/documentation/en/flashplayer/help/settings_manager07.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d379bfed0>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:08 | WARNING  | http_client               | Attempt 1/3 failed for https://macromedia.com/: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d379be5d0>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:10 | WARNING  | http_client               | Attempt 1/3 failed for https://macromedia.com/contact: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /contact (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d379bc910>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:11 | WARNING  | http_client               | Attempt 1/3 failed for https://macromedia.com/contact-us: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /contact-us (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d35ff9450>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:13 | WARNING  | http_client               | Attempt 1/3 failed for https://macromedia.com/contactus: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /contactus (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d3b1f7750>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:14 | WARNING  | http_client               | Attempt 1/3 failed for https://macromedia.com/about: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /about (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d3b1f7390>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:16 | WARNING  | http_client               | Attempt 1/3 failed for https://macromedia.com/about-us: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /about-us (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d3b1f4690>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:17 | INFO     | website_crawler           | [https://shop.ncls.org.au/] crawled 40 pages -> 0 emails, 5 phones
+2026-07-05 02:05:17 | WARNING  | http_client               | Attempt 1/3 failed for https://macromedia.com/team: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /team (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d3b1f4910>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:19 | WARNING  | http_client               | Attempt 1/3 failed for https://macromedia.com/staff: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /staff (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d3b1f5d10>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:20 | WARNING  | http_client               | Attempt 1/3 failed for https://macromedia.com/leadership: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /leadership (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d3b1f5450>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:22 | WARNING  | http_client               | Attempt 1/3 failed for https://macromedia.com/support: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /support (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d3b1f5a90>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:22 | WARNING  | http_client               | Attempt 1/3 failed for https://pcusastore.com/: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d379bf9d0>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:23 | WARNING  | http_client               | Attempt 1/3 failed for https://macromedia.com/connect: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /connect (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d38f40690>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:24 | WARNING  | http_client               | Attempt 1/3 failed for https://pcusastore.com/contact: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /contact (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d3b1f7890>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:25 | WARNING  | http_client               | Attempt 1/3 failed for https://macromedia.com/privacy: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /privacy (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d3b1f6e90>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:25 | WARNING  | http_client               | Attempt 1/3 failed for https://pcusastore.com/contact-us: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /contact-us (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d39acb250>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:26 | WARNING  | http_client               | Attempt 1/3 failed for https://macromedia.com/sitemap.xml: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /sitemap.xml (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d3952fed0>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:27 | WARNING  | http_client               | Attempt 1/3 failed for https://pcusastore.com/contactus: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /contactus (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d39aca850>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:28 | WARNING  | http_client               | Attempt 2/3 failed for https://macromedia.com/support/documentation/en/flashplayer/help/settings_manager07.html: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /support/documentation/en/flashplayer/help/settings_manager07.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d39ac9f90>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:28 | WARNING  | http_client               | Attempt 1/3 failed for https://pcusastore.com/about: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /about (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d39ac9bd0>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:29 | WARNING  | http_client               | Attempt 2/3 failed for https://macromedia.com/: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d39ac9310>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:30 | WARNING  | http_client               | Attempt 1/3 failed for https://pcusastore.com/about-us: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /about-us (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d39ac8410>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:31 | WARNING  | http_client               | Attempt 2/3 failed for https://macromedia.com/contact: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /contact (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d39acbed0>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:31 | WARNING  | http_client               | Attempt 1/3 failed for https://pcusastore.com/team: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /team (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d3b274550>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:32 | WARNING  | http_client               | Attempt 2/3 failed for https://macromedia.com/contact-us: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /contact-us (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d3e7b7610>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:33 | INFO     | website_crawler           | [https://host.nxt.blackbaud.com/donor-form?svcid=tcs&formId=78bb15d9-1f3b-4693-b78b-df17203ba4fb&envid=p-pkGzDyyQCkuyajNy5P3h1g&zone=usa] crawled 14 pages -> 0 emails, 0 phones
+2026-07-05 02:05:33 | WARNING  | http_client               | Attempt 1/3 failed for https://pcusastore.com/staff: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /staff (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d43339950>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:33 | INFO     | website_crawler           | [https://guideone.com/] crawled 13 pages -> 0 emails, 0 phones
+2026-07-05 02:05:34 | WARNING  | http_client               | Attempt 2/3 failed for https://macromedia.com/contactus: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /contactus (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d38535450>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:34 | WARNING  | http_client               | Attempt 1/3 failed for https://pcusastore.com/leadership: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /leadership (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d47413ed0>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:35 | WARNING  | http_client               | Attempt 2/3 failed for https://macromedia.com/about: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /about (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d47412d50>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:36 | WARNING  | http_client               | Attempt 1/3 failed for https://pcusastore.com/support: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /support (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d47410190>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:37 | WARNING  | http_client               | Attempt 2/3 failed for https://macromedia.com/about-us: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /about-us (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d47411950>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:37 | WARNING  | http_client               | Attempt 1/3 failed for https://pcusastore.com/connect: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /connect (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d47413610>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:38 | WARNING  | http_client               | Attempt 2/3 failed for https://macromedia.com/team: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /team (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d47410cd0>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:39 | WARNING  | http_client               | Attempt 1/3 failed for https://pcusastore.com/privacy: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /privacy (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d47411bd0>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:40 | WARNING  | http_client               | Attempt 2/3 failed for https://macromedia.com/staff: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /staff (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d379bf9d0>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:40 | WARNING  | http_client               | Attempt 1/3 failed for https://pcusastore.com/sitemap.xml: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /sitemap.xml (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d3b1f5d10>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:41 | WARNING  | http_client               | Attempt 2/3 failed for https://macromedia.com/leadership: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /leadership (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d474125d0>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:42 | WARNING  | http_client               | Attempt 2/3 failed for https://pcusastore.com/: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d474139d0>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:43 | WARNING  | http_client               | Attempt 2/3 failed for https://macromedia.com/support: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /support (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d47413d90>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:43 | WARNING  | http_client               | Attempt 2/3 failed for https://pcusastore.com/contact: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /contact (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d3fe787d0>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:44 | WARNING  | http_client               | Attempt 2/3 failed for https://macromedia.com/connect: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /connect (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d39aca850>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:45 | WARNING  | http_client               | Attempt 2/3 failed for https://pcusastore.com/contact-us: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /contact-us (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d3e7b4cd0>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:46 | WARNING  | http_client               | Attempt 2/3 failed for https://macromedia.com/privacy: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /privacy (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d3b1f6e90>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:46 | WARNING  | http_client               | Attempt 2/3 failed for https://pcusastore.com/contactus: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /contactus (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d3fe7a990>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:47 | WARNING  | http_client               | Attempt 2/3 failed for https://macromedia.com/sitemap.xml: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /sitemap.xml (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d3fe7afd0>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:48 | WARNING  | http_client               | Attempt 2/3 failed for https://pcusastore.com/about: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /about (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d47411a90>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:49 | WARNING  | http_client               | Attempt 3/3 failed for https://macromedia.com/support/documentation/en/flashplayer/help/settings_manager07.html: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /support/documentation/en/flashplayer/help/settings_manager07.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d474107d0>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:49 | ERROR    | http_client               | Giving up on https://macromedia.com/support/documentation/en/flashplayer/help/settings_manager07.html after 3 attempts
+2026-07-05 02:05:49 | WARNING  | http_client               | Attempt 2/3 failed for https://pcusastore.com/about-us: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /about-us (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d47412e90>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:50 | WARNING  | http_client               | Attempt 3/3 failed for https://macromedia.com/: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d43339f90>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:50 | ERROR    | http_client               | Giving up on https://macromedia.com/ after 3 attempts
+2026-07-05 02:05:51 | WARNING  | http_client               | Attempt 2/3 failed for https://pcusastore.com/team: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /team (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d3b1f4550>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:52 | WARNING  | http_client               | Attempt 3/3 failed for https://macromedia.com/contact: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /contact (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d39ac9950>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:52 | ERROR    | http_client               | Giving up on https://macromedia.com/contact after 3 attempts
+2026-07-05 02:05:52 | WARNING  | http_client               | Attempt 2/3 failed for https://pcusastore.com/staff: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /staff (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d39aca210>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:53 | WARNING  | http_client               | Attempt 3/3 failed for https://macromedia.com/contact-us: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /contact-us (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d42391d10>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:53 | ERROR    | http_client               | Giving up on https://macromedia.com/contact-us after 3 attempts
+2026-07-05 02:05:54 | WARNING  | http_client               | Attempt 2/3 failed for https://pcusastore.com/leadership: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /leadership (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d38535450>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:55 | WARNING  | http_client               | Attempt 3/3 failed for https://macromedia.com/contactus: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /contactus (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d47410190>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:55 | ERROR    | http_client               | Giving up on https://macromedia.com/contactus after 3 attempts
+2026-07-05 02:05:55 | WARNING  | http_client               | Attempt 2/3 failed for https://pcusastore.com/support: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /support (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d47410a50>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:56 | WARNING  | http_client               | Attempt 3/3 failed for https://macromedia.com/about: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /about (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d47412990>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:56 | ERROR    | http_client               | Giving up on https://macromedia.com/about after 3 attempts
+2026-07-05 02:05:57 | WARNING  | http_client               | Attempt 2/3 failed for https://pcusastore.com/connect: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /connect (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d47412210>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:58 | WARNING  | http_client               | Attempt 3/3 failed for https://macromedia.com/about-us: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /about-us (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d4333a850>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:58 | ERROR    | http_client               | Giving up on https://macromedia.com/about-us after 3 attempts
+2026-07-05 02:05:58 | WARNING  | http_client               | Attempt 2/3 failed for https://pcusastore.com/privacy: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /privacy (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d39ac9310>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:59 | WARNING  | http_client               | Attempt 3/3 failed for https://macromedia.com/team: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /team (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d3e7b5a90>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:05:59 | ERROR    | http_client               | Giving up on https://macromedia.com/team after 3 attempts
+2026-07-05 02:06:00 | WARNING  | http_client               | Attempt 2/3 failed for https://pcusastore.com/sitemap.xml: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /sitemap.xml (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d47411d10>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:06:01 | WARNING  | http_client               | Attempt 3/3 failed for https://macromedia.com/staff: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /staff (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d47410550>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:06:01 | ERROR    | http_client               | Giving up on https://macromedia.com/staff after 3 attempts
+2026-07-05 02:06:01 | WARNING  | http_client               | Attempt 3/3 failed for https://pcusastore.com/: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d47411e50>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:06:01 | ERROR    | http_client               | Giving up on https://pcusastore.com/ after 3 attempts
+2026-07-05 02:06:02 | WARNING  | http_client               | Attempt 3/3 failed for https://macromedia.com/leadership: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /leadership (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d47413250>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:06:02 | ERROR    | http_client               | Giving up on https://macromedia.com/leadership after 3 attempts
+2026-07-05 02:06:03 | WARNING  | http_client               | Attempt 3/3 failed for https://pcusastore.com/contact: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /contact (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d39ac8190>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:06:03 | ERROR    | http_client               | Giving up on https://pcusastore.com/contact after 3 attempts
+2026-07-05 02:06:03 | WARNING  | http_client               | Attempt 1/3 failed for https://unitedmethodistbishops.org/ecumenical: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /ecumenical (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d39ac9a90>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:04 | WARNING  | http_client               | Attempt 3/3 failed for https://macromedia.com/support: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /support (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d39ac9f90>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:06:04 | ERROR    | http_client               | Giving up on https://macromedia.com/support after 3 attempts
+2026-07-05 02:06:04 | WARNING  | http_client               | Attempt 3/3 failed for https://pcusastore.com/contact-us: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /contact-us (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d39ac8b90>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:06:04 | ERROR    | http_client               | Giving up on https://pcusastore.com/contact-us after 3 attempts
+2026-07-05 02:06:05 | WARNING  | http_client               | Attempt 1/3 failed for https://unitedmethodistbishops.org/: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d39acbd90>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:05 | WARNING  | http_client               | Attempt 3/3 failed for https://macromedia.com/connect: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /connect (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d39acbb10>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:06:05 | ERROR    | http_client               | Giving up on https://macromedia.com/connect after 3 attempts
+2026-07-05 02:06:06 | WARNING  | http_client               | Attempt 3/3 failed for https://pcusastore.com/contactus: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /contactus (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d39acac10>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:06:06 | ERROR    | http_client               | Giving up on https://pcusastore.com/contactus after 3 attempts
+2026-07-05 02:06:06 | WARNING  | http_client               | Attempt 1/3 failed for https://unitedmethodistbishops.org/contact: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /contact (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d39aca0d0>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:07 | WARNING  | http_client               | Attempt 3/3 failed for https://macromedia.com/privacy: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /privacy (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d38f40690>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:06:07 | ERROR    | http_client               | Giving up on https://macromedia.com/privacy after 3 attempts
+2026-07-05 02:06:07 | WARNING  | http_client               | Attempt 3/3 failed for https://pcusastore.com/about: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /about (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d39ac9d10>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:06:07 | ERROR    | http_client               | Giving up on https://pcusastore.com/about after 3 attempts
+2026-07-05 02:06:08 | WARNING  | http_client               | Attempt 1/3 failed for https://unitedmethodistbishops.org/contact-us: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /contact-us (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d39acb250>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:08 | WARNING  | http_client               | Attempt 3/3 failed for https://macromedia.com/sitemap.xml: HTTPSConnectionPool(host='macromedia.com', port=443): Max retries exceeded with url: /sitemap.xml (Caused by ConnectTimeoutError(<HTTPSConnection(host='macromedia.com', port=443) at 0x18d39ac8410>, 'Connection to macromedia.com timed out. (connect timeout=15)'))
+2026-07-05 02:06:08 | ERROR    | http_client               | Giving up on https://macromedia.com/sitemap.xml after 3 attempts
+2026-07-05 02:06:08 | INFO     | website_crawler           | [https://macromedia.com/support/documentation/en/flashplayer/help/settings_manager07.html] crawled 14 pages -> 0 emails, 0 phones
+2026-07-05 02:06:09 | WARNING  | http_client               | Attempt 3/3 failed for https://pcusastore.com/about-us: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /about-us (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d39acbed0>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:06:09 | ERROR    | http_client               | Giving up on https://pcusastore.com/about-us after 3 attempts
+2026-07-05 02:06:09 | WARNING  | http_client               | Attempt 1/3 failed for https://unitedmethodistbishops.org/contactus: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /contactus (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d43339f90>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:10 | WARNING  | http_client               | Attempt 3/3 failed for https://pcusastore.com/team: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /team (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d47413890>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:06:10 | ERROR    | http_client               | Giving up on https://pcusastore.com/team after 3 attempts
+2026-07-05 02:06:11 | WARNING  | http_client               | Attempt 1/3 failed for https://unitedmethodistbishops.org/about: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /about (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d47410190>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:12 | WARNING  | http_client               | Attempt 3/3 failed for https://pcusastore.com/staff: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /staff (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d47412990>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:06:12 | ERROR    | http_client               | Giving up on https://pcusastore.com/staff after 3 attempts
+2026-07-05 02:06:12 | WARNING  | http_client               | Attempt 1/3 failed for https://unitedmethodistbishops.org/about-us: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /about-us (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d47411bd0>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:13 | WARNING  | http_client               | Attempt 3/3 failed for https://pcusastore.com/leadership: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /leadership (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d4333a850>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:06:13 | ERROR    | http_client               | Giving up on https://pcusastore.com/leadership after 3 attempts
+2026-07-05 02:06:14 | WARNING  | http_client               | Attempt 1/3 failed for https://unitedmethodistbishops.org/team: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /team (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d3b1f5450>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:15 | WARNING  | http_client               | Attempt 3/3 failed for https://pcusastore.com/support: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /support (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d3e7b5a90>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:06:15 | ERROR    | http_client               | Giving up on https://pcusastore.com/support after 3 attempts
+2026-07-05 02:06:15 | WARNING  | http_client               | Attempt 1/3 failed for https://unitedmethodistbishops.org/staff: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /staff (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d39aca5d0>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:16 | WARNING  | http_client               | Attempt 3/3 failed for https://pcusastore.com/connect: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /connect (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d47411e50>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:06:16 | ERROR    | http_client               | Giving up on https://pcusastore.com/connect after 3 attempts
+2026-07-05 02:06:17 | WARNING  | http_client               | Attempt 1/3 failed for https://unitedmethodistbishops.org/leadership: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /leadership (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d3b1f6e90>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:18 | WARNING  | http_client               | Attempt 3/3 failed for https://pcusastore.com/privacy: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /privacy (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d47413250>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:06:18 | ERROR    | http_client               | Giving up on https://pcusastore.com/privacy after 3 attempts
+2026-07-05 02:06:18 | WARNING  | http_client               | Attempt 1/3 failed for https://unitedmethodistbishops.org/support: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /support (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d3952fed0>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:19 | WARNING  | http_client               | Attempt 3/3 failed for https://pcusastore.com/sitemap.xml: HTTPSConnectionPool(host='pcusastore.com', port=443): Max retries exceeded with url: /sitemap.xml (Caused by ConnectTimeoutError(<HTTPSConnection(host='pcusastore.com', port=443) at 0x18d42391950>, 'Connection to pcusastore.com timed out. (connect timeout=15)'))
+2026-07-05 02:06:19 | ERROR    | http_client               | Giving up on https://pcusastore.com/sitemap.xml after 3 attempts
+2026-07-05 02:06:19 | INFO     | website_crawler           | [https://pcusastore.com/] crawled 13 pages -> 0 emails, 0 phones
+2026-07-05 02:06:20 | WARNING  | http_client               | Attempt 1/3 failed for https://unitedmethodistbishops.org/connect: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /connect (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d39ac8190>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:21 | WARNING  | http_client               | Attempt 1/3 failed for https://unitedmethodistbishops.org/privacy: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /privacy (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d379bd450>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:23 | WARNING  | http_client               | Attempt 1/3 failed for https://unitedmethodistbishops.org/sitemap.xml: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /sitemap.xml (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d3b1f6990>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:24 | WARNING  | http_client               | Attempt 2/3 failed for https://unitedmethodistbishops.org/ecumenical: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /ecumenical (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d39aca210>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:26 | WARNING  | http_client               | Attempt 2/3 failed for https://unitedmethodistbishops.org/: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d39acb750>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:27 | WARNING  | http_client               | Attempt 2/3 failed for https://unitedmethodistbishops.org/contact: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /contact (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d3e7b4cd0>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:29 | WARNING  | http_client               | Attempt 2/3 failed for https://unitedmethodistbishops.org/contact-us: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /contact-us (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d379bd590>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:30 | WARNING  | http_client               | Attempt 2/3 failed for https://unitedmethodistbishops.org/contactus: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /contactus (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d3fe78550>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:32 | WARNING  | http_client               | Attempt 2/3 failed for https://unitedmethodistbishops.org/about: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /about (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d379bec10>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:32 | INFO     | website_crawler           | [https://episcopalnewsservice.org/] crawled 13 pages -> 0 emails, 0 phones
+2026-07-05 02:06:33 | WARNING  | http_client               | Attempt 2/3 failed for https://unitedmethodistbishops.org/about-us: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /about-us (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d3b8c4b90>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:35 | WARNING  | http_client               | Attempt 2/3 failed for https://unitedmethodistbishops.org/team: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /team (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d3764c7d0>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:36 | WARNING  | http_client               | Attempt 2/3 failed for https://unitedmethodistbishops.org/staff: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /staff (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d3b1f6e90>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:37 | INFO     | website_crawler           | [https://resourceumc.org/] crawled 40 pages -> 0 emails, 0 phones
+2026-07-05 02:06:37 | INFO     | main                      |   ...80/105 websites processed
+2026-07-05 02:06:38 | WARNING  | http_client               | Attempt 2/3 failed for https://unitedmethodistbishops.org/leadership: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /leadership (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d4727f750>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:39 | INFO     | http_client               | Skipping (robots.txt disallow): https://zoom.us/webinar/register/WN_1GI_SzuzT8upEk8QDwnmCg?_x_zm_rtaid=XZ00jjieSSCiqdRiGILAAA.1766504433031.a258b19d14360437076ae00a1360886e&_x_zm_rhtaid=189
+2026-07-05 02:06:39 | INFO     | http_client               | Skipping (robots.txt disallow): https://zoom.us/support
+2026-07-05 02:06:39 | WARNING  | http_client               | Attempt 2/3 failed for https://unitedmethodistbishops.org/support: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /support (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d3b8c51d0>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:41 | WARNING  | http_client               | Attempt 2/3 failed for https://unitedmethodistbishops.org/connect: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /connect (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d42392350>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:42 | WARNING  | http_client               | Attempt 2/3 failed for https://unitedmethodistbishops.org/privacy: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /privacy (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d3b1f5450>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:44 | WARNING  | http_client               | Attempt 2/3 failed for https://unitedmethodistbishops.org/sitemap.xml: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /sitemap.xml (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d47413110>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:45 | WARNING  | http_client               | Attempt 3/3 failed for https://unitedmethodistbishops.org/ecumenical: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /ecumenical (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d47411a90>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:45 | ERROR    | http_client               | Giving up on https://unitedmethodistbishops.org/ecumenical after 3 attempts
+2026-07-05 02:06:47 | WARNING  | http_client               | Attempt 3/3 failed for https://unitedmethodistbishops.org/: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d3e7b4cd0>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:47 | ERROR    | http_client               | Giving up on https://unitedmethodistbishops.org/ after 3 attempts
+2026-07-05 02:06:48 | WARNING  | http_client               | Attempt 3/3 failed for https://unitedmethodistbishops.org/contact: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /contact (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d39ac9bd0>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:48 | ERROR    | http_client               | Giving up on https://unitedmethodistbishops.org/contact after 3 attempts
+2026-07-05 02:06:50 | WARNING  | http_client               | Attempt 3/3 failed for https://unitedmethodistbishops.org/contact-us: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /contact-us (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d4727ead0>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:50 | ERROR    | http_client               | Giving up on https://unitedmethodistbishops.org/contact-us after 3 attempts
+2026-07-05 02:06:51 | WARNING  | http_client               | Attempt 3/3 failed for https://unitedmethodistbishops.org/contactus: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /contactus (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d3b1f4e10>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:51 | ERROR    | http_client               | Giving up on https://unitedmethodistbishops.org/contactus after 3 attempts
+2026-07-05 02:06:53 | WARNING  | http_client               | Attempt 3/3 failed for https://unitedmethodistbishops.org/about: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /about (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d39ac9d10>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:53 | ERROR    | http_client               | Giving up on https://unitedmethodistbishops.org/about after 3 attempts
+2026-07-05 02:06:54 | WARNING  | http_client               | Attempt 3/3 failed for https://unitedmethodistbishops.org/about-us: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /about-us (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d474107d0>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:54 | ERROR    | http_client               | Giving up on https://unitedmethodistbishops.org/about-us after 3 attempts
+2026-07-05 02:06:56 | WARNING  | http_client               | Attempt 3/3 failed for https://unitedmethodistbishops.org/team: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /team (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d3fe7afd0>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:56 | ERROR    | http_client               | Giving up on https://unitedmethodistbishops.org/team after 3 attempts
+2026-07-05 02:06:57 | WARNING  | http_client               | Attempt 3/3 failed for https://unitedmethodistbishops.org/staff: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /staff (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d38535450>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:57 | ERROR    | http_client               | Giving up on https://unitedmethodistbishops.org/staff after 3 attempts
+2026-07-05 02:06:59 | WARNING  | http_client               | Attempt 3/3 failed for https://unitedmethodistbishops.org/leadership: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /leadership (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d3fe78e10>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:06:59 | ERROR    | http_client               | Giving up on https://unitedmethodistbishops.org/leadership after 3 attempts
+2026-07-05 02:06:59 | INFO     | website_crawler           | [https://generalconvention.org/about] crawled 40 pages -> 8 emails, 73 phones
+2026-07-05 02:07:00 | WARNING  | http_client               | Attempt 3/3 failed for https://unitedmethodistbishops.org/support: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /support (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d474116d0>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:07:00 | ERROR    | http_client               | Giving up on https://unitedmethodistbishops.org/support after 3 attempts
+2026-07-05 02:07:02 | WARNING  | http_client               | Attempt 3/3 failed for https://unitedmethodistbishops.org/connect: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /connect (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d47411e50>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:07:02 | ERROR    | http_client               | Giving up on https://unitedmethodistbishops.org/connect after 3 attempts
+2026-07-05 02:07:03 | WARNING  | http_client               | Attempt 3/3 failed for https://unitedmethodistbishops.org/privacy: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /privacy (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d3fe7b390>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:07:03 | ERROR    | http_client               | Giving up on https://unitedmethodistbishops.org/privacy after 3 attempts
+2026-07-05 02:07:05 | WARNING  | http_client               | Attempt 3/3 failed for https://unitedmethodistbishops.org/sitemap.xml: HTTPSConnectionPool(host='unitedmethodistbishops.org', port=443): Max retries exceeded with url: /sitemap.xml (Caused by ConnectTimeoutError(<HTTPSConnection(host='unitedmethodistbishops.org', port=443) at 0x18d47413750>, 'Connection to unitedmethodistbishops.org timed out. (connect timeout=15)'))
+2026-07-05 02:07:05 | ERROR    | http_client               | Giving up on https://unitedmethodistbishops.org/sitemap.xml after 3 attempts
+2026-07-05 02:07:05 | INFO     | website_crawler           | [https://unitedmethodistbishops.org/ecumenical] crawled 14 pages -> 0 emails, 0 phones
+2026-07-05 02:07:05 | INFO     | http_client               | Skipping (robots.txt disallow): https://zoom.us/signup?signUpFrom=homepage
+2026-07-05 02:07:05 | INFO     | http_client               | Skipping (robots.txt disallow): https://zoom.us/start/videomeeting
+2026-07-05 02:07:22 | INFO     | http_client               | Skipping (robots.txt disallow): https://zoom.us/account
+2026-07-05 02:07:35 | WARNING  | http_client               | Attempt 1/3 failed for https://calledtotransformation.org/planning/theological-statement/scripture-resources: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-07-05 02:07:38 | WARNING  | http_client               | Attempt 1/3 failed for https://calledtotransformation.org/gifts-discernment: HTTPSConnectionPool(host='calledtotransformation.org', port=443): Max retries exceeded with url: /gifts-discernment (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)')))
+2026-07-05 02:07:38 | ERROR    | http_client               | Giving up on https://calledtotransformation.org/gifts-discernment after 3 attempts
+2026-07-05 02:07:40 | WARNING  | http_client               | Attempt 1/3 failed for https://zoom.us/en/contact/contact-sales: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-07-05 02:07:41 | WARNING  | http_client               | Attempt 1/3 failed for https://episcopalservicecorps.org/apply: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-05 02:07:54 | INFO     | website_crawler           | [https://elca.org/] crawled 40 pages -> 2 emails, 26 phones
+2026-07-05 02:07:57 | INFO     | website_crawler           | [https://calledtotransformation.org/] crawled 40 pages -> 1 emails, 0 phones
+2026-07-05 02:08:18 | INFO     | website_crawler           | [https://lessonplans.episcopalchurch.org/] crawled 13 pages -> 0 emails, 0 phones
+2026-07-05 02:08:22 | INFO     | website_crawler           | [https://zoom.us/webinar/register/WN_1GI_SzuzT8upEk8QDwnmCg?_x_zm_rtaid=XZ00jjieSSCiqdRiGILAAA.1766504433031.a258b19d14360437076ae00a1360886e&_x_zm_rhtaid=189] crawled 40 pages -> 3 emails, 14 phones
+2026-07-05 02:08:29 | INFO     | website_crawler           | [https://forwardmovement.org/] crawled 40 pages -> 7 emails, 6 phones
+2026-07-05 02:09:20 | WARNING  | http_client               | Attempt 1/3 failed for https://latinosepiscopales.org/author/acardenas: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-07-05 02:09:33 | WARNING  | http_client               | Attempt 1/3 failed for https://davidfleenor.org/post/becoming-a-chaplain-researcher: HTTPSConnectionPool(host='www.davidfleenor.org', port=443): Max retries exceeded with url: /post/becoming-a-chaplain-researcher (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)')))
+2026-07-05 02:09:33 | ERROR    | http_client               | Giving up on https://davidfleenor.org/post/becoming-a-chaplain-researcher after 3 attempts
+2026-07-05 02:10:02 | INFO     | website_crawler           | [https://nationalcouncilofchurches.us/] crawled 40 pages -> 0 emails, 3 phones
+2026-07-05 02:10:02 | INFO     | http_client               | Skipping (robots.txt disallow): https://zoom.us/meeting/register/tJwkcemtrz0jHNMX0okGlkW1lTiNDUIysNLQ
+2026-07-05 02:10:02 | INFO     | http_client               | Skipping (robots.txt disallow): https://zoom.us/support
+2026-07-05 02:10:20 | INFO     | website_crawler           | [https://episcopalarchives.org/cgi-bin/acts/acts_resolution.pl?resolution=2009-D035] crawled 40 pages -> 0 emails, 34 phones
+2026-07-05 02:10:21 | INFO     | website_crawler           | [https://episcopalservicecorps.org/] crawled 40 pages -> 2 emails, 49 phones
+2026-07-05 02:10:21 | INFO     | main                      |   ...90/105 websites processed
+2026-07-05 02:10:27 | INFO     | http_client               | Skipping (robots.txt disallow): https://zoom.us/signup?signUpFrom=homepage
+2026-07-05 02:10:27 | INFO     | http_client               | Skipping (robots.txt disallow): https://zoom.us/start/videomeeting
+2026-07-05 02:10:29 | INFO     | website_crawler           | [https://latinosepiscopales.org/] crawled 40 pages -> 1 emails, 20 phones
+2026-07-05 02:10:42 | INFO     | website_crawler           | [https://episcopalnewsservice.org/tag/racial-justice] crawled 14 pages -> 0 emails, 0 phones
+2026-07-05 02:10:44 | INFO     | website_crawler           | [https://davidfleenor.org/post/chaplaincy-counts] crawled 40 pages -> 1 emails, 37 phones
+2026-07-05 02:10:45 | INFO     | http_client               | Skipping (robots.txt disallow): https://zoom.us/account
+2026-07-05 02:10:51 | INFO     | website_crawler           | [https://otmportfolio.org/user/login] crawled 14 pages -> 0 emails, 0 phones
+2026-07-05 02:11:15 | INFO     | website_crawler           | [https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.episcopalchurch.org%2Fministries%2Fyouth-ministries%2Fevento-de-jovenes-episcopales%2F&data=05%7C01%7Cskelly%40episcopalchurch.org%7C9363fba0753248ffc6bf08dbb5f587d2%7Ca61a1be800f1406689423558df189805%7C0%7C0%7C638303838388711627%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=rjUDCzOLdsxIxlVOE4wwIzUhNYQw0aQjAWs1BehcE0s%3D&reserved=0] crawled 16 pages -> 1 emails, 2 phones
+2026-07-05 02:11:22 | INFO     | website_crawler           | [https://zoom.us/meeting/register/tJwkcemtrz0jHNMX0okGlkW1lTiNDUIysNLQ] crawled 40 pages -> 3 emails, 14 phones
+2026-07-05 02:11:22 | INFO     | http_client               | Skipping (robots.txt disallow): https://zoom.us/webinar/register/WN_2H0EPBRCQGezMsYiq7sHpQ
+2026-07-05 02:11:22 | INFO     | http_client               | Skipping (robots.txt disallow): https://zoom.us/support
+2026-07-05 02:11:44 | INFO     | http_client               | Skipping (robots.txt disallow): https://zoom.us/signup?signUpFrom=homepage
+2026-07-05 02:11:44 | INFO     | http_client               | Skipping (robots.txt disallow): https://zoom.us/start/videomeeting
+2026-07-05 02:11:44 | INFO     | website_crawler           | [https://unitedthankoffering.com/] crawled 40 pages -> 14 emails, 18 phones
+2026-07-05 02:11:46 | INFO     | website_crawler           | [https://extranet.generalconvention.org/staff/files/download/31954?_gl=1*fv7qqi*_ga*NDY0NzA2Nzg0LjE3NTMyMTA0NzM.*_ga_8C0Q9J2J2F*czE3NjQ4Njg4OTMkbzM0JGcxJHQxNzY0ODY4ODk2JGo1NyRsMCRoMA..] crawled 16 pages -> 1 emails, 0 phones
+2026-07-05 02:11:51 | INFO     | website_crawler           | [https://episcopalarchives.org/] crawled 40 pages -> 0 emails, 34 phones
+2026-07-05 02:11:59 | INFO     | http_client               | Skipping (robots.txt disallow): https://zoom.us/account
+2026-07-05 02:12:01 | INFO     | website_crawler           | [https://generalconvention.org/] crawled 40 pages -> 8 emails, 73 phones
+2026-07-05 02:12:01 | INFO     | main                      |   ...100/105 websites processed
+2026-07-05 02:12:23 | INFO     | website_crawler           | [https://digitalarchives.episcopalarchives.org/cgi-bin/acts/acts_resolution.pl?resolution=2006-A143] crawled 16 pages -> 0 emails, 1 phones
+2026-07-05 02:12:27 | INFO     | website_crawler           | [https://media.episcopalchurch.org/podcasts/show/the-way-of-love-with-bishop-michael-curry] crawled 14 pages -> 0 emails, 0 phones
+2026-07-05 02:12:41 | INFO     | website_crawler           | [https://zoom.us/webinar/register/WN_2H0EPBRCQGezMsYiq7sHpQ] crawled 40 pages -> 3 emails, 14 phones
+2026-07-05 02:13:03 | INFO     | website_crawler           | [https://unitedthankoffering.com/wp-content/uploads/2-2026-United-Thank-Offering-Grant-Awards.pdf] crawled 40 pages -> 14 emails, 18 phones
+2026-07-05 02:13:04 | INFO     | website_crawler           | [https://denhamwolf.com/] crawled 40 pages -> 4 emails, 3 phones
+2026-07-05 02:13:04 | INFO     | main                      | === Phase 6+7: cleaning & exporting ===
+2026-07-05 02:13:06 | INFO     | exporter                  | Exported 1460 discovered URLs, 110 websites, 110 contact records -> output/
+2026-07-05 02:13:06 | INFO     | main                      | Done in 4593.0s. Outputs written to 'output/'.

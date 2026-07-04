@@ -232,8 +232,8 @@ def fetch_smart(url: str, method: str = "GET", allow_redirects: bool = True):
     text_lower = resp.text.lower()
     
     # Check for anti-bot
-    if resp.status_code in (403, 503) and ("cloudflare" in text_lower or "just a moment" in text_lower or "ddos-guard" in text_lower):
-        logger.info(f"Detected anti-bot at {url}. Falling back to Playwright.")
+    if resp.status_code in (401, 403, 503):
+        logger.info(f"Detected anti-bot/forbidden at {url}. Falling back to Playwright.")
         return fetch_with_js(url)
         
     # Check for SPA

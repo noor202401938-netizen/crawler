@@ -20,7 +20,7 @@ from urllib.parse import urljoin, urlsplit
 from bs4 import BeautifulSoup
 
 import config
-from utils.http_client import fetch
+from utils.http_client import fetch_smart as fetch
 from utils.html_parser import make_soup
 from utils.logger import get_logger
 from utils.normalizer import normalize_url, get_domain
