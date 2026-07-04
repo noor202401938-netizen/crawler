@@ -119,7 +119,7 @@ def _find_external_website(soup: BeautifulSoup, base_url: str, seed_domain: str)
         # skip social platforms, maps, and share links -- those are handled by social_extractor or irrelevant
         if any(s in domain for s in
                ("facebook.", "twitter.", "x.com", "instagram.", "linkedin.",
-                "youtube.", "tiktok.", "pinterest.", "threads.", 
+                "youtube.", "tiktok.", "pinterest.", "threads.", "vimeo.",
                 "whatsapp.", "google.", "apple.", "yelp.", "bing.", "yahoo.")):
             continue
 

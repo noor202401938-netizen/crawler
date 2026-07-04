@@ -50,7 +50,7 @@ MAX_PAGES_PER_DOMAIN = int(os.environ.get("MAX_PAGES_PER_DOMAIN", 40))  # hard c
 MAX_PAGINATION_PAGES = int(os.environ.get("MAX_PAGINATION_PAGES", 50))  # per listing/category page
 
 CONCURRENCY = int(os.environ.get("CONCURRENCY", 5))       # parallel workers
-INTERNAL_CONCURRENCY = int(os.environ.get("INTERNAL_CONCURRENCY", 3))  # parallel threads per website
+INTERNAL_CONCURRENCY = int(os.environ.get("INTERNAL_CONCURRENCY", 20))  # parallel threads per website
 USE_SMART_JS_FALLBACK = os.environ.get("USE_SMART_JS_FALLBACK", "true").lower() == "true"
 REQUEST_TIMEOUT = int(os.environ.get("REQUEST_TIMEOUT", 15))
 RETRY_ATTEMPTS = int(os.environ.get("RETRY_ATTEMPTS", 3))

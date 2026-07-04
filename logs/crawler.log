@@ -1122,3 +1122,54 @@
 2026-07-04 21:16:59 | INFO     | main                      | === Phase 6+7: cleaning & exporting ===
 2026-07-04 21:17:01 | INFO     | exporter                  | Exported 1460 discovered URLs, 118 websites, 118 contact records -> output/
 2026-07-04 21:17:01 | INFO     | main                      | Done in 6766.8s. Outputs written to 'output/'.
+2026-07-04 22:47:49 | INFO     | main                      | === Universal Website Discovery & Contact Extraction Framework ===
+2026-07-04 22:47:49 | INFO     | main                      | Seed file: links.sample.txt
+2026-07-04 22:47:49 | INFO     | main                      | Concurrency: 5 | Max depth: 3 | Respect robots.txt: True
+2026-07-04 22:47:49 | INFO     | seed_loader               | Loaded 3 seed URLs from links.sample.txt
+2026-07-04 22:47:49 | INFO     | main                      | === Phase 1: crawling seed https://usachurches.org/ ===
+2026-07-04 22:47:58 | INFO     | directory_crawler         | [https://usachurches.org/] crawled 1 listing pages, found 7 profile links
+2026-07-04 22:47:58 | INFO     | main                      | === Phase 2+3: processing 7 profile pages for https://usachurches.org/ ===
+2026-07-04 22:48:09 | INFO     | main                      | === Phase 1: crawling seed https://churchfinder.com/ ===
+2026-07-04 22:48:18 | INFO     | directory_crawler         | [https://churchfinder.com/] crawled 1 listing pages, found 0 profile links
+2026-07-04 22:48:18 | WARNING  | main                      | No profile links discovered for seed: https://churchfinder.com/
+2026-07-04 22:48:18 | INFO     | main                      | === Phase 1: crawling seed https://achurchnearyou.com/ ===
+2026-07-04 22:48:34 | INFO     | directory_crawler         | [https://achurchnearyou.com/] crawled 3 listing pages, found 4 profile links
+2026-07-04 22:48:34 | INFO     | main                      | === Phase 2+3: processing 4 profile pages for https://achurchnearyou.com/ ===
+2026-07-04 22:48:41 | INFO     | main                      | === Phase 4+5: crawling 7 discovered websites (0 already done) ===
+2026-07-04 22:49:09 | INFO     | website_crawler           | [https://vimeo.com/convergeww] crawled 14 pages -> 0 emails, 0 phones
+2026-07-04 22:49:39 | INFO     | website_crawler           | [https://fbcrichlands.com/] crawled 22 pages -> 1 emails, 1 phones
+2026-07-04 22:50:15 | WARNING  | http_client               | Attempt 1/3 failed for https://churchofengland.org/about: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-04 22:50:17 | WARNING  | http_client               | Attempt 1/3 failed for https://shepnaz.org/media?sermon_series=lessons-from-the-legends: HTTPSConnectionPool(host='shepnaz.org', port=443): Max retries exceeded with url: /media?sermon_series=lessons-from-the-legends (Caused by ConnectTimeoutError(<HTTPSConnection(host='shepnaz.org', port=443) at 0x1ebc299b4d0>, 'Connection to shepnaz.org timed out. (connect timeout=15)'))
+2026-07-04 22:50:18 | WARNING  | http_client               | Attempt 1/3 failed for https://nazarene.org/what-we-believe: HTTPSConnectionPool(host='nazarene.org', port=443): Read timed out. (read timeout=15)
+2026-07-04 22:50:18 | WARNING  | http_client               | Attempt 1/3 failed for https://nazarene.org/our-history: HTTPSConnectionPool(host='nazarene.org', port=443): Max retries exceeded with url: /our-history (Caused by ConnectTimeoutError(<HTTPSConnection(host='nazarene.org', port=443) at 0x1ebbf3c8f50>, 'Connection to nazarene.org timed out. (connect timeout=15)'))
+2026-07-04 22:50:19 | WARNING  | http_client               | Attempt 1/3 failed for https://shepnaz.org/media?sermon_speaker=robpaugh: HTTPSConnectionPool(host='shepnaz.org', port=443): Max retries exceeded with url: /media?sermon_speaker=robpaugh (Caused by ConnectTimeoutError(<HTTPSConnection(host='shepnaz.org', port=443) at 0x1ebc52a2d50>, 'Connection to shepnaz.org timed out. (connect timeout=15)'))
+2026-07-04 22:50:19 | WARNING  | http_client               | Attempt 1/3 failed for https://nazarene.org/archives: HTTPSConnectionPool(host='nazarene.org', port=443): Max retries exceeded with url: /archives (Caused by ConnectTimeoutError(<HTTPSConnection(host='nazarene.org', port=443) at 0x1ebc52a3c50>, 'Connection to nazarene.org timed out. (connect timeout=15)'))
+2026-07-04 22:50:21 | WARNING  | http_client               | Attempt 1/3 failed for https://parksidebaptist.org/espanol: HTTPSConnectionPool(host='www.parksidebaptist.org', port=443): Read timed out.
+2026-07-04 22:50:21 | WARNING  | http_client               | Attempt 1/3 failed for https://mountaincity.church/wp-content/uploads/2026/04/Spring-Booklet_FINAL.pdf: HTTPSConnectionPool(host='mountaincity.church', port=443): Read timed out.
+2026-07-04 22:50:31 | WARNING  | http_client               | Attempt 1/3 failed for https://churchofengland.org/contact-us: HTTPSConnectionPool(host='www.churchofengland.org', port=443): Read timed out. (read timeout=15)
+2026-07-04 22:50:57 | WARNING  | http_client               | Attempt 2/3 failed for https://churchofengland.org/contact-us: HTTPSConnectionPool(host='churchofengland.org', port=443): Read timed out. (read timeout=15)
+2026-07-04 22:51:43 | INFO     | website_crawler           | [https://shepnaz.org/] crawled 40 pages -> 11 emails, 1 phones
+2026-07-04 22:51:43 | ERROR    | main                      | Website crawl failed (https://shepnaz.org/): unable to open database file
+2026-07-04 22:52:01 | INFO     | website_crawler           | [https://nazarene.org/] crawled 40 pages -> 40 emails, 62 phones
+2026-07-04 22:52:01 | ERROR    | main                      | Website crawl failed (https://nazarene.org/): no such table: contacts
+2026-07-04 22:52:21 | INFO     | http_client               | Skipping (robots.txt disallow): https://churchofengland.org/node/55/printable/print
+2026-07-04 22:52:21 | INFO     | http_client               | Skipping (robots.txt disallow): https://churchofengland.org/user/register
+2026-07-04 22:52:28 | INFO     | website_crawler           | [https://parksidebaptist.org/] crawled 40 pages -> 0 emails, 6 phones
+2026-07-04 22:52:28 | ERROR    | main                      | Website crawl failed (https://parksidebaptist.org/): no such table: contacts
+2026-07-04 22:52:30 | INFO     | http_client               | Skipping (robots.txt disallow): https://churchofengland.org/user/password
+2026-07-04 22:52:42 | INFO     | website_crawler           | [https://churchofengland.org/] crawled 40 pages -> 0 emails, 10 phones
+2026-07-04 22:52:42 | ERROR    | main                      | Website crawl failed (https://churchofengland.org/): no such table: contacts
+2026-07-04 22:54:12 | INFO     | main                      | === Universal Website Discovery & Contact Extraction Framework ===
+2026-07-04 22:54:12 | INFO     | main                      | Seed file: links.sample.txt
+2026-07-04 22:54:12 | INFO     | main                      | Concurrency: 5 | Max depth: 1 | Respect robots.txt: True
+2026-07-04 22:54:12 | INFO     | checkpoint                | Resuming from checkpoint: 3 seeds, 6 websites already done
+2026-07-04 22:54:12 | INFO     | seed_loader               | Loaded 3 seed URLs from links.sample.txt
+2026-07-04 22:54:12 | INFO     | main                      | Skipping already-completed seed: https://usachurches.org/
+2026-07-04 22:54:12 | INFO     | main                      | Skipping already-completed seed: https://churchfinder.com/
+2026-07-04 22:54:12 | INFO     | main                      | Skipping already-completed seed: https://achurchnearyou.com/
+2026-07-04 22:54:12 | INFO     | main                      | === Phase 4+5: crawling 0 discovered websites (0 already done) ===
+2026-07-04 22:54:12 | INFO     | main                      | === Phase 6+7: cleaning & exporting ===
+2026-07-04 22:55:28 | INFO     | website_crawler           | [https://mountaincity.church/] crawled 40 pages -> 15 emails, 15 phones
+2026-07-04 22:55:28 | INFO     | main                      | === Phase 6+7: cleaning & exporting ===
+2026-07-04 22:55:29 | INFO     | exporter                  | Exported 0 discovered URLs, 0 websites, 1 contact records -> output/
+2026-07-04 22:55:29 | INFO     | main                      | Done in 460.0s. Outputs written to 'output/'.
