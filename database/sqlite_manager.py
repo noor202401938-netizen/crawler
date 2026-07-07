@@ -41,6 +41,7 @@ class SQLiteManager:
                     discovered_timestamp TEXT
                 );
 
+                DROP TABLE IF EXISTS contacts;
                 CREATE TABLE IF NOT EXISTS contacts (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     website TEXT,
@@ -53,6 +54,8 @@ class SQLiteManager:
                     emails TEXT,
                     phones TEXT,
                     social_links TEXT,
+                    images TEXT,
+                    articles TEXT,
                     contact_page_url TEXT,
                     crawl_status TEXT,
                     extraction_timestamp TEXT,
@@ -146,13 +149,15 @@ class SQLiteManager:
             conn.execute(
                 """INSERT INTO contacts
                    (website, detail_page_url, source_url, name, organization, category,
-                    address, emails, phones, social_links, contact_page_url,
+                    address, emails, phones, social_links, images, articles, contact_page_url,
                     crawl_status, extraction_timestamp)
-                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
+                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
                    ON CONFLICT(website, detail_page_url) DO UPDATE SET
                         emails=excluded.emails,
                         phones=excluded.phones,
                         social_links=excluded.social_links,
+                        images=excluded.images,
+                        articles=excluded.articles,
                         crawl_status=excluded.crawl_status,
                         extraction_timestamp=excluded.extraction_timestamp
                 """,
@@ -167,6 +172,8 @@ class SQLiteManager:
                     record.get("emails", ""),
                     record.get("phones", ""),
                     record.get("social_links", ""),
+                    record.get("images", ""),
+                    record.get("articles", ""),
                     record.get("contact_page_url", ""),
                     record.get("crawl_status", "complete"),
                     self._now(),

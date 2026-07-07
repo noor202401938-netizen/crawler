@@ -24,6 +24,9 @@ from extractors.email_extractor import extract_emails
 from extractors.phone_extractor import extract_phones
 from extractors.social_extractor import extract_social_links
 from extractors.metadata_extractor import extract_metadata
+from extractors.image_extractor import extract_images
+from extractors.article_extractor import extract_articles
+from crawler.bandit import URLBandit
 
 logger = get_logger("website_crawler")
 
@@ -70,6 +73,9 @@ def crawl_website(website_url: str, db) -> dict:
     visited = SeenSet()
     queue = [(website_url, 0)]
 
+    # load the bandit
+    bandit = URLBandit()
+
     # seed the queue with priority paths up front
     scheme = urlsplit(website_url).scheme or "https"
     for path in config.PRIORITY_PATHS:
@@ -79,12 +85,17 @@ def crawl_website(website_url: str, db) -> dict:
     all_emails = set()
     all_phones = set()
     social_links = {}
+    all_images = set()
+    all_articles = set()
     contact_page_url = ""
     contact_form_url = ""
     metadata = {}
     pages_crawled = 0
 
     while queue and pages_crawled < config.MAX_PAGES_PER_DOMAIN:
+        # Prioritize queue using URLBandit
+        queue.sort(key=lambda item: bandit.score_url(item[0]), reverse=True)
+        
         batch_size = min(config.INTERNAL_CONCURRENCY, len(queue), config.MAX_PAGES_PER_DOMAIN - pages_crawled)
         batch = []
         for _ in range(batch_size):
@@ -122,14 +133,37 @@ def crawl_website(website_url: str, db) -> dict:
 
                 soup = make_soup(resp.text)
 
-                emails = extract_emails(resp.text, soup)
-                phones = extract_phones(resp.text, soup)
-                socials = extract_social_links(resp.text, soup)
+                reward = 0
+                
+                if config.EXTRACT_EMAILS:
+                    emails = extract_emails(resp.text, soup)
+                    all_emails.update(emails)
+                    if emails: reward += 10
 
-                all_emails.update(emails)
-                all_phones.update(phones)
-                for k, v in socials.items():
-                    social_links.setdefault(k, v)
+                if config.EXTRACT_PHONES:
+                    phones = extract_phones(resp.text, soup)
+                    all_phones.update(phones)
+                    if phones: reward += 10
+
+                if config.EXTRACT_EMAILS or config.EXTRACT_PHONES:
+                    socials = extract_social_links(resp.text, soup)
+                    for k, v in socials.items():
+                        social_links.setdefault(k, v)
+                
+                if config.EXTRACT_IMAGES:
+                    images = extract_images(resp.text, soup, url)
+                    all_images.update(images)
+                    if images: reward += 5
+
+                if config.EXTRACT_ARTICLES:
+                    articles = extract_articles(resp.text, soup)
+                    all_articles.update(articles)
+                    if articles: reward += 5
+                
+                if reward == 0:
+                    reward = -1
+                
+                bandit.update_reward(url, reward)
 
                 if not metadata:
                     page_meta = extract_metadata(resp.text, soup)
@@ -169,6 +203,8 @@ def crawl_website(website_url: str, db) -> dict:
         "emails": ", ".join(sorted(all_emails)),
         "phones": ", ".join(sorted(all_phones)),
         "social_links": json.dumps(social_links, ensure_ascii=False),
+        "images": json.dumps(list(all_images), ensure_ascii=False),
+        "articles": json.dumps(list(all_articles), ensure_ascii=False),
         "contact_page_url": contact_page_url,
         "crawl_status": "complete" if pages_crawled > 0 else "failed",
     }

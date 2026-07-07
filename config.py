@@ -43,6 +43,14 @@ CSV_CONTACTS = os.path.join(OUTPUT_DIR, "contacts.csv")
 XLSX_MASTER = os.path.join(OUTPUT_DIR, "master_database.xlsx")
 
 # ---------------------------------------------------------------------------
+# Extraction Goals
+# ---------------------------------------------------------------------------
+EXTRACT_EMAILS = os.environ.get("EXTRACT_EMAILS", "true").lower() == "true"
+EXTRACT_PHONES = os.environ.get("EXTRACT_PHONES", "true").lower() == "true"
+EXTRACT_IMAGES = os.environ.get("EXTRACT_IMAGES", "false").lower() == "true"
+EXTRACT_ARTICLES = os.environ.get("EXTRACT_ARTICLES", "true").lower() == "true"
+
+# ---------------------------------------------------------------------------
 # Crawl behavior
 # ---------------------------------------------------------------------------
 MAX_CRAWL_DEPTH = int(os.environ.get("MAX_CRAWL_DEPTH", 3))          # how deep into a discovered site
