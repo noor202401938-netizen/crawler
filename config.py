@@ -51,6 +51,9 @@ EXTRACT_IMAGES = os.environ.get("EXTRACT_IMAGES", "false").lower() == "true"
 EXTRACT_ARTICLES = os.environ.get("EXTRACT_ARTICLES", "true").lower() == "true"
 EXTRACT_PRODUCTS = os.environ.get("EXTRACT_PRODUCTS", "true").lower() == "true"
 
+CUSTOM_PROMPT = os.environ.get("CUSTOM_PROMPT", "")
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
+
 # ---------------------------------------------------------------------------
 # Crawl behavior
 # ---------------------------------------------------------------------------

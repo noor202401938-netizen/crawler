@@ -57,6 +57,7 @@ class SQLiteManager:
                     images TEXT,
                     articles TEXT,
                     products TEXT,
+                    custom_data TEXT,
                     contact_page_url TEXT,
                     crawl_status TEXT,
                     extraction_timestamp TEXT,
@@ -150,9 +151,9 @@ class SQLiteManager:
             conn.execute(
                 """INSERT INTO contacts
                    (website, detail_page_url, source_url, name, organization, category,
-                    address, emails, phones, social_links, images, articles, products, contact_page_url,
+                    address, emails, phones, social_links, images, articles, products, custom_data, contact_page_url,
                     crawl_status, extraction_timestamp)
-                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
                    ON CONFLICT(website, detail_page_url) DO UPDATE SET
                         emails=excluded.emails,
                         phones=excluded.phones,
@@ -160,6 +161,7 @@ class SQLiteManager:
                         images=excluded.images,
                         articles=excluded.articles,
                         products=excluded.products,
+                        custom_data=excluded.custom_data,
                         crawl_status=excluded.crawl_status,
                         extraction_timestamp=excluded.extraction_timestamp
                 """,
@@ -177,6 +179,7 @@ class SQLiteManager:
                     record.get("images", ""),
                     record.get("articles", ""),
                     record.get("products", ""),
+                    record.get("custom_data", ""),
                     record.get("contact_page_url", ""),
                     record.get("crawl_status", "complete"),
                     self._now(),

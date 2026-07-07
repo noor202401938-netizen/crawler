@@ -27,6 +27,7 @@ from extractors.metadata_extractor import extract_metadata
 from extractors.image_extractor import extract_images
 from extractors.article_extractor import extract_articles
 from extractors.product_extractor import extract_products
+from extractors.custom_extractor import extract_custom_data
 from crawler.bandit import URLBandit
 
 logger = get_logger("website_crawler")
@@ -89,6 +90,7 @@ def crawl_website(website_url: str, db) -> dict:
     all_images = set()
     all_articles = set()
     all_products = []
+    all_custom_data = []
     contact_page_url = ""
     contact_form_url = ""
     metadata = {}
@@ -167,6 +169,12 @@ def crawl_website(website_url: str, db) -> dict:
                     if products:
                         all_products.extend(products)
                         reward += 20  # Massive reward for finding products!
+
+                if getattr(config, "CUSTOM_PROMPT", ""):
+                    custom_data = extract_custom_data(resp.text, config.CUSTOM_PROMPT, soup)
+                    if custom_data:
+                        all_custom_data.extend(custom_data)
+                        reward += 15  # Good reward for finding custom data
                 
                 if reward == 0:
                     reward = -1
@@ -214,6 +222,7 @@ def crawl_website(website_url: str, db) -> dict:
         "images": json.dumps(list(all_images), ensure_ascii=False),
         "articles": json.dumps(list(all_articles), ensure_ascii=False),
         "products": json.dumps(all_products, ensure_ascii=False),
+        "custom_data": json.dumps(all_custom_data, ensure_ascii=False),
         "contact_page_url": contact_page_url,
         "crawl_status": "complete" if pages_crawled > 0 else "failed",
     }

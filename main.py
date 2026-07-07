@@ -103,6 +103,51 @@ def main():
     os.makedirs(config.OUTPUT_DIR, exist_ok=True)
     os.makedirs(config.LOG_DIR, exist_ok=True)
 
+    print("\n" + "="*60)
+    print("Welcome to the Universal Goal-Oriented AI Crawler")
+    print("="*60)
+    print("What would you like to extract?")
+    print("Available targets: emails, phones, images, articles, products")
+    print("You can also type a completely custom request (e.g., 'extract pricing tables' or 'find job openings').")
+    
+    user_input = input("\nEnter your extraction goals (comma separated) or a custom prompt: ").strip().lower()
+    
+    if user_input:
+        # Reset all standard flags to False
+        config.EXTRACT_EMAILS = False
+        config.EXTRACT_PHONES = False
+        config.EXTRACT_IMAGES = False
+        config.EXTRACT_ARTICLES = False
+        config.EXTRACT_PRODUCTS = False
+        config.CUSTOM_PROMPT = ""
+
+        targets = [t.strip() for t in user_input.split(",")]
+        is_custom = True
+        
+        for t in targets:
+            if "email" in t: config.EXTRACT_EMAILS = True; is_custom = False
+            elif "phone" in t: config.EXTRACT_PHONES = True; is_custom = False
+            elif "image" in t: config.EXTRACT_IMAGES = True; is_custom = False
+            elif "article" in t: config.EXTRACT_ARTICLES = True; is_custom = False
+            elif "product" in t: config.EXTRACT_PRODUCTS = True; is_custom = False
+            
+        # If it didn't match any standard targets, treat the whole input as a custom prompt
+        if is_custom:
+            config.CUSTOM_PROMPT = user_input
+            if not config.GEMINI_API_KEY:
+                print("\n[WARNING] You requested a custom extraction but GEMINI_API_KEY is not set in your environment!")
+                print("The crawler will still run, but custom extraction will fail unless the key is provided.")
+
+    print("\nStarting crawl with the following goals:")
+    print(f"- Emails: {config.EXTRACT_EMAILS}")
+    print(f"- Phones: {config.EXTRACT_PHONES}")
+    print(f"- Images: {config.EXTRACT_IMAGES}")
+    print(f"- Articles: {config.EXTRACT_ARTICLES}")
+    print(f"- Products: {config.EXTRACT_PRODUCTS}")
+    if config.CUSTOM_PROMPT:
+        print(f"- Custom Prompt: '{config.CUSTOM_PROMPT}'")
+    print("="*60 + "\n")
+
     start = time.time()
     logger.info("=== Universal Website Discovery & Contact Extraction Framework ===")
     logger.info(f"Seed file: {config.SEED_FILE}")
