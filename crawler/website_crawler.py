@@ -26,6 +26,7 @@ from extractors.social_extractor import extract_social_links
 from extractors.metadata_extractor import extract_metadata
 from extractors.image_extractor import extract_images
 from extractors.article_extractor import extract_articles
+from extractors.product_extractor import extract_products
 from crawler.bandit import URLBandit
 
 logger = get_logger("website_crawler")
@@ -87,6 +88,7 @@ def crawl_website(website_url: str, db) -> dict:
     social_links = {}
     all_images = set()
     all_articles = set()
+    all_products = []
     contact_page_url = ""
     contact_form_url = ""
     metadata = {}
@@ -159,6 +161,12 @@ def crawl_website(website_url: str, db) -> dict:
                     articles = extract_articles(resp.text, soup)
                     all_articles.update(articles)
                     if articles: reward += 5
+
+                if getattr(config, "EXTRACT_PRODUCTS", False):
+                    products = extract_products(resp.text, soup, url)
+                    if products:
+                        all_products.extend(products)
+                        reward += 20  # Massive reward for finding products!
                 
                 if reward == 0:
                     reward = -1
@@ -205,6 +213,7 @@ def crawl_website(website_url: str, db) -> dict:
         "social_links": json.dumps(social_links, ensure_ascii=False),
         "images": json.dumps(list(all_images), ensure_ascii=False),
         "articles": json.dumps(list(all_articles), ensure_ascii=False),
+        "products": json.dumps(all_products, ensure_ascii=False),
         "contact_page_url": contact_page_url,
         "crawl_status": "complete" if pages_crawled > 0 else "failed",
     }

@@ -16,6 +16,7 @@ from requests.exceptions import InvalidSchema, InvalidURL, MissingSchema, SSLErr
 
 try:
     from playwright.sync_api import sync_playwright
+    from playwright_stealth import stealth_sync
     HAS_PLAYWRIGHT = True
 except ImportError:
     HAS_PLAYWRIGHT = False
@@ -163,7 +164,9 @@ def _get_playwright_page():
             user_agent=config.USER_AGENT,
             ignore_https_errors=True
         )
-    return _playwright_local.context.new_page()
+    page = _playwright_local.context.new_page()
+    stealth_sync(page)
+    return page
 
 def fetch_with_js(url: str):
     if not HAS_PLAYWRIGHT:

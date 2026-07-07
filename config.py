@@ -49,6 +49,7 @@ EXTRACT_EMAILS = os.environ.get("EXTRACT_EMAILS", "true").lower() == "true"
 EXTRACT_PHONES = os.environ.get("EXTRACT_PHONES", "true").lower() == "true"
 EXTRACT_IMAGES = os.environ.get("EXTRACT_IMAGES", "false").lower() == "true"
 EXTRACT_ARTICLES = os.environ.get("EXTRACT_ARTICLES", "true").lower() == "true"
+EXTRACT_PRODUCTS = os.environ.get("EXTRACT_PRODUCTS", "true").lower() == "true"
 
 # ---------------------------------------------------------------------------
 # Crawl behavior
