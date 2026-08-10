@@ -1,131 +1,267 @@
-# Universal Website Discovery & Public Contact Extraction Framework
+# Universal Website Discovery & Contact Extraction Engine
 
-A modular, config-driven Python crawler. Point it at a list of seed URLs
-(directory/listing sites) and it will:
+**Turn any directory or listing site into a structured, verified contact database — no code, no selectors, no maintenance.**
 
-1. **Crawl each seed** (following pagination) to discover profile/detail pages.
-2. **Visit each profile page** and pull generic metadata (name, category, address)
-   using JSON-LD/schema.org + layout-agnostic heuristics — no site-specific selectors.
-3. **Find the official external website** linked from each profile, normalize it
-   (`http://abc.com`, `https://www.abc.com` → one canonical URL) and queue it.
-4. **Crawl every discovered website**, prioritizing `/contact`, `/about`, `/team`,
-   `/sitemap.xml`, etc., then breadth-first exploring further internal pages.
-5. **Extract public contact info** — emails (incl. `mailto:`), phones (incl. `tel:`),
-   contact page URL, contact form presence, social media links.
-6. **Clean & dedupe** everything (URLs, emails, phones) and validate formats.
-7. **Export** to CSV, Excel (`.xlsx`), and a SQLite database.
+---
 
-The only thing that changes between projects is the contents of your seed
-file — no code changes needed.
+## What Is This?
 
-## Quick start
+A **config-driven, AI-enhanced data acquisition engine** that takes a list of seed URLs (directory sites, association listings, marketplaces, etc.) and automatically:
 
+1. **Discovers** every profile/detail page on each listing site (handles pagination, infinite scroll, SPA)
+2. **Extracts** organization metadata — name, address, category, website — using schema.org + layout-agnostic heuristics
+3. **Finds** the official external website for each entity (deduplicated & canonicalized)
+4. **Crawls** every discovered website, prioritizing contact/about/team pages
+5. **Pulls** public contact intelligence: emails, phones, contact forms, social profiles, images, articles, products
+6. **Cleans & validates** everything (format checks, false-positive filtering, dedup)
+7. **Exports** to CSV, Excel, and SQLite — ready for CRM import, outreach tools, or analysis
+
+**Zero site-specific code.** The only thing that changes between projects is your seed file.
+
+---
+
+## What Does It Do?
+
+| Phase | Operation | Output |
+|-------|-----------|--------|
+| **0** | Load seed URLs from file | `seeds[]` |
+| **1** | Crawl listing sites, follow pagination | Profile URLs discovered |
+| **2** | Visit each profile, extract metadata (JSON-LD + heuristics) | Name, address, category, website |
+| **3** | Identify & normalize official external website | Canonical website URLs |
+| **4** | Crawl each website (priority paths → BFS, depth/page limits) | Pages visited per domain |
+| **5** | Extract contacts + optional: images, articles, products, custom LLM prompts | Structured contact records |
+| **6** | Dedupe, validate, filter false positives | Clean data |
+| **7** | Export to `output/` | CSV, Excel, SQLite |
+
+### Extraction Capabilities (toggleable)
+- **Emails** — `mailto:` links + regex, validated (MX-ready)
+- **Phones** — `tel:` links + international regex, normalized to E.164
+- **Social** — Facebook, X/Twitter, LinkedIn, Instagram, YouTube, TikTok, Pinterest, Threads
+- **Contact pages & forms** — Detected via path hints + form presence
+- **Images** — All `<img>` src URLs (absolute, filtered)
+- **Articles** — `<article>` tags or long-form `<p>` blocks
+- **Products** — Schema.org Product JSON-LD + heuristic fallback
+- **Custom (LLM)** — Any prompt via Google Gemini (e.g., "extract pricing tiers", "find job openings", "list certifications")
+
+---
+
+## Who Is This For?
+
+| Role | Use Case |
+|------|----------|
+| **Sales/RevOps teams** | Build territory lead lists from industry directories (Chamber of Commerce, Angie's List, Clutch, G2, etc.) |
+| **Lead gen agencies** | Deliver verified prospect data to clients — whitelabel the output |
+| **Market researchers / PE / VC** | Map fragmented markets (local services, niche B2B, franchises) in hours |
+| **Growth / SEO teams** | Programmatic page generation: "Plumber in [City]" pages with real business data |
+| **Data engineers** | Replace brittle scrapers with a maintainable, resumable pipeline |
+| **Recruiters** | Extract company contacts from association directories, conference attendee lists |
+| **Journalists / investigators** | Map networks of organizations, find contact points for FOIA/outreach |
+
+---
+
+## Quick Start
+
+### Prerequisites
+- Python 3.10+
+- `playwright install chromium` (for JS rendering fallback)
+
+### Install
 ```bash
+git clone <this-repo>
+cd crawler
 pip install -r requirements.txt
 playwright install chromium
-
-# Copy `.env.example` to `.env` if you want to customize the input file path.
-# The default `.env` in this repo points at `links.sample.txt`.
-
-# Windows: put your seed URLs in D:\links.txt (one per line), then:
-python main.py
-
-# macOS/Linux, or a different path:
-SEED_FILE=/path/to/links.txt python main.py
 ```
 
-See `links.sample.txt` for the expected format.
+### Configure (optional)
+```bash
+cp .env.example .env
+# Edit .env — or use env vars at runtime
+```
 
-If you want the crawler to read configuration from a file instead of shell
-variables, put key/value pairs in `.env`. The app loads `.env` automatically
-at startup, and values already present in the shell still take precedence.
+### Run
+```bash
+# Option 1: Interactive (prompts for extraction goals)
+python main.py
 
-## Configuration
+# Option 2: Non-interactive / CI-friendly (recommended)
+python main.py --extract emails,phones --custom-prompt "extract pricing tables"
 
-Everything tunable lives in `config.py`, and every setting can also be
-overridden via environment variable at run time or via `.env`:
+# Option 3: Override config via env vars
+SEED_FILE=/path/to/links.txt CONCURRENCY=8 python main.py --extract emails,phones,images
+```
 
-| Setting | Env var | Default | Purpose |
-|---|---|---|---|
-| Seed file path | `SEED_FILE` | `links.sample.txt` | Input list of seed URLs |
-| Max crawl depth per website | `MAX_CRAWL_DEPTH` | 3 | How deep to follow internal links on a discovered site |
-| Max pages per domain | `MAX_PAGES_PER_DOMAIN` | 40 | Hard ceiling to avoid runaway crawls |
-| Max pagination pages | `MAX_PAGINATION_PAGES` | 50 | Per listing/directory site |
-| Concurrency | `CONCURRENCY` | 5 | Parallel worker threads for different sites |
-| Internal Concurrency | `INTERNAL_CONCURRENCY` | 3 | Parallel worker threads for pages within the same site |
-| Smart JS Fallback | `USE_SMART_JS_FALLBACK` | true | Intelligently use Playwright to render SPAs and Anti-bot pages |
-| Min delay per domain | `MIN_DELAY_PER_DOMAIN` | 1.5s | Politeness floor between requests to the same host |
-| Respect robots.txt | `RESPECT_ROBOTS_TXT` | true | Skips disallowed paths |
-| Retry attempts | `RETRY_ATTEMPTS` | 3 | Per-request retry count |
+### CLI Reference
+```bash
+python main.py --help
+```
+```
+--extract EXTRACT           Comma-separated: emails, phones, images, articles, products
+--custom-prompt PROMPT      Custom LLM extraction (requires GEMINI_API_KEY)
+--seed-file PATH            Override seed file path
+--concurrency N             Parallel workers (default: 5)
+--max-depth N               Crawl depth per website (default: 3)
+--no-js-fallback            Disable Playwright fallback for SPAs/anti-bot
+```
 
-## Resume after interruption
+---
 
-Progress is checkpointed to `output/checkpoint.json` (completed seeds/websites)
-and mirrored in the SQLite `crawl_queue` table. Re-running `python main.py`
-after a crash or Ctrl-C skips everything already finished.
+## Input Format
 
-## Environment file
+**Seed file** (`links.txt` or `SEED_FILE` path) — one URL per line:
+```
+https://www.chamberofcommerce.com/ca/los-angeles
+https://www.angieslist.com/companylist/us/ca/los-angeles.htm
+https://clutch.co/agencies/web-developers#listing
+# Comments and blank lines ignored
+```
 
-- `.env` is loaded automatically by `config.py` before settings are read.
-- `SEED_FILE` is now stored in `.env` by default.
-- Use `.env.example` as the template if you want to change the input path or
-  add more overrides locally.
+The crawler treats each as a **listing/directory site** — it will paginate, find profile links, and follow them.
+
+---
+
+## Outputs (in `output/`)
+
+| File | Description |
+|------|-------------|
+| `discovered_urls.csv` | All profile URLs found on listing sites + source seed |
+| `websites.csv` | Canonical official websites discovered (deduped) |
+| `contacts.csv` | **Master contact database** — one row per website with all extracted fields |
+| `master_database.xlsx` | Excel workbook with 3 sheets: Contacts, Websites, Discovered URLs |
+| `master_database.sqlite3` | Queryable SQLite DB (same data + crawl queue for resume) |
+| `checkpoint.json` | Resume state (completed seeds/websites) |
+| `bandit_model.json` | Learned URL-path priorities (Thompson Sampling) |
+
+### Contact Record Schema
+```csv
+website, detail_page_url, source_url, name, organization, category,
+address, emails, phones, social_links, images, articles, products,
+custom_data, contact_page_url, crawl_status, extraction_timestamp
+```
+- `emails` / `phones` — comma-separated, validated
+- `social_links` — JSON: `{"linkedin": "url", "twitter": "url", ...}`
+- `custom_data` — JSON array from LLM prompt
+
+---
+
+## Configuration (all in `config.py`, override via `.env` or env vars)
+
+| Setting | Env Var | Default | Purpose |
+|---------|---------|---------|---------|
+| Seed file | `SEED_FILE` | `links.txt` (OS-aware) | Input seed URLs |
+| Max crawl depth | `MAX_CRAWL_DEPTH` | `3` | Internal link depth per website |
+| Max pages/domain | `MAX_PAGES_PER_DOMAIN` | `40` | Hard ceiling per site |
+| Max pagination | `MAX_PAGINATION_PAGES` | `50` | Per listing site |
+| Concurrency | `CONCURRENCY` | `5` | Parallel workers (seeds/websites) |
+| Internal concurrency | `INTERNAL_CONCURRENCY` | `3` | Threads per website |
+| Smart JS fallback | `USE_SMART_JS_FALLBACK` | `true` | Playwright for SPAs/anti-bot |
+| Min delay/domain | `MIN_DELAY_PER_DOMAIN` | `1.5s` | Politeness floor |
+| Respect robots.txt | `RESPECT_ROBOTS_TXT` | `true` | Skip disallowed paths |
+| Retry attempts | `RETRY_ATTEMPTS` | `3` | Per-request retries |
+| Checkpoint interval | `CHECKPOINT_EVERY_N_ITEMS` | `10` | Save progress every N items |
+| Extraction toggles | `EXTRACT_EMAILS` etc. | `true/false` | Enable/disable extractors |
+| Custom prompt | `CUSTOM_PROMPT` | `""` | LLM extraction prompt |
+| Gemini API key | `GEMINI_API_KEY` | `""` | Required for custom extraction |
+
+---
 
 ## Architecture
 
 ```
-main.py                      orchestrates all phases, manages concurrency
-config.py                    all tunables — nothing site-specific
+main.py                      Orchestrates phases, manages concurrency, CLI
+config.py                    All tunables — nothing site-specific
 
 crawler/
-    seed_loader.py           Phase 0/1: load + normalize seed URLs
-    directory_crawler.py     Phase 1-3: listing crawl, profile pages, website discovery
-    website_crawler.py       Phase 4-5: crawl discovered sites, extract contacts
+    seed_loader.py           Phase 0: load & normalize seeds
+    directory_crawler.py     Phases 1-3: listing crawl, profiles, website discovery
+    website_crawler.py       Phases 4-5: site crawl, contact extraction
+    bandit.py                RL bandit (Thompson Sampling) for URL prioritization
 
 extractors/
-    metadata_extractor.py    name/org/category/address via JSON-LD + heuristics
+    metadata_extractor.py    Name/org/category/address via JSON-LD + heuristics
     email_extractor.py       mailto: + regex, validated
-    phone_extractor.py       tel: + regex, validated
-    social_extractor.py      facebook/twitter/instagram/linkedin/etc links
+    phone_extractor.py       tel: + regex, normalized to E.164
+    social_extractor.py      Social platform links
+    image_extractor.py       Image URLs
+    article_extractor.py     Article text blocks
+    product_extractor.py     Schema.org Product + fallback
+    custom_extractor.py      Gemini LLM custom prompts
 
 database/
-    sqlite_manager.py        schema, queue, upserts, resume support
+    sqlite_manager.py        Schema, queue, upserts, resume support
 
 utils/
-    http_client.py           retries, per-domain rate limiting, robots.txt
-    normalizer.py             URL/email/phone canonicalization
-    validator.py              format validation + false-positive filtering
-    deduplicator.py           thread-safe seen-sets + record-level dedup
-    checkpoint.py             JSON-based resume tracking
-    exporter.py               CSV / Excel / SQLite export
-    logger.py                 shared logging setup
+    http_client.py           Retries, per-domain rate limiting, robots.txt, Playwright
+    normalizer.py            URL/email/phone canonicalization
+    validator.py             Format validation + false-positive filtering
+    deduplicator.py          Thread-safe seen-sets + record-level dedup
+    checkpoint.py            JSON resume tracking
+    exporter.py              CSV / Excel / SQLite export
+    logger.py                Shared logging
+    html_parser.py           BeautifulSoup with lxml/html5lib fallback
 
-output/                      discovered_urls.csv, websites.csv, contacts.csv,
-                              master_database.xlsx, master_database.sqlite3,
-                              checkpoint.json
+output/                      All exports + checkpoints
 logs/                        crawler.log
 ```
 
-## A note on responsible use
+---
 
-This only collects information website owners have published publicly
-(emails/phones on their own contact/about pages). A few things worth building
-into whatever you do with the output:
+## Resume After Interruption
 
-- **Respect robots.txt** — on by default (`RESPECT_ROBOTS_TXT`), don't turn it off casually.
-- **Rate limit** — the per-domain delay is a floor to avoid hammering small sites.
-- If the collected emails/phones will be used for **outreach**, check the
-  applicable rules for your situation (CAN-SPAM in the US, CASL in Canada,
-  GDPR/PECR in the UK/EU, etc.) — these generally require an easy opt-out and
-  accurate sender identification, and vary by whether contacts are individuals
-  or organizations. This tool doesn't send anything itself; that compliance
-  layer lives wherever you use the exported list next.
+Progress is checkpointed to:
+- `output/checkpoint.json` (completed seeds/websites)
+- SQLite `crawl_queue` table (page-level state)
+
+**Re-run `python main.py`** — it skips everything already finished automatically.
+
+---
+
+## Responsible Use
+
+This only collects **publicly published** information (emails/phones on organizations' own contact/about pages).
+
+- **Robots.txt respected by default** — don't disable casually
+- **Rate limited** — per-domain delay floor prevents hammering small sites
+- **No outreach sent** — this is a data layer; compliance (CAN-SPAM, CASL, GDPR, PECR) lives wherever you use the exported list next
+- **Individual vs. organization** — rules differ; verify before emailing
+
+---
 
 ## Extending
 
-- Add a new extractor by dropping a module in `extractors/` and calling it
-  from `website_crawler.py` (Phase 5) or `directory_crawler.py` (Phase 2).
-- Swap the fetcher for `Scrapy` if you need much higher throughput — `utils/http_client.py` is the single seam to replace. JS rendering is already handled intelligently via Playwright!
-- All heuristics (profile-link detection, pagination detection, "official
-  website" link scoring) live in `directory_crawler.py` and are pure functions
-  you can unit test independently of network calls.
+| Want to... | Do this |
+|------------|---------|
+| Add new extractor | Drop module in `extractors/`, call from `website_crawler.py` (Phase 5) or `directory_crawler.py` (Phase 2) |
+| Swap fetcher for Scrapy | Replace `utils/http_client.py` — single seam |
+| Tune heuristics | Edit `directory_crawler.py` — profile-link detection, pagination, website scoring are pure functions |
+| Add export format | Extend `utils/exporter.py` |
+| Run distributed | Replace `ThreadPoolExecutor` with Celery/Ray; SQLite → Postgres |
+
+---
+
+## Requirements
+
+```
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+pandas>=2.0.0
+openpyxl>=3.1.0
+playwright>=1.40.0
+google-genai>=1.0.0
+html5lib>=1.1
+```
+
+---
+
+## License
+
+MIT — use freely, contribute back if you improve it.
+
+---
+
+## Support / Contributing
+
+- Issues: GitHub Issues
+- Questions: Open a Discussion
+- PRs welcome — especially new extractors, heuristic improvements, or export formats

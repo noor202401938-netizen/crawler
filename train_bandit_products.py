@@ -5,15 +5,28 @@ MODEL_PATH = "output/bandit_model.json"
 
 # We pre-train the model with highly successful priors for product-related keywords
 # This mimics the AI having learned from thousands of crawls that these paths yield products.
-PRODUCT_KEYWORDS = ["shop", "product", "products", "item", "items", "listing", "listings", "store", "category", "categories", "collection"]
+PRODUCT_KEYWORDS = [
+    "shop",
+    "product",
+    "products",
+    "item",
+    "items",
+    "listing",
+    "listings",
+    "store",
+    "category",
+    "categories",
+    "collection",
+]
+
 
 def train():
     memory = {}
     if os.path.exists(MODEL_PATH):
         try:
-            with open(MODEL_PATH, "r", encoding="utf-8") as f:
+            with open(MODEL_PATH, encoding="utf-8") as f:
                 memory = json.load(f)
-        except Exception:
+        except (json.JSONDecodeError, OSError):
             pass
 
     for kw in PRODUCT_KEYWORDS:
@@ -27,6 +40,7 @@ def train():
         json.dump(memory, f, indent=2)
 
     print(f"Successfully trained AI Bandit for e-commerce keywords. Model saved to {MODEL_PATH}")
+
 
 if __name__ == "__main__":
     train()

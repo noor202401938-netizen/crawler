@@ -8,8 +8,14 @@ from bs4 import BeautifulSoup
 from utils.html_parser import make_soup
 
 SOCIAL_DOMAINS = [
-    "facebook.com", "twitter.com", "x.com", "instagram.com",
-    "linkedin.com", "youtube.com", "tiktok.com", "pinterest.com",
+    "facebook.com",
+    "twitter.com",
+    "x.com",
+    "instagram.com",
+    "linkedin.com",
+    "youtube.com",
+    "tiktok.com",
+    "pinterest.com",
     "threads.net",
 ]
 

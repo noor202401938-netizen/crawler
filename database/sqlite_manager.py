@@ -24,8 +24,7 @@ class SQLiteManager:
 
     def _init_schema(self):
         with self._lock, self._connect() as conn:
-            conn.executescript(
-                """
+            conn.executescript("""
                 CREATE TABLE IF NOT EXISTS discovered_urls (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     profile_url TEXT UNIQUE,
@@ -76,8 +75,7 @@ class SQLiteManager:
                 );
 
                 CREATE INDEX IF NOT EXISTS idx_queue_status ON crawl_queue(status);
-                """
-            )
+                """)
 
     @staticmethod
     def _now():
@@ -118,7 +116,9 @@ class SQLiteManager:
 
     # ---------------- discovered_urls (Phase 1 output) -----------------------
 
-    def save_discovered_url(self, profile_url: str, source_url: str, crawl_status: str = "discovered"):
+    def save_discovered_url(
+        self, profile_url: str, source_url: str, crawl_status: str = "discovered"
+    ):
         with self._lock, self._connect() as conn:
             conn.execute(
                 """INSERT INTO discovered_urls (profile_url, source_url, crawl_status, crawl_timestamp)

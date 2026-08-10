@@ -5,14 +5,20 @@ to prioritize URL queues based on dynamic extraction goals.
 """
 
 import json
-import threading
 import os
-from urllib.parse import urlsplit
 import random
+import threading
+from urllib.parse import urlsplit
+
+import config
+from utils.logger import get_logger
+
+logger = get_logger("bandit")
+
 
 class URLBandit:
-    def __init__(self, model_path="output/bandit_model.json"):
-        self.model_path = model_path
+    def __init__(self, model_path=None):
+        self.model_path = model_path or config.BANDIT_MODEL_FILE
         self._lock = threading.Lock()
         # memory: dict mapping keyword -> {"successes": int, "failures": int}
         # default alpha (success) = 1, beta (failure) = 1 (uniform prior)
@@ -23,9 +29,11 @@ class URLBandit:
         with self._lock:
             if os.path.exists(self.model_path):
                 try:
-                    with open(self.model_path, "r", encoding="utf-8") as f:
+                    with open(self.model_path, encoding="utf-8") as f:
                         self.memory = json.load(f)
-                except Exception:
+                except (json.JSONDecodeError, OSError) as e:
+                    logger = get_logger("bandit")
+                    logger.warning(f"Failed to load bandit model from {self.model_path}: {e}")
                     self.memory = {}
 
     def save(self):
@@ -57,7 +65,7 @@ class URLBandit:
                 # Thompson sampling: random sample from Beta(successes, failures)
                 sampled_score = random.betavariate(stats["successes"], stats["failures"])
                 scores.append(sampled_score)
-        
+
         # Max score among keywords gives a chance to highly performant keywords
         return max(scores) if scores else random.betavariate(1, 1)
 
@@ -75,7 +83,7 @@ class URLBandit:
             for kw in keywords:
                 if kw not in self.memory:
                     self.memory[kw] = {"successes": 1, "failures": 1}
-                
+
                 if reward > 0:
                     self.memory[kw]["successes"] += reward
                 else:

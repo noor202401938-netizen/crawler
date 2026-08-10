@@ -6,7 +6,7 @@ Validates emails/phones/URLs and filters out obvious false positives.
 import re
 
 import config
-from utils.normalizer import normalize_email, get_domain
+from utils.normalizer import get_domain, normalize_email
 
 _EMAIL_RE = re.compile(r"^" + config.EMAIL_REGEX + r"$")
 

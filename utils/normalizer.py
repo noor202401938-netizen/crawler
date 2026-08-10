@@ -4,7 +4,7 @@ Canonicalizes URLs and emails so duplicates collapse to one record.
 """
 
 import re
-from urllib.parse import urlsplit, urlunsplit, urljoin
+from urllib.parse import urljoin, urlsplit, urlunsplit
 
 
 def normalize_url(url: str, base: str = None) -> str:

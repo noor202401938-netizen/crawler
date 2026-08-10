@@ -9,26 +9,27 @@ Phase 5 - Public contact extraction: pull emails, phones, contact page URL,
 """
 
 import json
-from urllib.parse import urljoin, urlsplit
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from urllib.parse import urljoin, urlsplit
 
+import requests
 from bs4 import BeautifulSoup
 
 import config
-from utils.http_client import fetch_smart
-from utils.html_parser import make_soup
-from utils.logger import get_logger
-from utils.normalizer import normalize_url, get_domain
-from utils.deduplicator import SeenSet
-from extractors.email_extractor import extract_emails
-from extractors.phone_extractor import extract_phones
-from extractors.social_extractor import extract_social_links
-from extractors.metadata_extractor import extract_metadata
-from extractors.image_extractor import extract_images
-from extractors.article_extractor import extract_articles
-from extractors.product_extractor import extract_products
-from extractors.custom_extractor import extract_custom_data
 from crawler.bandit import URLBandit
+from extractors.article_extractor import extract_articles
+from extractors.custom_extractor import extract_custom_data
+from extractors.email_extractor import extract_emails
+from extractors.image_extractor import extract_images
+from extractors.metadata_extractor import extract_metadata
+from extractors.phone_extractor import extract_phones
+from extractors.product_extractor import extract_products
+from extractors.social_extractor import extract_social_links
+from utils.deduplicator import SeenSet
+from utils.html_parser import make_soup
+from utils.http_client import fetch_smart
+from utils.logger import get_logger
+from utils.normalizer import get_domain, normalize_url
 
 logger = get_logger("website_crawler")
 
@@ -99,8 +100,10 @@ def crawl_website(website_url: str, db) -> dict:
     while queue and pages_crawled < config.MAX_PAGES_PER_DOMAIN:
         # Prioritize queue using URLBandit
         queue.sort(key=lambda item: bandit.score_url(item[0]), reverse=True)
-        
-        batch_size = min(config.INTERNAL_CONCURRENCY, len(queue), config.MAX_PAGES_PER_DOMAIN - pages_crawled)
+
+        batch_size = min(
+            config.INTERNAL_CONCURRENCY, len(queue), config.MAX_PAGES_PER_DOMAIN - pages_crawled
+        )
         batch = []
         for _ in range(batch_size):
             url, depth = queue.pop(0)
@@ -109,60 +112,65 @@ def crawl_website(website_url: str, db) -> dict:
             if not visited.add_if_new(url):
                 continue
             batch.append((url, depth))
-            
+
         if not batch:
             continue
-            
+
         with ThreadPoolExecutor(max_workers=config.INTERNAL_CONCURRENCY) as pool:
             future_to_url = {pool.submit(fetch_smart, u): (u, d) for u, d in batch}
-            
+
             for future in as_completed(future_to_url):
                 url, depth = future_to_url[future]
                 pages_crawled += 1
-                
+
                 try:
                     resp = future.result()
-                except Exception:
+                except (requests.RequestException, ValueError, RuntimeError) as e:
+                    logger.debug(f"Fetch failed for {url}: {e}")
                     continue
-                    
+
                 if resp is None or resp.status_code != 200:
                     continue
 
                 content_type = ""
                 if hasattr(resp, "headers") and callable(getattr(resp.headers, "get", None)):
                     content_type = resp.headers.get("Content-Type", "")
-                    
+
                 if "text/html" not in content_type and not url.endswith(".xml"):
                     continue
 
                 soup = make_soup(resp.text)
 
                 reward = 0
-                
+
                 if config.EXTRACT_EMAILS:
                     emails = extract_emails(resp.text, soup)
                     all_emails.update(emails)
-                    if emails: reward += 10
+                    if emails:
+                        reward += 10
 
                 if config.EXTRACT_PHONES:
                     phones = extract_phones(resp.text, soup)
                     all_phones.update(phones)
-                    if phones: reward += 10
+                    if phones:
+                        reward += 10
 
                 if config.EXTRACT_EMAILS or config.EXTRACT_PHONES:
                     socials = extract_social_links(resp.text, soup)
                     for k, v in socials.items():
                         social_links.setdefault(k, v)
-                
+
                 if config.EXTRACT_IMAGES:
                     images = extract_images(resp.text, soup, url)
                     all_images.update(images)
-                    if images: reward += 5
+                    if images:
+                        reward += 5
 
                 if config.EXTRACT_ARTICLES:
                     articles = extract_articles(resp.text, soup)
                     all_articles.update(articles)
-                    if articles: reward += 5
+                    if articles:
+                        reward += 5
 
                 if getattr(config, "EXTRACT_PRODUCTS", False):
                     products = extract_products(resp.text, soup, url)
@@ -175,10 +183,10 @@ def crawl_website(website_url: str, db) -> dict:
                     if custom_data:
                         all_custom_data.extend(custom_data)
                         reward += 15  # Good reward for finding custom data
-                
+
                 if reward == 0:
                     reward = -1
-                
+
                 bandit.update_reward(url, reward)
 
                 if not metadata:

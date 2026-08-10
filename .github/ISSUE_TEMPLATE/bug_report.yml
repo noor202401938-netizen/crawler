@@ -1,0 +1,103 @@
+name: Bug Report
+description: Report a bug or unexpected behavior
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug! Please fill out the sections below.
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      placeholder: "Windows 11 / macOS 14 / Ubuntu 22.04"
+    validations:
+      required: true
+
+  - type: input
+    id: python-version
+    attributes:
+      label: Python Version
+      placeholder: "3.11.5"
+    validations:
+      required: true
+
+  - type: input
+    id: crawler-version
+    attributes:
+      label: Crawler Version / Commit
+      placeholder: "v0.1.0 or commit hash"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: Clear and concise description of the bug
+      placeholder: "When crawling X, the crawler does Y instead of Z"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Numbered steps to reproduce the issue
+      placeholder: |
+        1. Create seed file with URL X
+        2. Run `python main.py --extract emails`
+        3. Observe error in logs
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What should have happened?
+      placeholder: "Emails should be extracted and saved to contacts.csv"
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: "Crawler crashes with AttributeError on line 42"
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Logs / Error Output
+      description: Paste relevant log lines (from `logs/crawler.log` or console)
+      render: shell
+      placeholder: |
+        2024-01-15 10:30:45 | ERROR    | http_client               | Fetch failed for https://example.com: ...
+
+  - type: textarea
+    id: config
+    attributes:
+      label: Configuration
+      description: Relevant config settings (from .env or env vars)
+      placeholder: |
+        SEED_FILE=links.txt
+        CONCURRENCY=5
+        EXTRACT_EMAILS=true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have searched existing issues for duplicates
+          required: true
+        - label: I have tested with the latest main branch
+          required: true
+        - label: This is not a security issue (if it is, email security@ instead)
+          required: true

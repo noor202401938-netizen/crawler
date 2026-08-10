@@ -15,17 +15,17 @@ No site-specific selectors — everything is heuristic:
 """
 
 import re
-from urllib.parse import urljoin, urlsplit
+from urllib.parse import urlsplit
 
 from bs4 import BeautifulSoup
 
 import config
-from utils.http_client import fetch_smart as fetch
-from utils.html_parser import make_soup
-from utils.logger import get_logger
-from utils.normalizer import normalize_url, get_domain
-from utils.deduplicator import SeenSet
 from extractors.metadata_extractor import extract_metadata
+from utils.deduplicator import SeenSet
+from utils.html_parser import make_soup
+from utils.http_client import fetch_smart as fetch
+from utils.logger import get_logger
+from utils.normalizer import get_domain, normalize_url
 
 logger = get_logger("directory_crawler")
 
@@ -62,10 +62,10 @@ def _find_pagination_links(soup: BeautifulSoup, base_url: str) -> list:
     # de-dup, preserve order
     seen = set()
     result = []
-    for l in links:
-        if l not in seen:
-            seen.add(l)
-            result.append(l)
+    for link in links:
+        if link not in seen:
+            seen.add(link)
+            result.append(link)
     return result
 
 
@@ -94,7 +94,7 @@ def _guess_profile_links(soup: BeautifulSoup, base_url: str, seed_domain: str) -
         all_internal_links.append(href)
 
     profile_links = set()
-    for key, links in buckets.items():
+    for _key, links in buckets.items():
         if len(links) >= 3:  # repeated pattern -> likely listing of profiles
             profile_links.update(links)
 
@@ -117,17 +117,39 @@ def _find_external_website(soup: BeautifulSoup, base_url: str, seed_domain: str)
         if not domain or domain == seed_domain:
             continue
         # skip social platforms, maps, and share links -- those are handled by social_extractor or irrelevant
-        if any(s in domain for s in
-               ("facebook.", "twitter.", "x.com", "instagram.", "linkedin.",
-                "youtube.", "tiktok.", "pinterest.", "threads.", "vimeo.",
-                "whatsapp.", "google.", "apple.", "yelp.", "bing.", "yahoo.")):
+        if any(
+            s in domain
+            for s in (
+                "facebook.",
+                "twitter.",
+                "x.com",
+                "instagram.",
+                "linkedin.",
+                "youtube.",
+                "tiktok.",
+                "pinterest.",
+                "threads.",
+                "vimeo.",
+                "whatsapp.",
+                "google.",
+                "apple.",
+                "yelp.",
+                "bing.",
+                "yahoo.",
+            )
+        ):
             continue
 
         text = a.get_text(strip=True).lower()
         score = 0
-        if "website" in text or "official site" in text or "visit site" in text or "home page" in text:
+        if (
+            "website" in text
+            or "official site" in text
+            or "visit site" in text
+            or "home page" in text
+        ):
             score += 5
-        
+
         # slight boost if it doesn't look like a generic 'share' or 'map' link
         if "share" in text or "map" in text or "direction" in text:
             score -= 5
@@ -137,11 +159,11 @@ def _find_external_website(soup: BeautifulSoup, base_url: str, seed_domain: str)
     if not candidates:
         return ""
     candidates.sort(key=lambda c: c[0], reverse=True)
-    
+
     # If the best candidate has a negative score, it's probably junk
     if candidates[0][0] < 0:
         return ""
-        
+
     return candidates[0][1]
 
 

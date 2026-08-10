@@ -1,0 +1,183 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "universal-crawler"
+version = "0.1.0"
+description = "Universal Website Discovery & Contact Extraction Engine"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+  {name = "Universal Crawler Contributors", email = "contributors@universal-crawler.dev"}
+]
+maintainers = [
+  {name = "Universal Crawler Maintainers", email = "maintainers@universal-crawler.dev"}
+]
+keywords = [
+  "web-crawler",
+  "contact-extraction",
+  "lead-generation",
+  "data-mining",
+  "scraping",
+  "osint",
+  "sales-intelligence"
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Information Technology",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
+  "Topic :: Office/Business :: Financial :: Spreadsheet",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+]
+requires-python = ">=3.10"
+dependencies = [
+  "requests>=2.31.0",
+  "beautifulsoup4>=4.12.0",
+  "lxml>=5.0.0",
+  "pandas>=2.0.0",
+  "openpyxl>=3.1.0",
+  "playwright>=1.40.0",
+  "google-genai>=1.0.0",
+  "html5lib>=1.1",
+  "playwright-stealth>=1.0.0",
+]
+optional-dependencies = {
+  dev = [
+    "pytest>=7.4.0",
+    "pytest-mock>=3.12.0",
+    "ruff>=0.3.0",
+    "black>=23.0.0",
+    "mypy>=1.8.0",
+    "bandit>=1.7.0",
+    "pre-commit>=3.6.0",
+    "types-requests>=2.31.0",
+  ],
+  docs = [
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.5.0",
+    "mkdocstrings[python]>=0.24.0",
+  ],
+}
+
+[project.scripts]
+universal-crawler = "main:main"
+
+[project.urls]
+Homepage = "https://github.com/your-org/universal-crawler"
+Repository = "https://github.com/your-org/universal-crawler"
+Issues = "https://github.com/your-org/universal-crawler/issues"
+Discussions = "https://github.com/your-org/universal-crawler/discussions"
+Documentation = "https://your-org.github.io/universal-crawler"
+Changelog = "https://github.com/your-org/universal-crawler/blob/main/CHANGELOG.md"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+select = [
+  "E",   # pycodestyle errors
+  "W",   # pycodestyle warnings
+  "F",   # pyflakes
+  "I",   # isort
+  "B",   # flake8-bugbear
+  "C4",  # flake8-comprehensions
+  "UP",  # pyupgrade
+  "PIE", # flake8-pie
+  "T20", # print statements
+]
+ignore = [
+  "E501",  # line too long (handled by black)
+  "B008",  # function calls in default args (intentional)
+]
+per-file-ignores = {
+  "tests/*" = ["S101", "T201"],
+  "main.py" = ["T201"],
+  "train_bandit_products.py" = ["T201"],
+}
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  | output
+  | logs
+)/
+'''
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+show_error_codes = true
+pretty = true
+
+[tool.mypy.overrides]
+module = [
+  "playwright*",
+  "playwright_stealth*",
+  "google.genai*",
+]
+ignore_missing_imports = true
+
+[tool.bandit]
+targets = ["crawler", "extractors", "utils", "database", "main.py"]
+exclude = ["tests"]
+skip = ["B101", "B601"]  # assert, shell injection (not used)
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --strict-markers --strict-config"
+markers = [
+  "slow: marks tests as slow",
+  "integration: marks tests as integration tests",
+  "unit: marks tests as unit tests",
+]
+
+[tool.coverage.run]
+source = ["crawler", "extractors", "utils", "database"]
+omit = ["tests/*", "main.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "def __repr__",
+  "raise AssertionError",
+  "raise NotImplementedError",
+  "if __name__ == .__main__.:",
+]
+show_missing = true
+precision = 2

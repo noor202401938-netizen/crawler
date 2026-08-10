@@ -72,7 +72,10 @@ class CrawlerRegressionTests(unittest.TestCase):
         self.assertEqual(mock_request.call_count, 1)
 
     @patch("utils.http_client.is_allowed_by_robots", return_value=True)
-    @patch("utils.http_client.requests.request", side_effect=requests.exceptions.InvalidURL("Invalid URL"))
+    @patch(
+        "utils.http_client.requests.request",
+        side_effect=requests.exceptions.InvalidURL("Invalid URL"),
+    )
     def test_fetch_does_not_retry_on_invalid_url(self, mock_request, _mock_robots):
         result = fetch("https:///")
 

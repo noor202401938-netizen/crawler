@@ -1,0 +1,35 @@
+name: Question / Support
+description: Ask a question about usage, configuration, or architecture
+title: "[Question]: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question? Check the [README](https://github.com/your-org/universal-crawler/blob/main/README.md) and [Discussions](https://github.com/your-org/universal-crawler/discussions) first.
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: What do you need help with?
+      placeholder: "How do I configure the crawler to only extract emails from .gov domains?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What are you trying to achieve? Any relevant config?
+      placeholder: "Building a lead list for government contractors..."
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have read the README
+          required: true
+        - label: I have searched Discussions for similar questions
+          required: true

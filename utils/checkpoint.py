@@ -26,7 +26,7 @@ class Checkpoint:
     def _load(self):
         if os.path.exists(self.path):
             try:
-                with open(self.path, "r", encoding="utf-8") as f:
+                with open(self.path, encoding="utf-8") as f:
                     self.state = json.load(f)
                 logger.info(
                     f"Resuming from checkpoint: "

@@ -1,5 +1,69 @@
+# Environment & Secrets
 .env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.crt
+
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+coverage/
+htmlcov/
+.tox/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.pytype/
+
+# Distribution / Packaging
+build/
+dist/
+*.egg-info/
+*.egg
+pip-wheel-metadata/
+.venv/
+venv/
+env/
+ENV/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Project Output
 output/
 logs/
+*.sqlite3
+*.sqlite3-journal
+*.db
+*.db-journal
+checkpoint.json
+bandit_model.json
+
+# Playwright
+playwright-report/
+test-results/
+*.trace.zip
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Temporary
+*.tmp
+*.temp
+.tmp/
+.temp/

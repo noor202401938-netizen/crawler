@@ -7,8 +7,8 @@ Writes CSV, Excel, and confirms the SQLite master DB is up to date.
 import pandas as pd
 
 import config
-from utils.logger import get_logger
 from utils.deduplicator import dedup_records
+from utils.logger import get_logger
 
 logger = get_logger("exporter")
 

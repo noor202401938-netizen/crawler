@@ -4,7 +4,9 @@ Extracts basic article text from raw HTML.
 """
 
 from bs4 import BeautifulSoup
+
 from utils.html_parser import make_soup
+
 
 def extract_articles(html: str, soup: BeautifulSoup = None) -> list:
     """Returns a list of article texts found in the page."""
@@ -22,7 +24,11 @@ def extract_articles(html: str, soup: BeautifulSoup = None) -> list:
     # Strategy 2: If no <article> tags, look for large <p> blocks that might be articles
     if not found:
         paragraphs = soup.find_all("p")
-        long_paragraphs = [p.get_text(separator=" ", strip=True) for p in paragraphs if len(p.get_text(strip=True)) > 200]
+        long_paragraphs = [
+            p.get_text(separator=" ", strip=True)
+            for p in paragraphs
+            if len(p.get_text(strip=True)) > 200
+        ]
         if long_paragraphs:
             found.add("\n".join(long_paragraphs))
 
