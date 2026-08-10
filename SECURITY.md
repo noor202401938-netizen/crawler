@@ -13,8 +13,8 @@
 
 Please report security issues privately via:
 
-- **Email**: security@your-org.com (PGP key: [link])
-- **GitHub Security Advisories**: [Private vulnerability reporting](https://github.com/your-org/universal-crawler/security/advisories/new)
+- **Email**: noor.202401938@gmail.com
+- - **GitHub Security Advisories**: [Private vulnerability reporting](https://github.com/your-org/universal-crawler/security/advisories/new)
 
 ### What to Include
 
