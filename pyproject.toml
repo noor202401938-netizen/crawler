@@ -49,23 +49,22 @@ dependencies = [
   "html5lib>=1.1",
   "playwright-stealth>=1.0.0",
 ]
-optional-dependencies = {
-  dev = [
-    "pytest>=7.4.0",
-    "pytest-mock>=3.12.0",
-    "ruff>=0.3.0",
-    "black>=23.0.0",
-    "mypy>=1.8.0",
-    "bandit>=1.7.0",
-    "pre-commit>=3.6.0",
-    "types-requests>=2.31.0",
-  ],
-  docs = [
-    "mkdocs>=1.5.0",
-    "mkdocs-material>=9.5.0",
-    "mkdocstrings[python]>=0.24.0",
-  ],
-}
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.4.0",
+  "pytest-mock>=3.12.0",
+  "ruff>=0.3.0",
+  "black>=23.0.0",
+  "mypy>=1.8.0",
+  "bandit>=1.7.0",
+  "pre-commit>=3.6.0",
+  "types-requests>=2.31.0",
+]
+docs = [
+  "mkdocs>=1.5.0",
+  "mkdocs-material>=9.5.0",
+  "mkdocstrings[python]>=0.24.0",
+]
 
 [project.scripts]
 universal-crawler = "main:main"
@@ -77,6 +76,9 @@ Issues = "https://github.com/your-org/universal-crawler/issues"
 Discussions = "https://github.com/your-org/universal-crawler/discussions"
 Documentation = "https://your-org.github.io/universal-crawler"
 Changelog = "https://github.com/your-org/universal-crawler/blob/main/CHANGELOG.md"
+
+[tool.setuptools]
+packages = ["crawler", "database", "extractors", "utils"]
 
 [tool.ruff]
 line-length = 100
@@ -96,11 +98,10 @@ ignore = [
   "E501",  # line too long (handled by black)
   "B008",  # function calls in default args (intentional)
 ]
-per-file-ignores = {
-  "tests/*" = ["S101", "T201"],
-  "main.py" = ["T201"],
-  "train_bandit_products.py" = ["T201"],
-}
+[tool.ruff.per-file-ignores]
+"tests/*" = ["S101", "T201"]
+"main.py" = ["T201"]
+"train_bandit_products.py" = ["T201"]
 
 [tool.ruff.format]
 quote-style = "double"
