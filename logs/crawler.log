@@ -2174,3 +2174,13 @@ Call log:
 2026-07-05 02:13:04 | INFO     | main                      | === Phase 6+7: cleaning & exporting ===
 2026-07-05 02:13:06 | INFO     | exporter                  | Exported 1460 discovered URLs, 110 websites, 110 contact records -> output/
 2026-07-05 02:13:06 | INFO     | main                      | Done in 4593.0s. Outputs written to 'output/'.
+2026-08-10 04:13:42 | WARNING  | http_client               | Attempt 1/3 failed for https:///: Invalid URL
+2026-08-10 04:13:42 | ERROR    | http_client               | Giving up on https:/// after 3 attempts
+2026-08-10 05:01:57 | WARNING  | http_client               | Attempt 1/3 failed for https:///: Invalid URL
+2026-08-10 05:01:57 | ERROR    | http_client               | Giving up on https:/// after 3 attempts
+2026-08-10 05:26:33 | WARNING  | http_client               | Attempt 1/3 failed for https:///: Invalid URL
+2026-08-10 05:26:33 | ERROR    | http_client               | Giving up on https:/// after 3 attempts
+2026-08-10 05:31:47 | WARNING  | http_client               | Attempt 1/3 failed for https:///: Invalid URL
+2026-08-10 05:31:47 | ERROR    | http_client               | Giving up on https:/// after 3 attempts
+2026-08-10 05:33:26 | WARNING  | http_client               | Attempt 1/3 failed for https:///: Invalid URL
+2026-08-10 05:33:26 | ERROR    | http_client               | Giving up on https:/// after 3 attempts

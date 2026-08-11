@@ -52,7 +52,7 @@ def _cleanup_playwright():
                     pw.browser.close()
                 if hasattr(pw, "playwright") and pw.playwright:
                     pw.playwright.stop()
-            except Exception:
+            except Exception:  # nosec B110
                 pass
         _playwright_instances.clear()
 
