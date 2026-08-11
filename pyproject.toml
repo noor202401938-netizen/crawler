@@ -81,6 +81,7 @@ Changelog = "https://github.com/your-org/universal-crawler/blob/main/CHANGELOG.m
 [tool.ruff]
 line-length = 100
 target-version = "py310"
+extend-exclude = [".agents"]
 select = [
   "E",   # pycodestyle errors
   "W",   # pycodestyle warnings
@@ -118,6 +119,7 @@ extend-exclude = '''
   | \.mypy_cache
   | \.tox
   | \.venv
+  | \.agents
   | _build
   | buck-out
   | build
@@ -132,6 +134,9 @@ python_version = "3.10"
 strict = true
 warn_return_any = true
 warn_unused_configs = true
+exclude = [
+  '^\.agents/',
+]
 disallow_untyped_defs = true
 disallow_incomplete_defs = true
 check_untyped_defs = true
