@@ -115,6 +115,19 @@ CHECKPOINT_EVERY_N_ITEMS = int(os.environ.get("CHECKPOINT_EVERY_N_ITEMS", 10))
 BANDIT_MODEL_FILE = os.path.join(OUTPUT_DIR, "bandit_model.json")
 
 # ---------------------------------------------------------------------------
+# Authentication & Custom Interactions
+# ---------------------------------------------------------------------------
+# Login credentials per domain: {"example.com": {"username": "user", "password": "pass", "login_url": "/login", "username_selector": "#username", "password_selector": "#password", "submit_selector": "button[type=submit]"}}
+LOGIN_CREDENTIALS = {}
+
+# Custom Playwright interaction sequences per domain:
+# {"example.com": [{"action": "click", "selector": ".load-more"}, {"action": "wait", "timeout": 2000}, {"action": "scroll", "direction": "down"}]}
+CUSTOM_INTERACTIONS = {}
+
+# Session persistence: reuse cookies/localStorage across requests to same domain
+PERSIST_SESSION = os.environ.get("PERSIST_SESSION", "true").lower() == "true"
+
+# ---------------------------------------------------------------------------
 # Logging
 # ---------------------------------------------------------------------------
 LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO")
