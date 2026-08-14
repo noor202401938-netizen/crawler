@@ -45,6 +45,19 @@ A **config-driven, AI-enhanced data acquisition engine** that takes a list of se
 
 ---
 
+## Anti-Blocking & Advanced Interaction Features
+
+| Feature | Description | Config |
+|---------|-------------|--------|
+| **Smart JS Fallback** | Auto-detects SPAs/anti-bot → renders with headless Chromium + stealth | `USE_SMART_JS_FALLBACK=true` |
+| **Popup/Cookie Banner Dismissal** | Auto-clicks "Accept", "Agree", "Allow", GDPR buttons (15+ languages) | Built-in |
+| **Load More / Infinite Scroll** | Clicks "Load more", "Show more", "View more" buttons (up to 3x/page) | Built-in |
+| **Session Persistence** | Saves/restores cookies + localStorage per domain across requests | `PERSIST_SESSION=true` |
+| **Login Wall Handling** | Detects 401/403 → navigates to login_url → fills form → retries original URL | `LOGIN_CREDENTIALS` |
+| **Custom JS Interactions** | Per-domain sequences: click, fill, scroll, wait, wait_for_selector, wait_for_navigation | `CUSTOM_INTERACTIONS` |
+
+---
+
 ## Who Is This For?
 
 | Role | Use Case |
@@ -106,6 +119,46 @@ python main.py --help
 
 ---
 
+## Advanced Configuration Examples
+
+### Login-Protected Sites
+```python
+# In config.py or .env
+LOGIN_CREDENTIALS = {
+    "example.com": {
+        "username": "bot@example.com",
+        "password": "secret123",
+        "login_url": "https://example.com/login",
+        "username_selector": "#email",      # optional
+        "password_selector": "#password",   # optional
+        "submit_selector": "button[type=submit]"  # optional
+    }
+}
+```
+On 401/403, crawler auto-navigates to `login_url`, fills form, submits, then retries the original URL.
+
+### Custom JS Interactions (per domain)
+```python
+CUSTOM_INTERACTIONS = {
+    "example.com": [
+        {"action": "click", "selector": "#accept-cookies"},
+        {"action": "scroll", "direction": "bottom"},
+        {"action": "wait_for_selector", "selector": ".results-loaded"},
+        {"action": "fill", "selector": "#search", "value": "query"},
+        {"action": "wait_for_navigation", "timeout": 10000}
+    ]
+}
+```
+Supported actions: `click`, `fill`, `wait`, `scroll` (up/down/top/bottom), `wait_for_selector`, `wait_for_navigation`
+
+### Session Persistence
+```python
+PERSIST_SESSION = True  # Default: true
+```
+Automatically saves/restores cookies + localStorage per domain — reuse authenticated sessions across page visits.
+
+---
+
 ## Input Format
 
 **Seed file** (`links.txt` or `SEED_FILE` path) — one URL per line:
@@ -162,6 +215,10 @@ custom_data, contact_page_url, crawl_status, extraction_timestamp
 | Extraction toggles | `EXTRACT_EMAILS` etc. | `true/false` | Enable/disable extractors |
 | Custom prompt | `CUSTOM_PROMPT` | `""` | LLM extraction prompt |
 | Gemini API key | `GEMINI_API_KEY` | `""` | Required for custom extraction |
+| **Session persistence** | `PERSIST_SESSION` | `true` | Save/restore cookies+localStorage |
+| **Login credentials** | `LOGIN_CREDENTIALS` | `{}` | Per-domain login config (dict) |
+| **Custom interactions** | `CUSTOM_INTERACTIONS` | `{}` | Per-domain JS sequences (dict) |
+| Bandit model path | `BANDIT_MODEL_FILE` | `output/bandit_model.json` | RL model storage |
 
 ---
 
@@ -191,7 +248,7 @@ database/
     sqlite_manager.py        Schema, queue, upserts, resume support
 
 utils/
-    http_client.py           Retries, per-domain rate limiting, robots.txt, Playwright
+    http_client.py           Retries, rate limiting, robots.txt, Playwright, login, sessions, custom interactions
     normalizer.py            URL/email/phone canonicalization
     validator.py             Format validation + false-positive filtering
     deduplicator.py          Thread-safe seen-sets + record-level dedup
@@ -236,6 +293,8 @@ This only collects **publicly published** information (emails/phones on organiza
 | Tune heuristics | Edit `directory_crawler.py` — profile-link detection, pagination, website scoring are pure functions |
 | Add export format | Extend `utils/exporter.py` |
 | Run distributed | Replace `ThreadPoolExecutor` with Celery/Ray; SQLite → Postgres |
+| Add login flow | Define in `LOGIN_CREDENTIALS` — no code changes |
+| Add custom interactions | Define in `CUSTOM_INTERACTIONS` — no code changes |
 
 ---
 
@@ -248,6 +307,7 @@ lxml>=5.0.0
 pandas>=2.0.0
 openpyxl>=3.1.0
 playwright>=1.40.0
+playwright-stealth>=1.0.0
 google-genai>=1.0.0
 html5lib>=1.1
 ```
