@@ -77,9 +77,7 @@ def home():
             seeds = load_seed_urls()
         extract = request.form.getlist("extract")
         custom = request.form.get("custom_prompt", "").strip()
-        threading.Thread(
-            target=run_crawl, args=(seeds, extract, custom), daemon=True
-        ).start()
+        threading.Thread(target=run_crawl, args=(seeds, extract, custom), daemon=True).start()
         return redirect("/")
 
     q = request.args.get("q", "").strip().lower()
@@ -318,6 +316,7 @@ poll(); setInterval(poll, 2000);
 </body>
 </html>
 """
+
 
 def main():
     os.makedirs(config.OUTPUT_DIR, exist_ok=True)
