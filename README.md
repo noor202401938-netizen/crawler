@@ -113,15 +113,52 @@ python webapp.py     # then open http://127.0.0.1:5000
 A zero-config local UI over the same pipeline — paste seed URLs, tick what to
 extract, watch live progress, download the results. No selectors, no CLI flags.
 
-- **Start a crawl** from a form (seed URLs + extraction toggles + optional LLM prompt)
-- **Live status** — current phase and running website/contact counts, polled every 2s
-- **Stop** button (takes effect at the next phase boundary)
-- **Filter** the results table and **download** `contacts.csv` / `master.xlsx`
+#### Start it
 
 ```bash
-python webapp.py                 # http://127.0.0.1:5000
-HOST=0.0.0.0 PORT=8080 python webapp.py   # expose on your LAN
+pip install flask         # one-time; or `pip install ".[web]"`
+python webapp.py          # if installed as a package: run `crawler-web`
 ```
+
+You'll see:
+
+```
+ * Running on http://127.0.0.1:5000
+```
+
+#### Access it
+
+Open **http://127.0.0.1:5000** in your browser (Chrome, Firefox, Safari, Edge —
+any will do). The dashboard runs entirely on your machine; nothing is sent
+anywhere except the sites you crawl.
+
+| Where you're running it | URL to open |
+|-------------------------|-------------|
+| Same machine (default)  | `http://127.0.0.1:5000` |
+| Another device on your LAN | start with `HOST=0.0.0.0` (below), then browse to `http://<your-machine-ip>:8080` |
+
+```bash
+# change host/port (e.g. to reach it from your phone on the same Wi-Fi)
+HOST=0.0.0.0 PORT=8080 python webapp.py
+```
+
+> ⚠️ `HOST=0.0.0.0` exposes the dashboard to everyone on your network and it has
+> **no authentication** — only do this on a trusted network.
+
+#### How to use it
+
+1. **Seed URLs** — paste one directory/listing URL per line. Leave blank to use
+   the seed file configured in `config.py` / `SEED_FILE`.
+2. **Extract** — click the chips for what you want (`emails`, `phones`, `images`,
+   `articles`, `products`). Emails and phones are on by default.
+3. **Custom LLM prompt** *(optional)* — free-text extraction like
+   `"extract pricing tiers"`; requires `GEMINI_API_KEY` in your environment.
+4. **▶ Start crawl** — the run kicks off in the background. The status pill shows
+   the current phase, and live counters show websites found / contacts extracted
+   (refreshed every 2s — no page reload needed).
+5. **■ Stop** — requests cancellation; it takes effect at the next phase boundary.
+6. **Results** — when the crawl finishes the table fills in. **Filter** it with
+   the search box, and **download** the full dataset as `⬇ CSV` or `⬇ Excel`.
 
 > One crawl at a time, in-process — it's a local tool, not a multi-user server.
 > Same responsible-use rules apply (see below).
