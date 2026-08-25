@@ -3,8 +3,8 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width, initial-scale=1">
-<title>Universal Crawler — open-source website discovery & contact extraction</title>
-<meta name=description content="Turn any directory or listing site into a structured, verified contact database. Open-source, AI-enhanced, no selectors, no maintenance.">
+<title>Universal Crawler · open-source website discovery & contact extraction</title>
+<meta name=description content="Point it at any directory or listing site and get back a clean, verified contact database. Open-source, AI-enhanced, no selectors, no maintenance.">
 <style>
  :root{
    --bg:#f5f5f5; --panel:#fff; --line:#e2e2e2; --line2:#d0d0d0;
@@ -46,6 +46,10 @@
  .lede{max-width:620px;margin:1.2rem auto 0;color:var(--muted);font-size:1.12rem}
  .cta{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-top:2rem}
  .hero pre{max-width:560px;margin:2.6rem auto 0;text-align:left}
+ .stats{display:flex;flex-wrap:wrap;justify-content:center;gap:2.2rem;margin-top:2.6rem}
+ .stats div{text-align:center}
+ .stats b{display:block;font-size:1.7rem;letter-spacing:-.02em}
+ .stats span{color:var(--muted);font-size:.82rem;text-transform:uppercase;letter-spacing:.08em}
 
  /* sections */
  section{padding:3.4rem 0;border-top:1px solid var(--line)}
@@ -100,43 +104,65 @@
 </div></nav>
 
 <header class=hero><div class=wrap>
-  <span class=tag>Open source · MIT licensed</span>
-  <h1>Turn any directory site into<br>a clean contact database.</h1>
-  <p class=lede>A config-driven, AI-enhanced crawler that discovers profile pages,
-    finds official websites, and extracts public contact info — with zero
-    site-specific code. Just a list of seed URLs.</p>
+  <span class=tag>Open source · MIT licensed · No API key to start</span>
+  <h1>Any directory site in.<br>A clean contact database out.</h1>
+  <p class=lede>Paste a list of seed URLs and Universal Crawler does the rest: it
+    finds every profile page, tracks down the official website, and pulls out
+    verified emails, phones and socials. No selectors to write, nothing to
+    maintain when the site changes.</p>
   <div class=cta>
     <a class="btn dark" href="https://github.com/noor202401938-netizen/crawler" target=_blank rel=noopener>★ Star on GitHub</a>
     <a class=btn href="#setup">Quick start ↓</a>
   </div>
-<pre><span class=c># get results in three commands</span>
+<pre><span class=c># up and running in three commands</span>
 git clone https://github.com/noor202401938-netizen/crawler
 pip install -r requirements.txt
 python webapp.py  <span class=c># open http://127.0.0.1:5000</span></pre>
+  <div class=stats>
+    <div><b>7</b><span>Pipeline phases</span></div>
+    <div><b>7</b><span>Extractor types</span></div>
+    <div><b>0</b><span>Site-specific code</span></div>
+    <div><b>3</b><span>Export formats</span></div>
+  </div>
 </div></header>
 
 <section id=features><div class=wrap>
-  <h2>What it does</h2>
-  <p class=sub>Seven pipeline phases, fully resumable, exportable to CSV / Excel / SQLite.</p>
+  <h2>Everything you need to go from URL to dataset</h2>
+  <p class=sub>Seven pipeline phases, fully resumable, exportable to CSV, Excel or SQLite.</p>
   <div class=grid>
-    <div class=card><div class=ic><svg width=22 height=22 viewBox="0 0 24 24"><circle cx=11 cy=11 r=7/><path d="M21 21l-4.3-4.3"/></svg></div><h3>Universal discovery</h3>
-      <p>Crawls listing/directory sites and follows pagination, infinite scroll and
-      SPAs to find every profile page — no selectors to write.</p></div>
-    <div class=card><div class=ic><svg width=22 height=22 viewBox="0 0 24 24"><rect x=3 y=5 width=18 height=14 rx=2/><path d="M3 7l9 6 9-6"/></svg></div><h3>Contact extraction</h3>
-      <p>Emails, phones, social profiles, contact forms — validated, deduped and
-      normalized (phones to E.164, MX-ready emails).</p></div>
+    <div class=card><div class=ic><svg width=22 height=22 viewBox="0 0 24 24"><circle cx=12 cy=12 r=9/><circle cx=12 cy=12 r=3.5/><path d="M12 1.5v3.5M12 19v3.5M1.5 12H5M19 12h3.5"/></svg></div><h3>Universal discovery</h3>
+      <p>Crawls any listing or directory site and follows pagination, infinite
+      scroll and JavaScript SPAs to find every profile page. No selectors, ever.</p></div>
+    <div class=card><div class=ic><svg width=22 height=22 viewBox="0 0 24 24"><rect x=3 y=5 width=18 height=14 rx=2/><path d="M3 7l9 6 9-6"/></svg></div><h3>Verified contact extraction</h3>
+      <p>Emails, phones, social profiles and contact forms, all validated, deduped
+      and normalized. Phones become E.164, emails are checked MX-ready.</p></div>
     <div class=card><div class=ic><svg width=22 height=22 viewBox="0 0 24 24"><path d="M12 3l1.9 4.6L18.5 9.5 13.9 11.4 12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/><path d="M18.5 15.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg></div><h3>AI-powered extraction</h3>
-      <p>Any free-text goal via Google Gemini — "extract pricing tiers", "find job
-      openings" — alongside images, articles and product data.</p></div>
-    <div class=card><div class=ic><svg width=22 height=22 viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Anti-blocking</h3>
-      <p>Smart headless-Chromium fallback for anti-bot sites, cookie-banner
+      <p>Describe any goal in plain English and Google Gemini pulls it out:
+      "extract pricing tiers", "find job openings", plus images, articles and products.</p></div>
+    <div class=card><div class=ic><svg width=22 height=22 viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Gets past the blockers</h3>
+      <p>Headless-Chromium fallback for anti-bot sites, automatic cookie-banner
       dismissal, login walls, session persistence and custom JS interactions.</p></div>
-    <div class=card><div class=ic><svg width=22 height=22 viewBox="0 0 24 24"><rect x=3 y=4 width=18 height=12 rx=2/><path d="M8 20h8M12 16v4"/></svg></div><h3>Web dashboard</h3>
-      <p>A no-code local UI: paste seed URLs, tick what to extract, watch live
-      progress, filter results and download the dataset.</p></div>
+    <div class=card><div class=ic><svg width=22 height=22 viewBox="0 0 24 24"><rect x=3 y=4 width=18 height=12 rx=2/><path d="M8 20h8M12 16v4"/></svg></div><h3>No-code web dashboard</h3>
+      <p>Paste seed URLs, tick what to extract, hit start. Watch live progress,
+      filter the results and download your dataset without touching the CLI.</p></div>
     <div class=card><div class=ic><svg width=22 height=22 viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8"/><path d="M20 4v4h-4"/><path d="M20 12a8 8 0 0 1-13.7 5.6L4 16"/><path d="M4 20v-4h4"/></svg></div><h3>Resumable &amp; polite</h3>
-      <p>Checkpointed to SQLite so interrupted runs resume. Respects robots.txt and
-      rate-limits per domain by default.</p></div>
+      <p>Every run is checkpointed to SQLite, so an interrupted crawl picks up right
+      where it stopped. Respects robots.txt and rate-limits per domain by default.</p></div>
+  </div>
+</div></section>
+
+<section id=pipeline><div class=wrap>
+  <h2>How a crawl flows</h2>
+  <p class=sub>Point it at seed URLs and each page moves through the pipeline, one phase at a time.</p>
+  <div class=steps>
+    <div class=step><div class=n></div><div><h3>Discover</h3>
+      <p>Walk each seed site, follow pagination and dynamic loading, collect every profile URL.</p></div></div>
+    <div class=step><div class=n></div><div><h3>Resolve</h3>
+      <p>For each profile, find the official external website worth extracting from.</p></div></div>
+    <div class=step><div class=n></div><div><h3>Extract</h3>
+      <p>Pull emails, phones, socials and any AI targets you asked for off the page.</p></div></div>
+    <div class=step><div class=n></div><div><h3>Clean &amp; export</h3>
+      <p>Validate, dedupe and normalize, then write CSV, Excel or SQLite. Resume anytime.</p></div></div>
   </div>
 </div></section>
 
@@ -172,7 +198,7 @@ playwright install chromium  <span class=c># for JS-rendering fallback</span></p
   <div class=two>
     <div>
       <h3><svg viewBox="0 0 24 24"><rect x=3 y=4 width=18 height=12 rx=2/><path d="M8 20h8M12 16v4"/></svg>Web dashboard</h3>
-      <p class=sub style="margin-bottom:1rem">No flags — start crawls, watch live
+      <p class=sub style="margin-bottom:1rem">No flags. Start crawls, watch live
       progress, download results.</p>
 <pre>pip install flask
 python webapp.py</pre>
@@ -227,7 +253,7 @@ SEED_FILE=links.txt CONCURRENCY=8 \
 </div></section>
 
 <footer><div class=wrap>
-  <p>Universal Crawler — collects only publicly published contact info. Respects
+  <p>Universal Crawler collects only publicly published contact info. Respects
   robots.txt &amp; rate limits by default. You are responsible for lawful use
   (GDPR, CAN-SPAM, CASL, PECR).</p>
   <p><a href="https://github.com/noor202401938-netizen/crawler" target=_blank rel=noopener>GitHub</a>
