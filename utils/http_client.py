@@ -407,7 +407,7 @@ def _dismiss_popups(page):
                 logger.debug(f"Dismissed popup with selector: {selector}")
                 page.wait_for_timeout(300)  # Brief wait for animation
                 return True
-        except Exception:
+        except Exception:  # nosec B112
             continue
     return False
 
@@ -449,7 +449,7 @@ def _handle_load_more(page, max_clicks: int = 3):
                     clicked = True
                     clicks += 1
                     break
-            except Exception:
+            except Exception:  # nosec B112
                 continue
         if not clicked:
             break
