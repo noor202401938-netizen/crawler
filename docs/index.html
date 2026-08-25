@@ -22,8 +22,10 @@
  nav{position:sticky;top:0;z-index:10;background:#f5f5f5ee;backdrop-filter:blur(8px);
    border-bottom:1px solid var(--line)}
  nav .wrap{display:flex;align-items:center;gap:.7rem;height:60px}
- .logo{width:34px;height:34px;border-radius:9px;background:#0a0a0a;display:grid;
-   place-items:center;font-size:18px}
+ .logo{width:34px;height:34px;border-radius:9px;background:#0a0a0a;color:#fff;display:grid;
+   place-items:center}
+ svg{stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round}
+ h3 svg{width:1.05em;height:1.05em;vertical-align:-2px;margin-right:.4rem}
  nav b{letter-spacing:-.02em}
  nav .sp{margin-left:auto}
  nav a.link{color:var(--muted);text-decoration:none;font-size:.9rem;margin:0 .8rem}
@@ -88,7 +90,7 @@
 <body>
 
 <nav><div class=wrap>
-  <div class=logo>🕸️</div>
+  <div class=logo><svg width=18 height=18 viewBox="0 0 24 24"><circle cx=12 cy=12 r=9/><path d="M3 12h18M12 3v18M5 6c4 3 10 3 14 0M5 18c4-3 10-3 14 0"/></svg></div>
   <b>Universal Crawler</b>
   <span class=sp></span>
   <a class=link href="#features">Features</a>
@@ -117,22 +119,22 @@ python webapp.py  <span class=c># open http://127.0.0.1:5000</span></pre>
   <h2>What it does</h2>
   <p class=sub>Seven pipeline phases, fully resumable, exportable to CSV / Excel / SQLite.</p>
   <div class=grid>
-    <div class=card><div class=ic>🔍</div><h3>Universal discovery</h3>
+    <div class=card><div class=ic><svg width=22 height=22 viewBox="0 0 24 24"><circle cx=11 cy=11 r=7/><path d="M21 21l-4.3-4.3"/></svg></div><h3>Universal discovery</h3>
       <p>Crawls listing/directory sites and follows pagination, infinite scroll and
       SPAs to find every profile page — no selectors to write.</p></div>
-    <div class=card><div class=ic>✉️</div><h3>Contact extraction</h3>
+    <div class=card><div class=ic><svg width=22 height=22 viewBox="0 0 24 24"><rect x=3 y=5 width=18 height=14 rx=2/><path d="M3 7l9 6 9-6"/></svg></div><h3>Contact extraction</h3>
       <p>Emails, phones, social profiles, contact forms — validated, deduped and
       normalized (phones to E.164, MX-ready emails).</p></div>
-    <div class=card><div class=ic>🧠</div><h3>AI-powered extraction</h3>
+    <div class=card><div class=ic><svg width=22 height=22 viewBox="0 0 24 24"><path d="M12 3l1.9 4.6L18.5 9.5 13.9 11.4 12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/><path d="M18.5 15.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg></div><h3>AI-powered extraction</h3>
       <p>Any free-text goal via Google Gemini — "extract pricing tiers", "find job
       openings" — alongside images, articles and product data.</p></div>
-    <div class=card><div class=ic>🛡️</div><h3>Anti-blocking</h3>
+    <div class=card><div class=ic><svg width=22 height=22 viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Anti-blocking</h3>
       <p>Smart headless-Chromium fallback for anti-bot sites, cookie-banner
       dismissal, login walls, session persistence and custom JS interactions.</p></div>
-    <div class=card><div class=ic>🖥️</div><h3>Web dashboard</h3>
+    <div class=card><div class=ic><svg width=22 height=22 viewBox="0 0 24 24"><rect x=3 y=4 width=18 height=12 rx=2/><path d="M8 20h8M12 16v4"/></svg></div><h3>Web dashboard</h3>
       <p>A no-code local UI: paste seed URLs, tick what to extract, watch live
       progress, filter results and download the dataset.</p></div>
-    <div class=card><div class=ic>♻️</div><h3>Resumable &amp; polite</h3>
+    <div class=card><div class=ic><svg width=22 height=22 viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8"/><path d="M20 4v4h-4"/><path d="M20 12a8 8 0 0 1-13.7 5.6L4 16"/><path d="M4 20v-4h4"/></svg></div><h3>Resumable &amp; polite</h3>
       <p>Checkpointed to SQLite so interrupted runs resume. Respects robots.txt and
       rate-limits per domain by default.</p></div>
   </div>
@@ -169,7 +171,7 @@ playwright install chromium  <span class=c># for JS-rendering fallback</span></p
   <p class=sub>Run it from the browser, or from the command line.</p>
   <div class=two>
     <div>
-      <h3>🖥️ Web dashboard</h3>
+      <h3><svg viewBox="0 0 24 24"><rect x=3 y=4 width=18 height=12 rx=2/><path d="M8 20h8M12 16v4"/></svg>Web dashboard</h3>
       <p class=sub style="margin-bottom:1rem">No flags — start crawls, watch live
       progress, download results.</p>
 <pre>pip install flask
@@ -184,7 +186,7 @@ python webapp.py</pre>
       </ol>
     </div>
     <div>
-      <h3>⌨️ Command line</h3>
+      <h3><svg viewBox="0 0 24 24"><rect x=3 y=4 width=18 height=16 rx=2/><path d="M7 9l3 3-3 3M13 15h4"/></svg>Command line</h3>
       <p class=sub style="margin-bottom:1rem">Scriptable and CI-friendly.</p>
 <pre><span class=c># default run</span>
 python main.py
