@@ -67,3 +67,6 @@ Desktop.ini
 *.temp
 .tmp/
 .temp/
+
+# Tooling
+.freebuff/
