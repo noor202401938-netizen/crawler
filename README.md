@@ -102,7 +102,29 @@ python main.py --extract emails,phones --custom-prompt "extract pricing tables"
 
 # Option 3: Override config via env vars
 SEED_FILE=/path/to/links.txt CONCURRENCY=8 python main.py --extract emails,phones,images
+
+# Option 4: Web dashboard — no CLI, run crawls from the browser
+pip install flask   # or: pip install ".[web]"
+python webapp.py     # then open http://127.0.0.1:5000
 ```
+
+### Web Dashboard
+
+A zero-config local UI over the same pipeline — paste seed URLs, tick what to
+extract, watch live progress, download the results. No selectors, no CLI flags.
+
+- **Start a crawl** from a form (seed URLs + extraction toggles + optional LLM prompt)
+- **Live status** — current phase and running website/contact counts, polled every 2s
+- **Stop** button (takes effect at the next phase boundary)
+- **Filter** the results table and **download** `contacts.csv` / `master.xlsx`
+
+```bash
+python webapp.py                 # http://127.0.0.1:5000
+HOST=0.0.0.0 PORT=8080 python webapp.py   # expose on your LAN
+```
+
+> One crawl at a time, in-process — it's a local tool, not a multi-user server.
+> Same responsible-use rules apply (see below).
 
 ### CLI Reference
 ```bash
