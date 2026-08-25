@@ -154,13 +154,28 @@ warn_no_return = true
 show_error_codes = true
 pretty = true
 
-[tool.mypy.overrides]
+[[tool.mypy.overrides]]
 module = [
-  "playwright*",
-  "playwright_stealth*",
-  "google.genai*",
+  "playwright",
+  "playwright.*",
+  "playwright_stealth",
+  "playwright_stealth.*",
+  "google.genai",
+  "google.genai.*",
 ]
 ignore_missing_imports = true
+
+# pandas ships py.typed in some environments; skip following into it so mypy
+# never descends into numpy stubs (whose syntax can require a newer Python).
+[[tool.mypy.overrides]]
+module = [
+  "pandas",
+  "pandas.*",
+  "numpy",
+  "numpy.*",
+]
+ignore_missing_imports = true
+follow_imports = "skip"
 
 [tool.bandit]
 targets = ["crawler", "extractors", "utils", "database", "main.py"]

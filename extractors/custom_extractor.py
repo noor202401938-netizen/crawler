@@ -25,7 +25,7 @@ def _get_client():
     return _client
 
 
-def extract_custom_data(html: str, prompt: str, soup: BeautifulSoup = None) -> list:
+def extract_custom_data(html: str, prompt: str, soup: BeautifulSoup | None = None) -> list:
     """
     Sends the webpage text to Gemini and asks it to extract data matching the prompt.
     Returns a list of extracted strings/objects.

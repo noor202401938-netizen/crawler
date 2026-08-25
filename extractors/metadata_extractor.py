@@ -67,7 +67,7 @@ def _first_text(value) -> str:
 
 def _from_json_ld(soup: BeautifulSoup) -> dict:
     """Look for schema.org JSON-LD blocks (Organization, LocalBusiness, Person, etc.)"""
-    data = {}
+    data: dict = {}
     for script in soup.find_all("script", type="application/ld+json"):
         try:
             payload = json.loads(script.string or "{}")
@@ -130,7 +130,7 @@ def _guess_category(soup: BeautifulSoup) -> str:
     return ""
 
 
-def extract_metadata(html: str, soup: BeautifulSoup = None) -> dict:
+def extract_metadata(html: str, soup: BeautifulSoup | None = None) -> dict:
     if soup is None:
         soup = make_soup(html)
 

@@ -41,7 +41,7 @@ def dedup_records(records: list, key_fields) -> list:
     if isinstance(key_fields, str):
         key_fields = [key_fields]
 
-    seen = {}
+    seen: dict = {}
     order = []
 
     for rec in records:

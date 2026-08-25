@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 from utils.html_parser import make_soup
 
 
-def extract_articles(html: str, soup: BeautifulSoup = None) -> list:
+def extract_articles(html: str, soup: BeautifulSoup | None = None) -> list:
     """Returns a list of article texts found in the page."""
     found = set()
 

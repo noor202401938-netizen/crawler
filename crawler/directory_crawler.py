@@ -52,7 +52,7 @@ def _find_pagination_links(soup: BeautifulSoup, base_url: str) -> list:
     links = []
     base_domain = get_domain(base_url)
     for a in soup.find_all("a", href=True):
-        href = a["href"].strip()
+        href = str(a["href"]).strip()
         if href.startswith(("mailto:", "tel:", "javascript:", "#")):
             continue
         if _looks_like_pagination_link(a):
@@ -76,11 +76,11 @@ def _guess_profile_links(soup: BeautifulSoup, base_url: str, seed_domain: str) -
     on the page. We bucket links by their first path segment and keep buckets
     that appear multiple times -- that's the "listing repeats N profile cards" signal.
     """
-    buckets = {}
+    buckets: dict = {}
     all_internal_links = []
 
     for a in soup.find_all("a", href=True):
-        href = normalize_url(a["href"], base=base_url)
+        href = normalize_url(str(a["href"]), base=base_url)
         if not href:
             continue
         if get_domain(href) != seed_domain:
@@ -105,7 +105,7 @@ def _find_external_website(soup: BeautifulSoup, base_url: str, seed_domain: str)
     """Find the most likely 'official external website' link on a profile page."""
     candidates = []
     for a in soup.find_all("a", href=True):
-        href = a["href"]
+        href = str(a["href"])
         if href.startswith(("mailto:", "tel:", "#", "javascript:")):
             continue
         full = normalize_url(href, base=base_url)
@@ -167,7 +167,7 @@ def _find_external_website(soup: BeautifulSoup, base_url: str, seed_domain: str)
     return candidates[0][1]
 
 
-def crawl_listing_site(seed_url: str, db, max_pagination: int = None) -> list:
+def crawl_listing_site(seed_url: str, db, max_pagination: int | None = None) -> list:
     """
     Phase 1: crawl a single seed/listing site, following pagination up to
     the configured limit, collecting profile/detail page URLs along the way.

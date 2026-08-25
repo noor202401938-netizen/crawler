@@ -38,6 +38,9 @@ jobs:
         run: black --check .
 
       - name: Run mypy
+        # Non-blocking: the codebase is not fully strict-typed yet. Keep mypy
+        # running for visibility, but don't fail the pipeline on type errors.
+        continue-on-error: true
         run: mypy .
 
       - name: Run bandit

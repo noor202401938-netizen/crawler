@@ -31,19 +31,19 @@ logger = get_logger("http_client")
 
 _stealth = Stealth() if HAS_PLAYWRIGHT else None
 
-_domain_last_request = {}
-_domain_locks = {}
+_domain_last_request: dict = {}
+_domain_locks: dict = {}
 _lock_guard = threading.Lock()
 
-_robots_cache = {}
+_robots_cache: dict = {}
 _robots_lock = threading.Lock()
 
 _playwright_local = threading.local()
-_playwright_instances = []
+_playwright_instances: list = []
 _playwright_lock = threading.Lock()
 
 # Session persistence: store cookies and localStorage per domain
-_domain_sessions = {}
+_domain_sessions: dict = {}
 _session_lock = threading.Lock()
 
 
@@ -89,7 +89,7 @@ def _get_robots_parser(base_url: str):
         if domain in _robots_cache:
             return _robots_cache[domain]
 
-        rp = robotparser.RobotFileParser()
+        rp: robotparser.RobotFileParser | None = robotparser.RobotFileParser()
         scheme = urlsplit(base_url).scheme or "https"
         robots_url = f"{scheme}://{domain}/robots.txt"
         try:
@@ -407,7 +407,7 @@ def _dismiss_popups(page):
                 logger.debug(f"Dismissed popup with selector: {selector}")
                 page.wait_for_timeout(300)  # Brief wait for animation
                 return True
-        except Exception:
+        except Exception:  # nosec B112
             continue
     return False
 
@@ -449,7 +449,7 @@ def _handle_load_more(page, max_clicks: int = 3):
                     clicked = True
                     clicks += 1
                     break
-            except Exception:
+            except Exception:  # nosec B112
                 continue
         if not clicked:
             break

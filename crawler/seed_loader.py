@@ -13,7 +13,7 @@ from utils.normalizer import normalize_url
 logger = get_logger("seed_loader")
 
 
-def load_seed_urls(path: str = None) -> list:
+def load_seed_urls(path: str | None = None) -> list:
     path = path or config.SEED_FILE
 
     if not os.path.exists(path):
