@@ -52,7 +52,7 @@ def _find_contact_form_url(soup: BeautifulSoup, page_url: str) -> str:
 def _discover_internal_links(soup: BeautifulSoup, base_url: str, domain: str) -> list:
     links = []
     for a in soup.find_all("a", href=True):
-        href = a["href"]
+        href = str(a["href"])
         if href.startswith(("mailto:", "tel:", "#", "javascript:")):
             continue
         full = normalize_url(href, base=base_url)
@@ -87,14 +87,14 @@ def crawl_website(website_url: str, db) -> dict:
 
     all_emails = set()
     all_phones = set()
-    social_links = {}
+    social_links: dict = {}
     all_images = set()
     all_articles = set()
     all_products = []
     all_custom_data = []
     contact_page_url = ""
     contact_form_url = ""
-    metadata = {}
+    metadata: dict = {}
     pages_crawled = 0
 
     while queue and pages_crawled < config.MAX_PAGES_PER_DOMAIN:

@@ -18,9 +18,9 @@ _lock = threading.Lock()
 
 
 class Checkpoint:
-    def __init__(self, path: str = None):
+    def __init__(self, path: str | None = None):
         self.path = path or config.CHECKPOINT_FILE
-        self.state = {"completed_seeds": [], "completed_websites": []}
+        self.state: dict = {"completed_seeds": [], "completed_websites": []}
         self._load()
 
     def _load(self):

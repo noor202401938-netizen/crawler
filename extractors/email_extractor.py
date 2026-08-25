@@ -15,7 +15,7 @@ from utils.validator import is_valid_email
 _EMAIL_RE = re.compile(config.EMAIL_REGEX)
 
 
-def extract_emails(html: str, soup: BeautifulSoup = None) -> list:
+def extract_emails(html: str, soup: BeautifulSoup | None = None) -> list:
     """Returns a deduped, validated list of emails found in the page."""
     found = set()
 
@@ -24,7 +24,7 @@ def extract_emails(html: str, soup: BeautifulSoup = None) -> list:
 
     # 1. mailto: links (highest confidence)
     for a in soup.find_all("a", href=True):
-        href = a["href"]
+        href = str(a["href"])
         if href.lower().startswith("mailto:"):
             addr = href.split("mailto:", 1)[1].split("?")[0]
             addr = normalize_email(addr)

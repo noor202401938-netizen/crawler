@@ -12,7 +12,7 @@ import config
 
 
 class SQLiteManager:
-    def __init__(self, db_path: str = None):
+    def __init__(self, db_path: str | None = None):
         self.db_path = db_path or config.DB_PATH
         self._lock = threading.Lock()
         self._init_schema()
@@ -93,7 +93,7 @@ class SQLiteManager:
             except sqlite3.IntegrityError:
                 pass  # already queued
 
-    def get_pending(self, url_type: str = None, limit: int = 500):
+    def get_pending(self, url_type: str | None = None, limit: int = 500):
         with self._lock, self._connect() as conn:
             conn.row_factory = sqlite3.Row
             if url_type:

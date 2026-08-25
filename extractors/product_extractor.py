@@ -14,7 +14,7 @@ from utils.logger import get_logger
 logger = get_logger("product_extractor")
 
 
-def extract_products(html: str, soup: BeautifulSoup = None, base_url: str = "") -> list:
+def extract_products(html: str, soup: BeautifulSoup | None = None, base_url: str = "") -> list:
     """Returns a list of dictionaries with product data."""
     found = []
 
@@ -24,7 +24,7 @@ def extract_products(html: str, soup: BeautifulSoup = None, base_url: str = "") 
     # Looking for Schema.org JSON-LD Products
     for script in soup.find_all("script", type="application/ld+json"):
         try:
-            data = json.loads(script.string)
+            data = json.loads(script.string or "{}")
             if isinstance(data, dict):
                 data = [data]
             for item in data:
@@ -66,7 +66,7 @@ def extract_products(html: str, soup: BeautifulSoup = None, base_url: str = "") 
             if name_tag:
                 name = name_tag.get_text(strip=True)
                 price = price_tag.get_text(strip=True) if price_tag else ""
-                link = urljoin(base_url, link_tag["href"]) if link_tag else base_url
+                link = urljoin(base_url, str(link_tag["href"])) if link_tag else base_url
 
                 # Simple dedup based on name
                 if name and not any(p["name"] == name for p in found):

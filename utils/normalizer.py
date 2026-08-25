@@ -7,7 +7,7 @@ import re
 from urllib.parse import urljoin, urlsplit, urlunsplit
 
 
-def normalize_url(url: str, base: str = None) -> str:
+def normalize_url(url: str, base: str | None = None) -> str:
     """
     Turn http://ABC.com, https://abc.com, https://www.abc.com/  -> https://abc.com
     - lowercases scheme+host

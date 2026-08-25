@@ -20,14 +20,14 @@ SOCIAL_DOMAINS = [
 ]
 
 
-def extract_social_links(html: str, soup: BeautifulSoup = None) -> dict:
+def extract_social_links(html: str, soup: BeautifulSoup | None = None) -> dict:
     """Returns {platform: url} for the first match of each platform found."""
     if soup is None:
         soup = make_soup(html)
 
     results = {}
     for a in soup.find_all("a", href=True):
-        href = a["href"].strip()
+        href = str(a["href"]).strip()
         lower = href.lower()
         for domain in SOCIAL_DOMAINS:
             if domain in lower:

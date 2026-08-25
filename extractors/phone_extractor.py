@@ -15,7 +15,7 @@ from utils.validator import is_valid_phone
 _PHONE_RE = re.compile(config.PHONE_REGEX)
 
 
-def extract_phones(html: str, soup: BeautifulSoup = None) -> list:
+def extract_phones(html: str, soup: BeautifulSoup | None = None) -> list:
     found = set()
 
     if soup is None:
@@ -23,7 +23,7 @@ def extract_phones(html: str, soup: BeautifulSoup = None) -> list:
 
     # 1. tel: links (highest confidence)
     for a in soup.find_all("a", href=True):
-        href = a["href"]
+        href = str(a["href"])
         if href.lower().startswith("tel:"):
             raw = href.split("tel:", 1)[1]
             norm = normalize_phone(raw)
