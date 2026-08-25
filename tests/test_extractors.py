@@ -23,9 +23,7 @@ class EmailExtractorTests(unittest.TestCase):
           <p>Contact hello@example.org or sales@example.org today.</p>
         </body></html>
         """
-        self.assertEqual(
-            extract_emails(html), ["hello@example.org", "sales@example.org"]
-        )
+        self.assertEqual(extract_emails(html), ["hello@example.org", "sales@example.org"])
 
     def test_strips_mailto_query_string(self):
         html = '<a href="mailto:a@b.com?subject=x&cc=y">x</a>'
