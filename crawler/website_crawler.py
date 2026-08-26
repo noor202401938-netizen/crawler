@@ -25,10 +25,11 @@ from extractors.metadata_extractor import extract_metadata
 from extractors.phone_extractor import extract_phones
 from extractors.product_extractor import extract_products
 from extractors.social_extractor import extract_social_links
+from utils.circuit_breaker import get_dead_letter_queue
 from utils.deduplicator import SeenSet
 from utils.html_parser import make_soup
 from utils.http_client import fetch_smart
-from utils.logger import get_logger
+from utils.logger import CrawlMetrics, get_logger
 from utils.normalizer import get_domain, normalize_url
 
 logger = get_logger("website_crawler")
@@ -96,6 +97,7 @@ def crawl_website(website_url: str, db) -> dict:
     contact_form_url = ""
     metadata: dict = {}
     pages_crawled = 0
+    metrics = CrawlMetrics()
 
     while queue and pages_crawled < config.MAX_PAGES_PER_DOMAIN:
         # Prioritize queue using URLBandit
@@ -143,17 +145,25 @@ def crawl_website(website_url: str, db) -> dict:
 
                 reward = 0
 
+                page_emails = []
+                page_phones = []
+
                 if config.EXTRACT_EMAILS:
-                    emails = extract_emails(resp.text, soup)
-                    all_emails.update(emails)
-                    if emails:
+                    page_emails = extract_emails(resp.text, soup)
+                    all_emails.update(page_emails)
+                    if page_emails:
                         reward += 10
 
                 if config.EXTRACT_PHONES:
-                    phones = extract_phones(resp.text, soup)
-                    all_phones.update(phones)
-                    if phones:
+                    page_phones = extract_phones(resp.text, soup)
+                    all_phones.update(page_phones)
+                    if page_phones:
                         reward += 10
+
+                content_len = len(resp.text) if hasattr(resp, "text") else 0
+                metrics.record_page(
+                    emails=len(page_emails), phones=len(page_phones), bytes_down=content_len
+                )
 
                 if config.EXTRACT_EMAILS or config.EXTRACT_PHONES:
                     socials = extract_social_links(resp.text, soup)
@@ -197,7 +207,7 @@ def crawl_website(website_url: str, db) -> dict:
                 if _is_contact_like_page(url) and not contact_page_url:
                     contact_page_url = url
 
-                if (emails or _is_contact_like_page(url)) and not contact_form_url:
+                if (page_emails or _is_contact_like_page(url)) and not contact_form_url:
                     form_url = _find_contact_form_url(soup, url)
                     if form_url:
                         contact_form_url = form_url
@@ -239,4 +249,10 @@ def crawl_website(website_url: str, db) -> dict:
         f"[{website_url}] crawled {pages_crawled} pages -> "
         f"{len(all_emails)} emails, {len(all_phones)} phones"
     )
+
+    # Track permanently failed domains in the dead letter queue
+    if pages_crawled == 0:
+        dlq = get_dead_letter_queue()
+        dlq.add(website_url, reason="no pages crawled (all fetches failed)", url_type="website")
+
     return record

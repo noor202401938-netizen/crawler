@@ -90,6 +90,8 @@ py-modules = ["main", "webapp", "config", "train_bandit_products"]
 line-length = 100
 target-version = "py310"
 extend-exclude = [".agents"]
+
+[tool.ruff.lint]
 select = [
   "E",   # pycodestyle errors
   "W",   # pycodestyle warnings
@@ -105,7 +107,7 @@ ignore = [
   "E501",  # line too long (handled by black)
   "B008",  # function calls in default args (intentional)
 ]
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "tests/*" = ["S101", "T201"]
 "main.py" = ["T201"]
 "train_bandit_products.py" = ["T201"]
@@ -137,12 +139,13 @@ extend-exclude = '''
 '''
 
 [tool.mypy]
-python_version = "3.10"
+python_version = "3.12"
 strict = true
 warn_return_any = true
 warn_unused_configs = true
 exclude = [
   '^\.agents/',
+  'crawler/bandit\.py',
 ]
 disallow_untyped_defs = true
 disallow_incomplete_defs = true

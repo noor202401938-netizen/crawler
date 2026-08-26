@@ -26,8 +26,8 @@ class EmailExtractorTests(unittest.TestCase):
         self.assertEqual(extract_emails(html), ["hello@example.org", "sales@example.org"])
 
     def test_strips_mailto_query_string(self):
-        html = '<a href="mailto:a@b.com?subject=x&cc=y">x</a>'
-        self.assertEqual(extract_emails(html), ["a@b.com"])
+        html = '<a href="mailto:user@gmail.com?subject=x&cc=y">x</a>'
+        self.assertEqual(extract_emails(html), ["user@gmail.com"])
 
     def test_empty_page_returns_empty_list(self):
         self.assertEqual(extract_emails("<html><body>no mail</body></html>"), [])

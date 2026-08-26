@@ -24,7 +24,8 @@ except ImportError:
     HAS_PLAYWRIGHT = False
 
 import config
-from utils.logger import get_logger
+from utils.circuit_breaker import get_circuit_breaker
+from utils.logger import CrawlMetrics, get_logger
 from utils.normalizer import get_domain
 
 logger = get_logger("http_client")
@@ -128,8 +129,17 @@ def fetch(url: str, method: str = "GET", allow_redirects: bool = True):
     """
     domain = get_domain(url)
 
+    # Circuit breaker: skip if domain circuit is open
+    cb = get_circuit_breaker()
+    metrics = CrawlMetrics()
+    if not cb.allow_request(domain):
+        logger.info(f"Skipping (circuit breaker open): {url}")
+        metrics.record_skipped("circuit")
+        return None
+
     if not is_allowed_by_robots(url):
         logger.info(f"Skipping (robots.txt disallow): {url}")
+        metrics.record_skipped("robots")
         return None
 
     headers = {"User-Agent": config.USER_AGENT}
@@ -171,18 +181,27 @@ def fetch(url: str, method: str = "GET", allow_redirects: bool = True):
                 logger.warning(f"429 from {domain}, backing off {wait:.1f}s")
                 _push_domain_cooldown(wait)
                 time.sleep(wait)
+                metrics.record_rate_limited()
                 continue
             if resp.status_code in (403, 404, 410):
+                cb.record_failure(domain)
+                metrics.record_request(success=False)
                 return resp
+            cb.record_success(domain)
+            metrics.record_request(success=True)
             return resp
         except requests.RequestException as e:
             logger.warning(f"Attempt {attempt}/{config.RETRY_ATTEMPTS} failed for {url}: {e}")
+            metrics.record_request(success=False)
             if _is_terminal_exception(e):
+                cb.record_failure(domain)
                 break
             if attempt < config.RETRY_ATTEMPTS:
                 time.sleep(config.RETRY_BACKOFF_SECONDS * attempt)
 
     logger.error(f"Giving up on {url} after {config.RETRY_ATTEMPTS} attempts")
+    cb.record_failure(domain)
+    metrics.record_request(success=False)
     return None
 
 

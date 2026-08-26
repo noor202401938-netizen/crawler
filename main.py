@@ -30,7 +30,7 @@ from crawler.website_crawler import crawl_website
 from database.sqlite_manager import SQLiteManager
 from utils.checkpoint import Checkpoint
 from utils.exporter import export_all
-from utils.logger import get_logger
+from utils.logger import CrawlMetrics, get_logger
 
 logger = get_logger("main")
 
@@ -254,6 +254,9 @@ def main():
 
     elapsed = time.time() - start
     logger.info(f"Done in {elapsed:.1f}s. Outputs written to '{config.OUTPUT_DIR}/'.")
+
+    # Log crawl metrics summary
+    CrawlMetrics().log_summary()
 
 
 if __name__ == "__main__":

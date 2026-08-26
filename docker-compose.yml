@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  # CLI mode: run once and exit
+  crawler:
+    build: .
+    volumes:
+      - ./output:/app/output
+      - ./logs:/app/logs
+      - ./.env:/app/.env:ro
+    environment:
+      - CONCURRENCY=5
+      - MAX_CRAWL_DEPTH=3
+      - USE_SMART_JS_FALLBACK=true
+
+  # Web dashboard mode: persistent service
+  webapp:
+    build: .
+    command: python webapp.py
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./output:/app/output
+      - ./logs:/app/logs
+      - ./.env:/app/.env:ro
+    environment:
+      - HOST=0.0.0.0
+      - PORT=5000
+      - CONCURRENCY=5
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/status')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

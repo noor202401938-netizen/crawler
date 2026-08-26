@@ -39,12 +39,21 @@ def export_all(db):
     df_contacts.to_csv(config.CSV_CONTACTS, index=False)
 
     with pd.ExcelWriter(config.XLSX_MASTER, engine="openpyxl") as writer:
+        has_data = False
         if not df_contacts.empty:
             df_contacts.to_excel(writer, sheet_name="Contacts (Master)", index=False)
+            has_data = True
         if not df_websites.empty:
             df_websites.to_excel(writer, sheet_name="Websites", index=False)
+            has_data = True
         if not df_discovered.empty:
             df_discovered.to_excel(writer, sheet_name="Discovered URLs", index=False)
+            has_data = True
+        if not has_data:
+            # Excel requires at least one visible sheet
+            pd.DataFrame({"info": ["No data exported"]}).to_excel(
+                writer, sheet_name="Summary", index=False
+            )
 
     logger.info(
         f"Exported {len(df_discovered)} discovered URLs, {len(df_websites)} websites, "

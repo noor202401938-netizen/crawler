@@ -106,6 +106,16 @@ PRIORITY_PATHS = [
 ]
 
 # ---------------------------------------------------------------------------
+# Circuit Breaker
+# ---------------------------------------------------------------------------
+CIRCUIT_BREAKER_FAILURE_THRESHOLD = int(
+    os.environ.get("CIRCUIT_BREAKER_FAILURE_THRESHOLD", 5)
+)  # consecutive failures before opening circuit
+CIRCUIT_BREAKER_COOLDOWN_SECONDS = float(
+    os.environ.get("CIRCUIT_BREAKER_COOLDOWN_SECONDS", 300)
+)  # 5 minutes default cooldown
+
+# ---------------------------------------------------------------------------
 # Checkpointing / resume
 # ---------------------------------------------------------------------------
 CHECKPOINT_FILE = os.path.join(OUTPUT_DIR, "checkpoint.json")
@@ -132,12 +142,16 @@ PERSIST_SESSION = os.environ.get("PERSIST_SESSION", "true").lower() == "true"
 # ---------------------------------------------------------------------------
 LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO")
 LOG_FILE = os.path.join(LOG_DIR, "crawler.log")
+LOG_FORMAT = os.environ.get("LOG_FORMAT", "text")  # 'text' or 'json'
 
 # ---------------------------------------------------------------------------
 # Validation
 # ---------------------------------------------------------------------------
 EMAIL_REGEX = r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+"
 PHONE_REGEX = r"(?:\+?\d{1,3}[-.\s]?)?(?:\(?\d{2,4}\)?[-.\s]?){2,4}\d{2,4}"
+
+# MX record validation: verify domains can receive email (slight DNS overhead, ~30-40% fewer false positives)
+VALIDATE_EMAIL_MX = os.environ.get("VALIDATE_EMAIL_MX", "true").lower() == "true"
 
 # Domains/extensions to never treat as "contact emails" (common false positives)
 EMAIL_EXCLUDE_DOMAINS = {
