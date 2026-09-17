@@ -10,6 +10,7 @@ import atexit
 import threading
 import time
 import urllib.robotparser as robotparser
+from typing import Any
 from urllib.parse import urlsplit
 
 import requests
@@ -32,33 +33,42 @@ logger = get_logger("http_client")
 
 _stealth = Stealth() if HAS_PLAYWRIGHT else None
 
-_domain_last_request: dict = {}
-_domain_locks: dict = {}
+_domain_last_request: dict[str, float] = {}
+_domain_locks: dict[str, threading.Lock] = {}
 _lock_guard = threading.Lock()
 
-_robots_cache: dict = {}
+_robots_cache: dict[str, robotparser.RobotFileParser | None] = {}
 _robots_lock = threading.Lock()
 
 _playwright_local = threading.local()
-_playwright_instances: list = []
+_playwright_instances: list[dict[str, Any]] = []
 _playwright_lock = threading.Lock()
 
 # Session persistence: store cookies and localStorage per domain
-_domain_sessions: dict = {}
+_domain_sessions: dict[str, dict[str, Any]] = {}
 _session_lock = threading.Lock()
 
 
-def _cleanup_playwright():
+def _cleanup_playwright() -> None:
     """Clean up all Playwright instances on exit."""
     with _playwright_lock:
-        for pw in _playwright_instances:
+        for item in _playwright_instances:
             try:
-                if hasattr(pw, "context") and pw.context:
-                    pw.context.close()
-                if hasattr(pw, "browser") and pw.browser:
-                    pw.browser.close()
-                if hasattr(pw, "playwright") and pw.playwright:
-                    pw.playwright.stop()
+                ctx = item.get("context") if isinstance(item, dict) else getattr(item, "context", None)
+                if ctx:
+                    ctx.close()
+            except Exception:  # nosec B110
+                pass
+            try:
+                br = item.get("browser") if isinstance(item, dict) else getattr(item, "browser", None)
+                if br:
+                    br.close()
+            except Exception:  # nosec B110
+                pass
+            try:
+                pw = item.get("playwright") if isinstance(item, dict) else getattr(item, "playwright", None)
+                if pw:
+                    pw.stop()
             except Exception:  # nosec B110
                 pass
         _playwright_instances.clear()
@@ -71,10 +81,11 @@ def _get_domain_lock(domain: str) -> threading.Lock:
     with _lock_guard:
         if domain not in _domain_locks:
             _domain_locks[domain] = threading.Lock()
-        return _domain_locks[domain]
+        lock: threading.Lock = _domain_locks[domain]
+        return lock
 
 
-def _wait_for_domain_slot(domain: str):
+def _wait_for_domain_slot(domain: str) -> None:
     lock = _get_domain_lock(domain)
     with lock:
         last = _domain_last_request.get(domain, 0)
@@ -84,13 +95,13 @@ def _wait_for_domain_slot(domain: str):
         _domain_last_request[domain] = time.time()
 
 
-def _get_robots_parser(base_url: str):
+def _get_robots_parser(base_url: str) -> robotparser.RobotFileParser | None:
     domain = get_domain(base_url)
     with _robots_lock:
         if domain in _robots_cache:
             return _robots_cache[domain]
 
-        rp: robotparser.RobotFileParser | None = robotparser.RobotFileParser()
+        rp = robotparser.RobotFileParser()
         scheme = urlsplit(base_url).scheme or "https"
         robots_url = f"{scheme}://{domain}/robots.txt"
         try:
@@ -101,13 +112,13 @@ def _get_robots_parser(base_url: str):
             )
             if resp.status_code == 200:
                 rp.parse(resp.text.splitlines())
-            else:
-                rp = None  # no robots.txt / inaccessible -> treat as "allow"
+                _robots_cache[domain] = rp
+                return rp
         except requests.RequestException:
-            rp = None
+            pass
 
-        _robots_cache[domain] = rp
-        return rp
+        _robots_cache[domain] = None
+        return None
 
 
 def is_allowed_by_robots(url: str) -> bool:
@@ -117,13 +128,13 @@ def is_allowed_by_robots(url: str) -> bool:
         rp = _get_robots_parser(url)
         if rp is None:
             return True
-        return rp.can_fetch(config.USER_AGENT, url)
+        return bool(rp.can_fetch(config.USER_AGENT, url))
     except (requests.RequestException, ValueError) as e:
         logger.debug(f"Robots.txt check failed for {url}: {e}")
         return True  # fail open on robots.txt parsing errors
 
 
-def fetch(url: str, method: str = "GET", allow_redirects: bool = True):
+def fetch(url: str, method: str = "GET", allow_redirects: bool = True) -> requests.Response | None:
     """
     Fetch a URL politely with retries. Returns a requests.Response or None.
     """
@@ -160,7 +171,7 @@ def fetch(url: str, method: str = "GET", allow_redirects: bool = True):
         )
         return any(marker in message for marker in terminal_markers)
 
-    def _push_domain_cooldown(wait_seconds: float):
+    def _push_domain_cooldown(wait_seconds: float) -> None:
         lock = _get_domain_lock(domain)
         with lock:
             _domain_last_request[domain] = time.time() + wait_seconds
@@ -209,13 +220,13 @@ _playwright_local = threading.local()
 
 
 class MockResponse:
-    def __init__(self, text, status_code, headers):
+    def __init__(self, text: str, status_code: int, headers: dict[str, str] | Any) -> None:
         self.text = text
         self.status_code = status_code
         self.headers = headers
 
 
-def _get_playwright_page():
+def _get_playwright_page() -> Any:
     if not hasattr(_playwright_local, "playwright"):
         pw = sync_playwright().start()
         browser = pw.chromium.launch(headless=True)
@@ -224,13 +235,14 @@ def _get_playwright_page():
         _playwright_local.browser = browser
         _playwright_local.context = context
         with _playwright_lock:
-            _playwright_instances.append(_playwright_local)
+            _playwright_instances.append({"playwright": pw, "browser": browser, "context": context})
     page = _playwright_local.context.new_page()
-    _stealth.apply_stealth_sync(page)
+    if _stealth is not None:
+        _stealth.apply_stealth_sync(page)
     return page
 
 
-def _save_session(domain: str, context):
+def _save_session(domain: str, context: Any) -> None:
     """Persist cookies and localStorage for a domain."""
     if not config.PERSIST_SESSION:
         return
@@ -249,7 +261,7 @@ def _save_session(domain: str, context):
         logger.debug(f"Failed to save session for {domain}: {e}")
 
 
-def _load_session(domain: str, context):
+def _load_session(domain: str, context: Any) -> None:
     """Restore cookies and localStorage for a domain."""
     if not config.PERSIST_SESSION:
         return
@@ -269,7 +281,7 @@ def _load_session(domain: str, context):
         logger.debug(f"Failed to load session for {domain}: {e}")
 
 
-def _perform_login(page, domain: str):
+def _perform_login(page: Any, domain: str) -> bool:
     """Perform login using configured credentials for a domain."""
     creds = config.LOGIN_CREDENTIALS.get(domain)
     if not creds:
@@ -320,7 +332,7 @@ def _perform_login(page, domain: str):
         return False
 
 
-def _execute_custom_interactions(page, domain: str):
+def _execute_custom_interactions(page: Any, domain: str) -> None:
     """Execute custom interaction sequence for a domain."""
     interactions = config.CUSTOM_INTERACTIONS.get(domain, [])
     if not interactions:
@@ -370,7 +382,7 @@ def _execute_custom_interactions(page, domain: str):
             logger.debug(f"Custom interaction {i} ({action}) failed for {domain}: {e}")
 
 
-def _dismiss_popups(page):
+def _dismiss_popups(page: Any) -> bool:
     """Dismiss common cookie banners, consent dialogs, and popups."""
     # Common selectors for cookie/consent buttons
     dismiss_selectors = [
@@ -431,7 +443,7 @@ def _dismiss_popups(page):
     return False
 
 
-def _handle_load_more(page, max_clicks: int = 3):
+def _handle_load_more(page: Any, max_clicks: int = 3) -> None:
     """Click 'Load more' / 'Show more' buttons to reveal additional content."""
     load_more_selectors = [
         'button:has-text("Load more")',
@@ -474,7 +486,7 @@ def _handle_load_more(page, max_clicks: int = 3):
             break
 
 
-def fetch_with_js(url: str):
+def fetch_with_js(url: str) -> MockResponse | None:
     if not HAS_PLAYWRIGHT:
         logger.error(
             "Playwright not installed! Use 'pip install playwright' and 'playwright install'"
@@ -558,7 +570,9 @@ def fetch_with_js(url: str):
                 logger.debug(f"Error closing Playwright page: {e}")
 
 
-def fetch_smart(url: str, method: str = "GET", allow_redirects: bool = True):
+def fetch_smart(
+    url: str, method: str = "GET", allow_redirects: bool = True
+) -> requests.Response | MockResponse | None:
     """
     Intelligently fetch a URL. Tries standard requests first.
     If it looks like an SPA or Anti-bot challenge, falls back to JS rendering.

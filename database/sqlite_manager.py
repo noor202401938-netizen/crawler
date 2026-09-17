@@ -7,22 +7,23 @@ during the crawl (enables resume) and as one of the export formats.
 import sqlite3
 import threading
 from datetime import datetime, timezone
+from typing import Any
 
 import config
 
 
 class SQLiteManager:
-    def __init__(self, db_path: str | None = None):
+    def __init__(self, db_path: str | None = None) -> None:
         self.db_path = db_path or config.DB_PATH
         self._lock = threading.Lock()
         self._init_schema()
 
-    def _connect(self):
+    def _connect(self) -> sqlite3.Connection:
         conn = sqlite3.connect(self.db_path, timeout=30)
         conn.execute("PRAGMA journal_mode=WAL;")
         return conn
 
-    def _init_schema(self):
+    def _init_schema(self) -> None:
         with self._lock, self._connect() as conn:
             conn.executescript("""
                 CREATE TABLE IF NOT EXISTS discovered_urls (
@@ -40,7 +41,6 @@ class SQLiteManager:
                     discovered_timestamp TEXT
                 );
 
-                DROP TABLE IF EXISTS contacts;
                 CREATE TABLE IF NOT EXISTS contacts (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     website TEXT,
@@ -78,12 +78,12 @@ class SQLiteManager:
                 """)
 
     @staticmethod
-    def _now():
+    def _now() -> str:
         return datetime.now(timezone.utc).isoformat()
 
     # ---------------- crawl_queue (drives resume/checkpointing) -------------
 
-    def enqueue(self, url: str, url_type: str, source_url: str = "", depth: int = 0):
+    def enqueue(self, url: str, url_type: str, source_url: str = "", depth: int = 0) -> None:
         with self._lock, self._connect() as conn:
             try:
                 conn.execute(
@@ -93,7 +93,7 @@ class SQLiteManager:
             except sqlite3.IntegrityError:
                 pass  # already queued
 
-    def get_pending(self, url_type: str | None = None, limit: int = 500):
+    def get_pending(self, url_type: str | None = None, limit: int = 500) -> list[dict[str, Any]]:
         with self._lock, self._connect() as conn:
             conn.row_factory = sqlite3.Row
             if url_type:
@@ -107,7 +107,7 @@ class SQLiteManager:
                 ).fetchall()
             return [dict(r) for r in rows]
 
-    def mark_status(self, url: str, status: str):
+    def mark_status(self, url: str, status: str) -> None:
         with self._lock, self._connect() as conn:
             conn.execute(
                 "UPDATE crawl_queue SET status=?, attempts=attempts+1, last_attempt=? WHERE url=?",
@@ -118,7 +118,7 @@ class SQLiteManager:
 
     def save_discovered_url(
         self, profile_url: str, source_url: str, crawl_status: str = "discovered"
-    ):
+    ) -> None:
         with self._lock, self._connect() as conn:
             conn.execute(
                 """INSERT INTO discovered_urls (profile_url, source_url, crawl_status, crawl_timestamp)
@@ -129,7 +129,7 @@ class SQLiteManager:
 
     # ---------------- websites (Phase 3 output) -------------------------------
 
-    def save_website(self, canonical_url: str, source_profile_url: str):
+    def save_website(self, canonical_url: str, source_profile_url: str) -> None:
         with self._lock, self._connect() as conn:
             try:
                 conn.execute(
@@ -139,14 +139,14 @@ class SQLiteManager:
             except sqlite3.IntegrityError:
                 pass
 
-    def get_all_websites(self):
+    def get_all_websites(self) -> list[dict[str, Any]]:
         with self._lock, self._connect() as conn:
             conn.row_factory = sqlite3.Row
             return [dict(r) for r in conn.execute("SELECT * FROM websites").fetchall()]
 
     # ---------------- contacts (Phase 5 output) -------------------------------
 
-    def save_contact(self, record: dict):
+    def save_contact(self, record: dict[str, Any]) -> None:
         with self._lock, self._connect() as conn:
             conn.execute(
                 """INSERT INTO contacts
@@ -186,12 +186,12 @@ class SQLiteManager:
                 ),
             )
 
-    def get_all_contacts(self):
+    def get_all_contacts(self) -> list[dict[str, Any]]:
         with self._lock, self._connect() as conn:
             conn.row_factory = sqlite3.Row
             return [dict(r) for r in conn.execute("SELECT * FROM contacts").fetchall()]
 
-    def get_all_discovered_urls(self):
+    def get_all_discovered_urls(self) -> list[dict[str, Any]]:
         with self._lock, self._connect() as conn:
             conn.row_factory = sqlite3.Row
             return [dict(r) for r in conn.execute("SELECT * FROM discovered_urls").fetchall()]

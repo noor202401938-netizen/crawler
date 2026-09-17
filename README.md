@@ -94,6 +94,9 @@ cp .env.example .env
 # Edit .env -- or use env vars at runtime
 ```
 
+> **Note on Seed File (`SEED_FILE`):**
+> By default, the crawler looks for `links.txt` in the project root directory universally across **Windows, macOS, and Linux**. You can override this to point to any custom path via `.env` (`SEED_FILE=/path/to/custom_links.txt`), CLI argument (`--seed-file /path/to/links.txt`), or environment variable.
+
 ### Run
 ```
 # Option 1: Interactive (prompts for extraction goals)
@@ -261,7 +264,7 @@ https://clutch.co/agencies/web-developers#listing
 
 | Setting | Env Var | Default | Purpose |
 |---------|---------|---------|---------|
-| Seed file | SEED_FILE | links.txt | Input seed URLs |
+| Seed file | SEED_FILE | links.txt | Input seed URLs (universal across Windows, macOS, Linux) |
 | Max crawl depth | MAX_CRAWL_DEPTH | 3 | Internal link depth per website |
 | Max pages/domain | MAX_PAGES_PER_DOMAIN | 40 | Hard ceiling per site |
 | Max pagination | MAX_PAGINATION_PAGES | 50 | Per listing site |
@@ -275,10 +278,12 @@ https://clutch.co/agencies/web-developers#listing
 | Extraction toggles | EXTRACT_EMAILS etc. | true/false | Enable/disable extractors |
 | Custom prompt | CUSTOM_PROMPT | "" | LLM extraction prompt |
 | Gemini API key | GEMINI_API_KEY | "" | Required for custom extraction |
+| Max LLM calls/domain | MAX_LLM_CALLS_PER_DOMAIN | 3 | Cap Gemini calls per site to prevent runaway costs |
 | Session persistence | PERSIST_SESSION | true | Save/restore cookies+localStorage |
 | Login credentials | LOGIN_CREDENTIALS | {} | Per-domain login config |
 | Custom interactions | CUSTOM_INTERACTIONS | {} | Per-domain JS sequences |
 | Bandit model path | BANDIT_MODEL_FILE | output/bandit_model.json | RL model storage |
+| Bandit save interval | BANDIT_AUTO_SAVE_INTERVAL | 20 | URL updates before saving model to disk |
 | MX email validation | VALIDATE_EMAIL_MX | true | Verify domains have MX records |
 | Circuit breaker threshold | CIRCUIT_BREAKER_FAILURE_THRESHOLD | 5 | Failures before opening circuit |
 | Circuit breaker cooldown | CIRCUIT_BREAKER_COOLDOWN_SECONDS | 300 | Seconds before probing again |

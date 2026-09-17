@@ -5,11 +5,11 @@ Nothing site-specific lives here — only behavior knobs.
 """
 
 import os
-import platform
 from pathlib import Path
+from typing import Any
 
 
-def _load_env_file(path: Path):
+def _load_env_file(path: Path) -> None:
     if not path.exists():
         return
 
@@ -33,11 +33,7 @@ _load_env_file(Path(__file__).resolve().with_name(".env"))
 # Input / Output
 # ---------------------------------------------------------------------------
 
-if platform.system() == "Windows":
-    DEFAULT_SEED_FILE = "D:\\links.txt"
-else:
-    DEFAULT_SEED_FILE = "links.txt"
-
+DEFAULT_SEED_FILE = "links.txt"
 SEED_FILE = os.environ.get("SEED_FILE", DEFAULT_SEED_FILE)
 
 OUTPUT_DIR = "output"
@@ -60,6 +56,7 @@ EXTRACT_PRODUCTS = os.environ.get("EXTRACT_PRODUCTS", "true").lower() == "true"
 
 CUSTOM_PROMPT = os.environ.get("CUSTOM_PROMPT", "")
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
+MAX_LLM_CALLS_PER_DOMAIN = int(os.environ.get("MAX_LLM_CALLS_PER_DOMAIN", 3))
 
 # ---------------------------------------------------------------------------
 # Crawl behavior
@@ -123,16 +120,17 @@ CHECKPOINT_EVERY_N_ITEMS = int(os.environ.get("CHECKPOINT_EVERY_N_ITEMS", 10))
 
 # Bandit model path for URL prioritization
 BANDIT_MODEL_FILE = os.path.join(OUTPUT_DIR, "bandit_model.json")
+BANDIT_AUTO_SAVE_INTERVAL = int(os.environ.get("BANDIT_AUTO_SAVE_INTERVAL", 20))
 
 # ---------------------------------------------------------------------------
 # Authentication & Custom Interactions
 # ---------------------------------------------------------------------------
 # Login credentials per domain: {"example.com": {"username": "user", "password": "pass", "login_url": "/login", "username_selector": "#username", "password_selector": "#password", "submit_selector": "button[type=submit]"}}
-LOGIN_CREDENTIALS: dict = {}
+LOGIN_CREDENTIALS: dict[str, dict[str, str]] = {}
 
 # Custom Playwright interaction sequences per domain:
 # {"example.com": [{"action": "click", "selector": ".load-more"}, {"action": "wait", "timeout": 2000}, {"action": "scroll", "direction": "down"}]}
-CUSTOM_INTERACTIONS: dict = {}
+CUSTOM_INTERACTIONS: dict[str, list[dict[str, Any]]] = {}
 
 # Session persistence: reuse cookies/localStorage across requests to same domain
 PERSIST_SESSION = os.environ.get("PERSIST_SESSION", "true").lower() == "true"

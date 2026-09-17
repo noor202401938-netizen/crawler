@@ -20,9 +20,12 @@ class URLBandit:
     def __init__(self, model_path=None):
         self.model_path = model_path or config.BANDIT_MODEL_FILE
         self._lock = threading.Lock()
-        # memory: dict mapping keyword -> {"successes": int, "failures": int}
-        # default alpha (success) = 1, beta (failure) = 1 (uniform prior)
+        # memory: dict mapping keyword -> {"successes": float, "failures": float}
+        # default alpha (success) = 1.0, beta (failure) = 1.0 (uniform prior)
         self.memory = {}
+        self._dirty = False
+        self._updates_since_save = 0
+        self.auto_save_interval = getattr(config, "BANDIT_AUTO_SAVE_INTERVAL", 20)
         self.load()
 
     def load(self):
@@ -32,15 +35,28 @@ class URLBandit:
                     with open(self.model_path, encoding="utf-8") as f:
                         self.memory = json.load(f)
                 except (json.JSONDecodeError, OSError) as e:
-                    logger = get_logger("bandit")
                     logger.warning(f"Failed to load bandit model from {self.model_path}: {e}")
                     self.memory = {}
+            self._dirty = False
+            self._updates_since_save = 0
+
+    def _save_locked(self):
+        """Internal save assuming self._lock is already acquired."""
+        os.makedirs(os.path.dirname(self.model_path), exist_ok=True)
+        with open(self.model_path, "w", encoding="utf-8") as f:
+            json.dump(self.memory, f, indent=2)
+        self._dirty = False
+        self._updates_since_save = 0
 
     def save(self):
         with self._lock:
-            os.makedirs(os.path.dirname(self.model_path), exist_ok=True)
-            with open(self.model_path, "w", encoding="utf-8") as f:
-                json.dump(self.memory, f, indent=2)
+            self._save_locked()
+
+    def flush(self):
+        """Persist any in-memory dirty updates to disk."""
+        with self._lock:
+            if self._dirty:
+                self._save_locked()
 
     def _get_keywords(self, url: str) -> list:
         path = urlsplit(url).path.lower()
@@ -61,9 +77,11 @@ class URLBandit:
         scores = []
         with self._lock:
             for kw in keywords:
-                stats = self.memory.get(kw, {"successes": 1, "failures": 1})
+                stats = self.memory.get(kw, {"successes": 1.0, "failures": 1.0})
+                alpha = max(float(stats.get("successes", 1.0)), 0.1)
+                beta = max(float(stats.get("failures", 1.0)), 0.1)
                 # Thompson sampling: random sample from Beta(successes, failures)
-                sampled_score = random.betavariate(stats["successes"], stats["failures"])
+                sampled_score = random.betavariate(alpha, beta)
                 scores.append(sampled_score)
 
         # Max score among keywords gives a chance to highly performant keywords
@@ -72,8 +90,8 @@ class URLBandit:
     def update_reward(self, url: str, reward: float):
         """
         Updates the success/failure counts for the URL's keywords based on the reward.
-        If reward > 0, it counts as a success (weighted by reward magnitude).
-        If reward <= 0, it counts as a failure.
+        Normalized so Beta distribution variance remains healthy without exploding alpha/beta.
+        Buffers writes in-memory, auto-saving periodically and flushing on demand.
         """
         keywords = self._get_keywords(url)
         if not keywords:
@@ -82,11 +100,16 @@ class URLBandit:
         with self._lock:
             for kw in keywords:
                 if kw not in self.memory:
-                    self.memory[kw] = {"successes": 1, "failures": 1}
+                    self.memory[kw] = {"successes": 1.0, "failures": 1.0}
 
                 if reward > 0:
-                    self.memory[kw]["successes"] += reward
+                    # Bounded increment (e.g. reward 10 -> 1.0, reward 20 -> 1.5) to keep Beta variance healthy
+                    inc = min(max(reward / 10.0, 0.5), 1.5)
+                    self.memory[kw]["successes"] += inc
                 else:
-                    self.memory[kw]["failures"] += 1
+                    self.memory[kw]["failures"] += 1.0
 
-        self.save()
+            self._dirty = True
+            self._updates_since_save += 1
+            if self._updates_since_save >= self.auto_save_interval:
+                self._save_locked()

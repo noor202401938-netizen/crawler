@@ -20,10 +20,12 @@ import argparse
 import os
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import Any
 
 import requests
 
 import config
+from crawler.bandit import URLBandit
 from crawler.directory_crawler import crawl_listing_site, process_profile_page
 from crawler.seed_loader import load_seed_urls
 from crawler.website_crawler import crawl_website
@@ -35,7 +37,7 @@ from utils.logger import CrawlMetrics, get_logger
 logger = get_logger("main")
 
 
-def parse_extraction_args():
+def parse_extraction_args() -> argparse.Namespace:
     """Parse command-line arguments for extraction goals."""
     parser = argparse.ArgumentParser(
         description="Universal Website Discovery & Public Contact Extraction Framework",
@@ -85,7 +87,7 @@ Examples:
     return parser.parse_args()
 
 
-def apply_extraction_args(args):
+def apply_extraction_args(args: argparse.Namespace) -> None:
     """Apply parsed arguments to config."""
     # Override config from command line
     if args.seed_file:
@@ -155,7 +157,7 @@ def apply_extraction_args(args):
     print("=" * 60 + "\n")
 
 
-def run_phase_1_and_2_and_3(seeds, db, checkpoint):
+def run_phase_1_and_2_and_3(seeds: list[str], db: Any, checkpoint: Any) -> None:
     """Crawl listing sites, discover profile pages, extract metadata + websites."""
     for seed in seeds:
         if checkpoint.is_seed_done(seed):
@@ -193,7 +195,7 @@ def run_phase_1_and_2_and_3(seeds, db, checkpoint):
         checkpoint.mark_seed_done(seed)
 
 
-def run_phase_4_and_5(db, checkpoint):
+def run_phase_4_and_5(db: Any, checkpoint: Any) -> None:
     """Crawl every discovered official website and extract public contact info."""
     websites = db.get_all_websites()
     pending = [w for w in websites if not checkpoint.is_website_done(w["canonical_url"])]
@@ -222,8 +224,11 @@ def run_phase_4_and_5(db, checkpoint):
                 if done_count % config.CHECKPOINT_EVERY_N_ITEMS == 0:
                     logger.info(f"  ...{done_count}/{len(pending)} websites processed")
 
+    # Flush any buffered Bandit model weights to disk
+    URLBandit().flush()
 
-def main():
+
+def main() -> None:
     args = parse_extraction_args()
     apply_extraction_args(args)
 

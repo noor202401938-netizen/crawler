@@ -10,6 +10,7 @@ Phase 5 - Public contact extraction: pull emails, phones, contact page URL,
 
 import json
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import Any
 from urllib.parse import urljoin, urlsplit
 
 import requests
@@ -50,7 +51,7 @@ def _find_contact_form_url(soup: BeautifulSoup, page_url: str) -> str:
     return ""
 
 
-def _discover_internal_links(soup: BeautifulSoup, base_url: str, domain: str) -> list:
+def _discover_internal_links(soup: BeautifulSoup, base_url: str, domain: str) -> list[str]:
     links = []
     for a in soup.find_all("a", href=True):
         href = str(a["href"])
@@ -62,7 +63,7 @@ def _discover_internal_links(soup: BeautifulSoup, base_url: str, domain: str) ->
     return links
 
 
-def crawl_website(website_url: str, db) -> dict:
+def crawl_website(website_url: str, db: Any) -> dict[str, Any]:
     """
     Crawl one discovered official website, prioritizing contact/about/team
     pages, then breadth-first exploring internal links up to configured
@@ -88,14 +89,15 @@ def crawl_website(website_url: str, db) -> dict:
 
     all_emails = set()
     all_phones = set()
-    social_links: dict = {}
+    social_links: dict[str, str] = {}
     all_images = set()
     all_articles = set()
-    all_products = []
-    all_custom_data = []
+    all_products: list[dict[str, Any]] = []
+    all_custom_data: list[Any] = []
+    llm_calls_this_domain = 0
     contact_page_url = ""
     contact_form_url = ""
-    metadata: dict = {}
+    metadata: dict[str, str] = {}
     pages_crawled = 0
     metrics = CrawlMetrics()
 
@@ -145,8 +147,8 @@ def crawl_website(website_url: str, db) -> dict:
 
                 reward = 0
 
-                page_emails = []
-                page_phones = []
+                page_emails: list[str] = []
+                page_phones: list[str] = []
 
                 if config.EXTRACT_EMAILS:
                     page_emails = extract_emails(resp.text, soup)
@@ -189,10 +191,13 @@ def crawl_website(website_url: str, db) -> dict:
                         reward += 20  # Massive reward for finding products!
 
                 if getattr(config, "CUSTOM_PROMPT", ""):
-                    custom_data = extract_custom_data(resp.text, config.CUSTOM_PROMPT, soup)
-                    if custom_data:
-                        all_custom_data.extend(custom_data)
-                        reward += 15  # Good reward for finding custom data
+                    max_llm_calls = getattr(config, "MAX_LLM_CALLS_PER_DOMAIN", 3)
+                    if not all_custom_data and llm_calls_this_domain < max_llm_calls:
+                        llm_calls_this_domain += 1
+                        custom_data = extract_custom_data(resp.text, config.CUSTOM_PROMPT, soup)
+                        if custom_data:
+                            all_custom_data.extend(custom_data)
+                            reward += 15  # Good reward for finding custom data
 
                 if reward == 0:
                     reward = -1
@@ -255,4 +260,5 @@ def crawl_website(website_url: str, db) -> dict:
         dlq = get_dead_letter_queue()
         dlq.add(website_url, reason="no pages crawled (all fetches failed)", url_type="website")
 
+    bandit.flush()
     return record
