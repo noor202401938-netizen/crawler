@@ -30,9 +30,10 @@ def export_all(db: Any) -> None:
     df_contacts = pd.DataFrame(contacts)
 
     if not df_contacts.empty and "emails" in df_contacts.columns:
-        df_contacts["emails"] = df_contacts["emails"].apply(
-            lambda x: x.split(", ") if isinstance(x, str) and x else [""]
-        )
+        def _split_emails(x: Any) -> list[str]:
+            return x.split(", ") if isinstance(x, str) and x else [""]
+
+        df_contacts["emails"] = df_contacts["emails"].apply(_split_emails)
         df_contacts = df_contacts.explode("emails").reset_index(drop=True)
         df_contacts = df_contacts.rename(columns={"emails": "email"})
 

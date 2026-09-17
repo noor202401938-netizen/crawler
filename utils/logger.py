@@ -13,6 +13,7 @@ import os
 import sys
 import time
 from threading import Lock
+from typing import Any
 
 import config
 
@@ -75,9 +76,6 @@ def get_logger(name: str) -> logging.Logger:
 # ---------------------------------------------------------------------------
 # Crawl metrics — lightweight in-memory counters, exported at the end
 # ---------------------------------------------------------------------------
-
-
-from typing import Any
 
 
 class CrawlMetrics:
