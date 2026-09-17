@@ -11,6 +11,7 @@ the CSV/Excel export the crawl already produces.
 
 import os
 import threading
+from typing import Any
 
 from flask import (
     Flask,
@@ -20,6 +21,7 @@ from flask import (
     request,
     send_from_directory,
 )
+from flask.typing import ResponseReturnValue
 
 import config
 from crawler.seed_loader import load_seed_urls
@@ -32,9 +34,9 @@ app = Flask(__name__)
 
 # ponytail: single global "one crawl at a time" -- add a job queue only if
 # you need concurrent crawls or restart-survival.
-state = {"running": False, "error": None, "phase": "idle", "cancel": False}
+state: dict[str, Any] = {"running": False, "error": None, "phase": "idle", "cancel": False}
 
-EXTRACT_FLAGS = {
+EXTRACT_FLAGS: dict[str, str] = {
     "emails": "EXTRACT_EMAILS",
     "phones": "EXTRACT_PHONES",
     "images": "EXTRACT_IMAGES",
@@ -43,21 +45,29 @@ EXTRACT_FLAGS = {
 }
 
 
-def run_crawl(seeds, extract, custom_prompt):
+def run_crawl(seeds: list[str], extract: list[str], custom_prompt: str) -> None:
     state.update(running=True, error=None, cancel=False, phase="starting")
-    for key, attr in EXTRACT_FLAGS.items():
-        setattr(config, attr, key in extract)
-    config.CUSTOM_PROMPT = custom_prompt
+    # Snapshot original config values to prevent persistent pollution
+    original_config: dict[str, Any] = {
+        attr: getattr(config, attr) for attr in EXTRACT_FLAGS.values()
+    }
+    original_config["CUSTOM_PROMPT"] = config.CUSTOM_PROMPT
+
     try:
+        for key, attr in EXTRACT_FLAGS.items():
+            setattr(config, attr, key in extract)
+        config.CUSTOM_PROMPT = custom_prompt
+
         db, cp = SQLiteManager(), Checkpoint()
         state["phase"] = "Phase 1-3: discovering profiles & websites"
-        run_phase_1_and_2_and_3(seeds, db, cp)
-        # ponytail: cancel only takes effect between phases -- the phase
-        # functions don't check a flag mid-loop. Thread a callback through
-        # main.py's ThreadPoolExecutor loops if you need instant cancel.
+
+        def cancel_check() -> bool:
+            return bool(state.get("cancel", False))
+
+        run_phase_1_and_2_and_3(seeds, db, cp, cancel_check=cancel_check)
         if not state["cancel"]:
             state["phase"] = "Phase 4-5: crawling websites & extracting"
-            run_phase_4_and_5(db, cp)
+            run_phase_4_and_5(db, cp, cancel_check=cancel_check)
         if not state["cancel"]:
             state["phase"] = "exporting"
             export_all(db)
@@ -66,13 +76,17 @@ def run_crawl(seeds, extract, custom_prompt):
         state["error"] = str(e)
         state["phase"] = "error"
     finally:
+        # Restore configuration to original snapshot
+        for attr, val in original_config.items():
+            setattr(config, attr, val)
         state["running"] = False
 
 
 @app.route("/", methods=["GET", "POST"])
-def home():
+def home() -> ResponseReturnValue:
     if request.method == "POST" and not state["running"]:
-        seeds = [s.strip() for s in request.form["seeds"].splitlines() if s.strip()]
+        seeds_raw = request.form.get("seeds", "")
+        seeds = [s.strip() for s in seeds_raw.splitlines() if s.strip()]
         if not seeds:
             seeds = load_seed_urls()
         extract = request.form.getlist("extract")
@@ -95,7 +109,7 @@ def home():
 
 
 @app.route("/status")
-def status():
+def status() -> ResponseReturnValue:
     db = SQLiteManager()
     return jsonify(
         running=state["running"],
@@ -107,13 +121,13 @@ def status():
 
 
 @app.route("/cancel", methods=["POST"])
-def cancel():
+def cancel() -> ResponseReturnValue:
     state["cancel"] = True
     return ("", 204)
 
 
 @app.route("/download/<name>")
-def download(name):
+def download(name: str) -> ResponseReturnValue:
     # only allow the known export filenames
     allowed = {
         "contacts.csv",
@@ -122,7 +136,7 @@ def download(name):
         "master_database.xlsx",
     }
     if name not in allowed:
-        return "not found", 404
+        return ("not found", 404)
     return send_from_directory(os.path.abspath(config.OUTPUT_DIR), name, as_attachment=True)
 
 
@@ -318,7 +332,7 @@ poll(); setInterval(poll, 2000);
 """
 
 
-def main():
+def main() -> None:
     os.makedirs(config.OUTPUT_DIR, exist_ok=True)
     port = int(os.environ.get("PORT", 5000))
     # use_reloader=False: the reloader restarts on file change and would kill

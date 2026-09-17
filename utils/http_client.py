@@ -76,6 +76,53 @@ def _cleanup_playwright() -> None:
 
 atexit.register(_cleanup_playwright)
 
+# Proxy management & thread-safe rotation
+_proxy_lock = threading.Lock()
+_proxy_index: int = 0
+
+
+def get_next_proxy() -> str | None:
+    """Return next proxy URL based on configuration and rotation policy."""
+    global _proxy_index
+    if not config.PROXY_LIST:
+        return config.PROXY_URL or None
+
+    if not config.ROTATE_PROXIES:
+        return config.PROXY_LIST[0]
+
+    with _proxy_lock:
+        proxy = config.PROXY_LIST[_proxy_index % len(config.PROXY_LIST)]
+        _proxy_index += 1
+        return proxy
+
+
+def get_requests_proxies(proxy_url: str | None = None) -> dict[str, str] | None:
+    """Format proxy dictionary for requests.request()."""
+    p = proxy_url or get_next_proxy()
+    if not p:
+        return None
+    return {"http": p, "https": p}
+
+
+def get_playwright_proxy(proxy_url: str | None = None) -> dict[str, str] | None:
+    """Format proxy dictionary for Playwright browser context."""
+    p = proxy_url or get_next_proxy()
+    if not p:
+        return None
+    if "://" not in p:
+        p = f"http://{p}"
+    parsed = urlsplit(p)
+    if not parsed.scheme or not parsed.hostname:
+        return {"server": p}
+    port_str = f":{parsed.port}" if parsed.port else ""
+    server = f"{parsed.scheme}://{parsed.hostname}{port_str}"
+    result: dict[str, str] = {"server": server}
+    if parsed.username:
+        result["username"] = parsed.username
+    if parsed.password:
+        result["password"] = parsed.password
+    return result
+
 
 def _get_domain_lock(domain: str) -> threading.Lock:
     with _lock_guard:
@@ -109,6 +156,7 @@ def _get_robots_parser(base_url: str) -> robotparser.RobotFileParser | None:
                 robots_url,
                 timeout=config.REQUEST_TIMEOUT,
                 headers={"User-Agent": config.USER_AGENT},
+                proxies=get_requests_proxies(),
             )
             if resp.status_code == 200:
                 rp.parse(resp.text.splitlines())
@@ -179,12 +227,14 @@ def fetch(url: str, method: str = "GET", allow_redirects: bool = True) -> reques
     for attempt in range(1, config.RETRY_ATTEMPTS + 1):
         _wait_for_domain_slot(domain)
         try:
+            req_proxies = get_requests_proxies()
             resp = requests.request(
                 method,
                 url,
                 headers=headers,
                 timeout=config.REQUEST_TIMEOUT,
                 allow_redirects=allow_redirects,
+                proxies=req_proxies,
             )
             if resp.status_code == 429:
                 # rate limited -- back off harder
@@ -226,17 +276,33 @@ class MockResponse:
         self.headers = headers
 
 
-def _get_playwright_page() -> Any:
+def _get_playwright_page(proxy_cfg: dict[str, str] | None = None) -> Any:
     if not hasattr(_playwright_local, "playwright"):
         pw = sync_playwright().start()
         browser = pw.chromium.launch(headless=True)
-        context = browser.new_context(user_agent=config.USER_AGENT, ignore_https_errors=True)
         _playwright_local.playwright = pw
         _playwright_local.browser = browser
-        _playwright_local.context = context
         with _playwright_lock:
-            _playwright_instances.append({"playwright": pw, "browser": browser, "context": context})
-    page = _playwright_local.context.new_page()
+            _playwright_instances.append({"playwright": pw, "browser": browser})
+
+    browser = _playwright_local.browser
+    context_kwargs: dict[str, Any] = {
+        "user_agent": config.USER_AGENT,
+        "ignore_https_errors": True,
+    }
+    if proxy_cfg:
+        context_kwargs["proxy"] = proxy_cfg
+
+    if config.ROTATE_PROXIES:
+        context = browser.new_context(**context_kwargs)
+    else:
+        if not hasattr(_playwright_local, "context"):
+            _playwright_local.context = browser.new_context(**context_kwargs)
+            with _playwright_lock:
+                _playwright_instances.append({"context": _playwright_local.context})
+        context = _playwright_local.context
+
+    page = context.new_page()
     if _stealth is not None:
         _stealth.apply_stealth_sync(page)
     return page
@@ -500,8 +566,10 @@ def fetch_with_js(url: str) -> MockResponse | None:
     _wait_for_domain_slot(domain)
 
     page = None
+    context = None
     try:
-        page = _get_playwright_page()
+        pw_proxy = get_playwright_proxy()
+        page = _get_playwright_page(proxy_cfg=pw_proxy)
         context = page.context
 
         # Load persisted session (cookies + localStorage)
@@ -568,6 +636,11 @@ def fetch_with_js(url: str) -> MockResponse | None:
                 page.close()
             except Exception as e:
                 logger.debug(f"Error closing Playwright page: {e}")
+        if context and config.ROTATE_PROXIES:
+            try:
+                context.close()
+            except Exception as e:
+                logger.debug(f"Error closing Playwright context: {e}")
 
 
 def fetch_smart(

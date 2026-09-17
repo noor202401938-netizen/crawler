@@ -77,6 +77,9 @@ def get_logger(name: str) -> logging.Logger:
 # ---------------------------------------------------------------------------
 
 
+from typing import Any
+
+
 class CrawlMetrics:
     """
     Track request-level and phase-level metrics during a crawl run.
@@ -85,24 +88,24 @@ class CrawlMetrics:
     machine-readable dict, or ``log_summary()`` to emit it via the logger.
     """
 
-    _instance = None
+    _instance: Any = None
     _lock = Lock()
 
-    def __new__(cls):
+    def __new__(cls) -> "CrawlMetrics":
         with cls._lock:
             if cls._instance is None:
                 cls._instance = super().__new__(cls)
                 cls._instance._initialized = False
-            return cls._instance
+            return cls._instance  # type: ignore[no-any-return]
 
-    def __init__(self):
+    def __init__(self) -> None:
         if self._initialized:
             return
         self._initialized = True
         self._lock2 = Lock()
         self.reset()
 
-    def reset(self):
+    def reset(self) -> None:
         with self._lock2:
             self._start_time = time.time()
             self._requests_made = 0
@@ -115,12 +118,12 @@ class CrawlMetrics:
             self._emails_found = 0
             self._phones_found = 0
             self._websites_discovered = 0
-            self._domains_circuit_opened = set()
+            self._domains_circuit_opened: set[str] = set()
             self._bytes_downloaded = 0
 
     # -- mutators --
 
-    def record_request(self, success: bool = True):
+    def record_request(self, success: bool = True) -> None:
         with self._lock2:
             self._requests_made += 1
             if success:
@@ -128,35 +131,35 @@ class CrawlMetrics:
             else:
                 self._requests_failed += 1
 
-    def record_skipped(self, reason: str):
+    def record_skipped(self, reason: str) -> None:
         with self._lock2:
             if reason == "robots":
                 self._requests_skipped_robots += 1
             elif reason == "circuit":
                 self._requests_skipped_circuit += 1
 
-    def record_rate_limited(self):
+    def record_rate_limited(self) -> None:
         with self._lock2:
             self._rate_limited_429 += 1
 
-    def record_page(self, emails: int = 0, phones: int = 0, bytes_down: int = 0):
+    def record_page(self, emails: int = 0, phones: int = 0, bytes_down: int = 0) -> None:
         with self._lock2:
             self._pages_crawled += 1
             self._emails_found += emails
             self._phones_found += phones
             self._bytes_downloaded += bytes_down
 
-    def record_website_discovered(self):
+    def record_website_discovered(self) -> None:
         with self._lock2:
             self._websites_discovered += 1
 
-    def record_circuit_open(self, domain: str):
+    def record_circuit_open(self, domain: str) -> None:
         with self._lock2:
             self._domains_circuit_opened.add(domain)
 
     # -- accessors --
 
-    def get_summary(self) -> dict:
+    def get_summary(self) -> dict[str, Any]:
         with self._lock2:
             elapsed = time.time() - self._start_time
             return {
@@ -176,7 +179,7 @@ class CrawlMetrics:
                 "requests_per_second": round(self._requests_made / max(elapsed, 0.1), 2),
             }
 
-    def log_summary(self, logger_name: str = "metrics"):
+    def log_summary(self, logger_name: str = "metrics") -> dict[str, Any]:
         summary = self.get_summary()
         log = get_logger(logger_name)
         log.info("=== Crawl Metrics ===")

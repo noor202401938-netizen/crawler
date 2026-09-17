@@ -85,6 +85,38 @@ USER_AGENT = os.environ.get(
     "Mozilla/5.0 (compatible; ContactDiscoveryBot/1.0; +mailto:you@example.com)",
 )
 
+# ---------------------------------------------------------------------------
+# Proxy & Rotating Pool
+# ---------------------------------------------------------------------------
+PROXY_URL: str = os.environ.get("PROXY_URL", "").strip()
+PROXY_LIST_FILE: str = os.environ.get("PROXY_LIST_FILE", "").strip()
+
+
+def _load_proxy_list() -> list[str]:
+    proxies: list[str] = []
+    raw_list = os.environ.get("PROXY_LIST", "").strip()
+    if raw_list:
+        proxies.extend(p.strip() for p in raw_list.split(",") if p.strip())
+
+    if PROXY_LIST_FILE:
+        p_path = Path(PROXY_LIST_FILE)
+        if p_path.exists():
+            with p_path.open("r", encoding="utf-8") as f:
+                for line in f:
+                    cleaned = line.strip()
+                    if cleaned and not cleaned.startswith("#"):
+                        proxies.append(cleaned)
+
+    if PROXY_URL and PROXY_URL not in proxies:
+        proxies.append(PROXY_URL)
+    return proxies
+
+
+PROXY_LIST: list[str] = _load_proxy_list()
+ROTATE_PROXIES: bool = (
+    os.environ.get("ROTATE_PROXIES", "true" if len(PROXY_LIST) > 1 else "false").lower() == "true"
+)
+
 # Priority path segments to check first on any discovered website (Phase 4)
 PRIORITY_PATHS = [
     "/",

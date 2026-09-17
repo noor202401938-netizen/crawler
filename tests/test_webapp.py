@@ -102,6 +102,46 @@ class WebappTests(unittest.TestCase):
         response = self.client.get("/")
         self.assertIn(b"No contacts yet", response.data)
 
+    @patch("webapp.run_phase_1_and_2_and_3")
+    @patch("webapp.run_phase_4_and_5")
+    @patch("webapp.export_all")
+    @patch("webapp.SQLiteManager")
+    @patch("webapp.Checkpoint")
+    def test_run_crawl_restores_config(self, mock_cp, mock_db, mock_exp, mock_p45, mock_p123):
+        import config
+        from webapp import run_crawl
+
+        orig_email = config.EXTRACT_EMAILS
+        orig_prompt = config.CUSTOM_PROMPT
+
+        # Run crawl with overridden extract flags and prompt
+        run_crawl(["https://seed.test"], ["phones"], "custom instruction test")
+
+        # Verify config was restored back to original values in finally block
+        self.assertEqual(config.EXTRACT_EMAILS, orig_email)
+        self.assertEqual(config.CUSTOM_PROMPT, orig_prompt)
+
+    @patch("webapp.run_phase_1_and_2_and_3")
+    @patch("webapp.run_phase_4_and_5")
+    @patch("webapp.export_all")
+    @patch("webapp.SQLiteManager")
+    @patch("webapp.Checkpoint")
+    def test_run_crawl_cancelled_phase(self, mock_cp, mock_db, mock_exp, mock_p45, mock_p123):
+        import webapp
+        from webapp import run_crawl
+
+        def fake_p123(seeds, db, cp, cancel_check=None):
+            webapp.state["cancel"] = True
+
+        mock_p123.side_effect = fake_p123
+
+        run_crawl(["https://seed.test"], ["emails"], "")
+        self.assertEqual(webapp.state["phase"], "cancelled")
+        self.assertFalse(webapp.state["running"])
+        mock_p45.assert_not_called()
+        mock_exp.assert_not_called()
+        webapp.state["cancel"] = False
+
 
 if __name__ == "__main__":
     unittest.main()

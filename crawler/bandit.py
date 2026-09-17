@@ -17,18 +17,18 @@ logger = get_logger("bandit")
 
 
 class URLBandit:
-    def __init__(self, model_path=None):
+    def __init__(self, model_path: str | None = None) -> None:
         self.model_path = model_path or config.BANDIT_MODEL_FILE
         self._lock = threading.Lock()
         # memory: dict mapping keyword -> {"successes": float, "failures": float}
         # default alpha (success) = 1.0, beta (failure) = 1.0 (uniform prior)
-        self.memory = {}
+        self.memory: dict[str, dict[str, float]] = {}
         self._dirty = False
         self._updates_since_save = 0
         self.auto_save_interval = getattr(config, "BANDIT_AUTO_SAVE_INTERVAL", 20)
         self.load()
 
-    def load(self):
+    def load(self) -> None:
         with self._lock:
             if os.path.exists(self.model_path):
                 try:
@@ -40,7 +40,7 @@ class URLBandit:
             self._dirty = False
             self._updates_since_save = 0
 
-    def _save_locked(self):
+    def _save_locked(self) -> None:
         """Internal save assuming self._lock is already acquired."""
         os.makedirs(os.path.dirname(self.model_path), exist_ok=True)
         with open(self.model_path, "w", encoding="utf-8") as f:
@@ -48,17 +48,17 @@ class URLBandit:
         self._dirty = False
         self._updates_since_save = 0
 
-    def save(self):
+    def save(self) -> None:
         with self._lock:
             self._save_locked()
 
-    def flush(self):
+    def flush(self) -> None:
         """Persist any in-memory dirty updates to disk."""
         with self._lock:
             if self._dirty:
                 self._save_locked()
 
-    def _get_keywords(self, url: str) -> list:
+    def _get_keywords(self, url: str) -> list[str]:
         path = urlsplit(url).path.lower()
         parts = [p for p in path.replace("-", "/").replace("_", "/").split("/") if p and len(p) > 2]
         return parts
@@ -87,7 +87,7 @@ class URLBandit:
         # Max score among keywords gives a chance to highly performant keywords
         return max(scores) if scores else random.betavariate(1, 1)
 
-    def update_reward(self, url: str, reward: float):
+    def update_reward(self, url: str, reward: float) -> None:
         """
         Updates the success/failure counts for the URL's keywords based on the reward.
         Normalized so Beta distribution variance remains healthy without exploding alpha/beta.

@@ -19,6 +19,7 @@ Pipeline:
 import argparse
 import os
 import time
+from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any
 
@@ -157,9 +158,18 @@ def apply_extraction_args(args: argparse.Namespace) -> None:
     print("=" * 60 + "\n")
 
 
-def run_phase_1_and_2_and_3(seeds: list[str], db: Any, checkpoint: Any) -> None:
+def run_phase_1_and_2_and_3(
+    seeds: list[str],
+    db: Any,
+    checkpoint: Any,
+    cancel_check: Callable[[], bool] | None = None,
+) -> None:
     """Crawl listing sites, discover profile pages, extract metadata + websites."""
     for seed in seeds:
+        if cancel_check and cancel_check():
+            logger.info("Cancellation requested; halting Phase 1.")
+            return
+
         if checkpoint.is_seed_done(seed):
             logger.info(f"Skipping already-completed seed: {seed}")
             continue
@@ -183,6 +193,11 @@ def run_phase_1_and_2_and_3(seeds: list[str], db: Any, checkpoint: Any) -> None:
             }
             done_count = 0
             for future in as_completed(futures):
+                if cancel_check and cancel_check():
+                    logger.info("Cancellation requested; shutting down Phase 2+3 workers.")
+                    pool.shutdown(wait=False, cancel_futures=True)
+                    return
+
                 url = futures[future]
                 try:
                     future.result()
@@ -195,7 +210,11 @@ def run_phase_1_and_2_and_3(seeds: list[str], db: Any, checkpoint: Any) -> None:
         checkpoint.mark_seed_done(seed)
 
 
-def run_phase_4_and_5(db: Any, checkpoint: Any) -> None:
+def run_phase_4_and_5(
+    db: Any,
+    checkpoint: Any,
+    cancel_check: Callable[[], bool] | None = None,
+) -> None:
     """Crawl every discovered official website and extract public contact info."""
     websites = db.get_all_websites()
     pending = [w for w in websites if not checkpoint.is_website_done(w["canonical_url"])]
@@ -205,27 +224,34 @@ def run_phase_4_and_5(db: Any, checkpoint: Any) -> None:
         f"({len(websites) - len(pending)} already done) ==="
     )
 
-    with ThreadPoolExecutor(max_workers=config.CONCURRENCY) as pool:
-        futures = {
-            pool.submit(crawl_website, w["canonical_url"], db): w["canonical_url"] for w in pending
-        }
-        done_count = 0
-        for future in as_completed(futures):
-            website_url = futures[future]
-            try:
-                record = future.result()
-                if record:
-                    db.save_contact(record)
-            except (requests.RequestException, ValueError, RuntimeError) as e:
-                logger.error(f"Website crawl failed ({website_url}): {e}")
-            finally:
-                checkpoint.mark_website_done(website_url)
-                done_count += 1
-                if done_count % config.CHECKPOINT_EVERY_N_ITEMS == 0:
-                    logger.info(f"  ...{done_count}/{len(pending)} websites processed")
+    try:
+        with ThreadPoolExecutor(max_workers=config.CONCURRENCY) as pool:
+            futures = {
+                pool.submit(crawl_website, w["canonical_url"], db): w["canonical_url"]
+                for w in pending
+            }
+            done_count = 0
+            for future in as_completed(futures):
+                if cancel_check and cancel_check():
+                    logger.info("Cancellation requested; shutting down Phase 4+5 workers.")
+                    pool.shutdown(wait=False, cancel_futures=True)
+                    return
 
-    # Flush any buffered Bandit model weights to disk
-    URLBandit().flush()
+                website_url = futures[future]
+                try:
+                    record = future.result()
+                    if record:
+                        db.save_contact(record)
+                except (requests.RequestException, ValueError, RuntimeError) as e:
+                    logger.error(f"Website crawl failed ({website_url}): {e}")
+                finally:
+                    checkpoint.mark_website_done(website_url)
+                    done_count += 1
+                    if done_count % config.CHECKPOINT_EVERY_N_ITEMS == 0:
+                        logger.info(f"  ...{done_count}/{len(pending)} websites processed")
+    finally:
+        # Flush any buffered Bandit model weights to disk, even on early cancellation
+        URLBandit().flush()
 
 
 def main() -> None:

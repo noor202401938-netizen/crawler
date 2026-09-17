@@ -4,6 +4,8 @@ Phase 6 (cleaning happens upstream via validator/deduplicator) + Phase 7 (export
 Writes CSV, Excel, and confirms the SQLite master DB is up to date.
 """
 
+from typing import Any
+
 import pandas as pd
 
 import config
@@ -13,7 +15,7 @@ from utils.logger import get_logger
 logger = get_logger("exporter")
 
 
-def export_all(db):
+def export_all(db: Any) -> None:
     discovered = db.get_all_discovered_urls()
     websites = db.get_all_websites()
     contacts = db.get_all_contacts()
